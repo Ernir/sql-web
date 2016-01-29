@@ -1,0 +1,8 @@
+venv
+*.pyc
+sql_web/static/tufte-css/
+staticfiles
+.idea
+*.csv
+*.sh
+*.json

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+{# ToDo make something with this subpage. #}
+{% for section in sections %}
+    <li><a href="{% url "section" section.slug %}">{{ section.title }}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>

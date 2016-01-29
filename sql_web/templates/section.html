@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load sql_shortcuts %}
+
+{% block text_content %}
+    <article>
+        <h1>{{ section.title }}</h1>
+        {% autoescape off %}
+            {{ section.html_contents|render }}
+        {% endautoescape %}
+    </article>
+{% endblock %}
