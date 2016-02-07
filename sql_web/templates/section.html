@@ -7,5 +7,13 @@
         {% autoescape off %}
             {{ section.html_contents|render }}
         {% endautoescape %}
+        {% if section.connected_to.count %}
+            <p>
+                Næsta lesefni:
+            {% for s in section.connected_to.all %}
+                <a href="{{ s.get_absolute.url }}">{{ s.title }}</a>
+            {% endfor %}
+            </p>
+        {% endif %}
     </article>
 {% endblock %}
