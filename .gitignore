@@ -2,6 +2,7 @@ venv
 *.pyc
 sql_web/static/tufte-css/
 staticfiles
+mediafiles
 .idea
 *.csv
 *.sh
@@ -9,3 +10,4 @@ staticfiles
 
 latex_converter/*.html
 latex_converter/*.tex
+latex_converter/myndir

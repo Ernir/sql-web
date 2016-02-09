@@ -1,6 +1,6 @@
 from django.contrib import admin
 from sql_web.forms import AceEditorAdminModelForm
-from sql_web.models import Section, Example, Exercise, Subject
+from sql_web.models import Section, Example, Exercise, Subject, Figure
 
 admin.site.register(Subject)
 admin.site.register(Example)
@@ -11,3 +11,4 @@ class SectionAdmin(admin.ModelAdmin):
     form = AceEditorAdminModelForm
 
 admin.site.register(Section, SectionAdmin)
+admin.site.register(Figure)

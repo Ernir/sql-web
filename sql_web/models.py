@@ -66,3 +66,24 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.identifier
+
+
+class Figure(models.Model):
+    """
+    An image to be displayed as a part of a text body.
+    """
+
+    identifier = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField()
+
+    def save(self, *args, **kwargs):
+        if not (self.title or self.description):
+            raise ValueError(
+                "Image title and Description may not both be empty"
+            )
+        super(Figure, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return "{} ({})".format(self.title, self.identifier)
