@@ -6,9 +6,9 @@
     <input type="checkbox" id="{{ figure.identifier }}"
            class="margin-toggle">
     <span class="marginnote">
-        {{ figure.description }}
+        {{ figure.full_description }}
     </span>
-    <img src="{{ figure.image.url }}">
+    <img src="{{ figure.image.url }}" alt="{{ figure.description }}">
 </figure>
 {% else %}
     <strong>Hér vantar mynd!</strong>

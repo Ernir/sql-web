@@ -37,8 +37,7 @@ def ref(reference_id):
     return {"sec": section}
 
 
-@register.inclusion_tag("snippets/figure.html")
-def figure(reference_id):
+def find_figure(reference_id):
     try:
         fig = Figure.objects.get(identifier=reference_id)
     except ObjectDoesNotExist:
@@ -46,6 +45,26 @@ def figure(reference_id):
     return {
         "figure": fig
     }
+
+
+@register.inclusion_tag("snippets/figure.html")
+def figure(reference_id):
+    return find_figure(reference_id)
+
+
+@register.inclusion_tag("snippets/marginfigure.html", takes_context=True)
+def marginfigure(context, reference_id):
+    # Each margin figure needs its own ID.
+    if "marginfigure_count" not in context:
+        context["marginfigure_count"] = 0
+    else:
+        context["marginfigure_count"] += 1
+    marginfigure_id = str(context["marginfigure_count"])
+
+    figure_reference = find_figure(reference_id)
+    figure_reference.update({"marginfigure_id": marginfigure_id})
+
+    return figure_reference
 
 
 @register.filter

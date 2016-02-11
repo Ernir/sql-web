@@ -74,8 +74,8 @@ class Figure(models.Model):
     """
 
     identifier = models.CharField(max_length=50, unique=True)
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+    short_description = models.CharField(max_length=200, blank=True)
+    full_description = models.TextField()
     image = models.ImageField()
 
     def image_tag(self):
@@ -87,11 +87,9 @@ class Figure(models.Model):
     image_tag.allow_tags = True
 
     def save(self, *args, **kwargs):
-        if not (self.title or self.description):
-            raise ValueError(
-                "Image title and Description may not both be empty"
-            )
+        if not (self.short_description):
+            self.short_description = self.full_description[:200]
         super(Figure, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} ({})".format(self.title, self.identifier)
+        return "{} ({})".format(self.short_description, self.identifier)
