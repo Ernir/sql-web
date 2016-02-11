@@ -1,0 +1,15 @@
+{% if figure %}
+<figure>
+    <label for="{{ figure.identifier }}" class="margin-toggle">
+        ⊕
+    </label>
+    <input type="checkbox" id="{{ figure.identifier }}"
+           class="margin-toggle">
+    <span class="marginnote">
+        {{ figure.description }}
+    </span>
+    <img src="{{ figure.image.url }}">
+</figure>
+{% else %}
+    <strong>Hér vantar mynd!</strong>
+{% endif %}

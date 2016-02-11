@@ -1,1 +1,5 @@
-<a href="{% url "section" sec.slug %}">{{ sec.title }}</a>
+{% if sec %}
+    <a href="{% url "section" sec.slug %}">{{ sec.title }}</a>
+{% else %}
+    <a href="#">Þessi tengill er brotinn!</a>
+{% endif %}

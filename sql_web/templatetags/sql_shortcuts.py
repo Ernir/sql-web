@@ -1,7 +1,8 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.template import Template, Context
 from django import template
 from django.template.defaultfilters import stringfilter
-from sql_web.models import Section
+from sql_web.models import Section, Figure
 
 register = template.Library()
 
@@ -25,11 +26,25 @@ def footnote(context, text_contents):
         "footnote_id": footnote_id
     }
 
+
 @register.inclusion_tag("snippets/reference.html")
 def ref(reference_id):
-    section = Section.objects.get(identifier=reference_id)
+    try:
+        section = Section.objects.get(identifier=reference_id)
+    except ObjectDoesNotExist:
+        section = None  # Handle missing references in the templates
+
+    return {"sec": section}
+
+
+@register.inclusion_tag("snippets/figure.html")
+def figure(reference_id):
+    try:
+        fig = Figure.objects.get(identifier=reference_id)
+    except ObjectDoesNotExist:
+        fig = None  # Handle missing references in the templates
     return {
-        "sec": section
+        "figure": fig
     }
 
 

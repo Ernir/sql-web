@@ -78,6 +78,14 @@ class Figure(models.Model):
     description = models.TextField()
     image = models.ImageField()
 
+    def image_tag(self):
+        return '<img src="{0}" style="max-width: 100%"/>'.format(
+            self.image.url
+        )
+
+    image_tag.short_description = "Forskoðun"
+    image_tag.allow_tags = True
+
     def save(self, *args, **kwargs):
         if not (self.title or self.description):
             raise ValueError(
