@@ -9,10 +9,13 @@
         {% endautoescape %}
         {% if section.connected_to.count %}
             <p>
-                Næsta lesefni:
-            {% for s in section.connected_to.all %}
-                <a href="{{ s.get_absolute.url }}">{{ s.title }}</a>
-            {% endfor %}
+            Tengt efni:
+                {% for s in section.connected_to.all %}
+                    <a href="{{ s.get_absolute_url }}">{{ s.title }}</a>
+                    {% if not forloop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}
             </p>
         {% endif %}
     </article>

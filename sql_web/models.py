@@ -24,7 +24,11 @@ class Section(models.Model):
     title = models.CharField(max_length=200)
     subject = models.ForeignKey(Subject)
     html_contents = models.TextField()
-    connected_to = models.ManyToManyField('self', blank=True)
+    connected_to = models.ManyToManyField(
+        'self',
+        blank=True,
+        symmetrical=False
+    )
 
     def __str__(self):
         return self.title
