@@ -1,4 +1,14 @@
-p {
+article {
     text-align: justify;
     text-justify: inter-word;
+}
+
+span.marginnote {
+    /* Margin notes don't have the space for justification */
+    text-align: left;
+    text-justify: auto;
+}
+
+pre.code {
+    overflow-x: auto;
 }

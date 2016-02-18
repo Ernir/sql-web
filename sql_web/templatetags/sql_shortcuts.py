@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.template import Template, Context
 from django import template
 from django.template.defaultfilters import stringfilter
-from sql_web.models import Section, Figure
+from sql_web.models import Section, Figure, Example
 
 register = template.Library()
 
@@ -65,6 +65,19 @@ def marginfigure(context, reference_id):
     figure_reference.update({"marginfigure_id": marginfigure_id})
 
     return figure_reference
+
+
+def find_example(reference_id):
+    try:
+        example = Example.objects.get(identifier=reference_id)
+    except ObjectDoesNotExist:
+        example = None  # Handle missing references in the templates
+    return {"example": example}
+
+
+@register.inclusion_tag("snippets/examplecode.html")
+def code(reference_id):
+    return find_example(reference_id)
 
 
 @register.filter

@@ -49,10 +49,20 @@ class Example(models.Model):
     identifier = models.CharField(max_length=50, unique=True)
     code = models.TextField()
     description = models.TextField()
-    programming_language = models.CharField(max_length=20, default="sql")
+
+    sql, php = "lang-sql", "lang-php"
+    LANGUAGE_CHOICES = (
+        (sql, "SQL"),
+        (php, "PHP")
+    )
+    language = models.CharField(
+        max_length=20,
+        choices=LANGUAGE_CHOICES,
+        default=sql
+    )
 
     def __str__(self):
-        return self.programming_language + " " + self.identifier
+        return "{0}: {1}".format(self.language, self.identifier)
 
 
 class Exercise(models.Model):
