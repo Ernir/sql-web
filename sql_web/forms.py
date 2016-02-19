@@ -1,6 +1,6 @@
 from django import forms
 from django_ace import AceWidget
-from sql_web.models import Section
+from sql_web.models import Section, Exercise
 
 
 class AceEditorAdminModelForm(forms.ModelForm):
@@ -15,3 +15,7 @@ class AceEditorAdminModelForm(forms.ModelForm):
     class Meta:
         exclude = ("slug", )
         model = Section
+
+
+class ExerciseForm(forms.Form):
+    code_area = forms.CharField(widget=forms.Textarea)

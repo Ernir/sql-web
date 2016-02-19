@@ -72,10 +72,10 @@ class Exercise(models.Model):
     """
 
     identifier = models.CharField(max_length=50, unique=True)
-    section = models.ManyToManyField(Section)
     title = models.CharField(max_length=200)
     problem_description = models.TextField()
-    given_schema = models.TextField()
+    prepopulated = models.TextField()
+    given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
 
     def __str__(self):

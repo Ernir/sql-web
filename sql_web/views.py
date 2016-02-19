@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
-from sql_web.models import Section
+from sql_web.forms import ExerciseForm
+from sql_web.models import Section, Exercise
 
 
 class BaseView(View):
@@ -28,6 +29,25 @@ class SectionView(BaseView):
         self.params["section"] = the_section
         self.params["title"] = the_section.title
         return render(request, "section.html", self.params)
+
+
+class ExerciseView(BaseView):
+    """
+    Defines the page of an individual exercise.
+    """
+
+    def get(self, request, exercise_slug):
+        the_exercise = get_object_or_404(
+            Exercise,
+            identifier=exercise_slug
+        )
+        data = {"code_area": the_exercise.prepopulated}
+        form = ExerciseForm(initial=data)
+
+        self.params["form"] = form
+        self.params["exercise"] = the_exercise
+
+        return render(request, "exercise.html", self.params)
 
 
 def sections(request):
