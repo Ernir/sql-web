@@ -12,3 +12,9 @@ span.marginnote {
 pre.code {
     overflow-x: auto;
 }
+
+code.inline-sql {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-variant: small-caps;
+    font-size: 1.125rem;
+}

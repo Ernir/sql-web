@@ -6,7 +6,7 @@
     <input type="checkbox" id="{{ example.identifier }}"
            class="margin-toggle">
     <span class="marginnote nohide">
-        {{ example.description }}
+        {{ example.description|safe }}
     </span>
 
     <pre class="code prettyprint">{{ example.code }}</pre>
