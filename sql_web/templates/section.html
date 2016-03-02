@@ -1,5 +1,10 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load sql_shortcuts %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
 
 {% block text_content %}
     <article>
@@ -9,7 +14,7 @@
         {% endautoescape %}
         {% if section.connected_to.count %}
             <p>
-            Tengt efni:
+                Tengt efni:
                 {% for s in section.connected_to.all %}
                     <a href="{{ s.get_absolute_url }}">{{ s.title }}</a>
                     {% if not forloop.last %}
@@ -19,4 +24,8 @@
             </p>
         {% endif %}
     </article>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 {% endblock %}

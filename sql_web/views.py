@@ -19,16 +19,30 @@ class BaseView(View):
 
 class SectionView(BaseView):
     """
-    Defines the page of a single lexical section.
-    Finds the section based on its slugified title,
-    passed in by section_slug.
+    Defines pages and returns data related to individual lexical sections.
     """
 
     def get(self, request, section_slug):
+        """
+        Finds and displays a section based on its slugified title,
+        passed in by section_slug.
+        """
         the_section = get_object_or_404(Section, slug=section_slug)
         self.params["section"] = the_section
         self.params["title"] = the_section.title
         return render(request, "section.html", self.params)
+
+
+class SectionListView(BaseView):
+    """
+    A list of all sections.
+    """
+
+    def get(self, request):
+        the_sections = Section.objects.all()
+        self.params["sections"] = the_sections
+        self.params["title"] = "Yfirlitssíða"
+        return render(request, "sections.html", self.params)
 
 
 class ExerciseView(BaseView):
@@ -48,15 +62,6 @@ class ExerciseView(BaseView):
         self.params["exercise"] = the_exercise
 
         return render(request, "exercise.html", self.params)
-
-
-def sections(request):
-    """
-    A list of all sections.
-    """
-
-    the_sections = Section.objects.all()
-    return render(request, "sections.html", {"sections": the_sections})
 
 
 def index(request):
