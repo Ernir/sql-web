@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
@@ -66,3 +67,30 @@ class ExerciseView(BaseView):
 
 def index(request):
     pass  # ToDo make one
+
+
+"""
+Non-user visible views - JSON endpoints and similar
+"""
+
+
+class SectionOverview(View):
+    def get(self, request):
+        sections = Section.objects.all()
+        data = {
+            "nodes": [],
+            "links": []
+        }
+        for section in sections:
+            data["nodes"].append({
+                "name": section.title,
+                "group": section.subject.id,
+                "id": section.id,
+                "location": section.get_absolute_url()
+            })
+            for connection in section.connected_to.all():
+                data["links"].append({
+                    "source": section.id, "target": connection.id,
+                    "value": 1
+                })
+        return JsonResponse(data)

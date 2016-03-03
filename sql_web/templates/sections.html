@@ -1,15 +1,22 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<meta charset="utf-8">
+{% block css %}
+    <link rel="stylesheet" href="{% static "d3-main-style.css" %}"/>
+{% endblock %}
 <body>
 <ul>
-{# ToDo make something with this subpage. #}
-{% for section in sections %}
-    <li><a href="{% url "section" section.slug %}">{{ section.title }}</a></li>
-{% endfor %}
+    {% for section in sections %}
+        <li>
+            <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+        </li>
+    {% endfor %}
 </ul>
+<div class="svg-container">
+</div>
+<script src="{% static "d3/d3-min.js" %}"></script>
+{% block js %}
+    <script src="{% static "d3-main-function.js" %}"></script>
+{% endblock %}
 </body>
-</html>
