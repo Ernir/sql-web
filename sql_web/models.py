@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
@@ -80,6 +81,20 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.identifier
+
+
+class Assignment(models.Model):
+    """
+    A group of exercises to complete and sections to read
+    """
+
+    exercises = models.ManyToManyField(Exercise, blank=True)
+    reading = models.ManyToManyField(Section, blank=True)
+
+    time_start = models.DateTimeField()
+    time_end = models.DateTimeField()
+
+    assigned_to = models.ManyToManyField(User, blank=True)
 
 
 class Figure(models.Model):
