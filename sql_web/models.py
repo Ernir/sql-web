@@ -3,6 +3,10 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
 
+"""
+Models to display and organize text
+"""
+
 
 class Subject(models.Model):
     """
@@ -30,6 +34,7 @@ class Section(models.Model):
         blank=True,
         symmetrical=False
     )
+    read_by = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return self.title
@@ -42,28 +47,9 @@ class Section(models.Model):
         super(Section, self).save(*args, **kwargs)
 
 
-class Example(models.Model):
-    """
-    A code listing, contained within a section.
-    """
-
-    identifier = models.CharField(max_length=50, unique=True)
-    code = models.TextField()
-    description = models.TextField()
-
-    sql, php = "lang-sql", "lang-php"
-    LANGUAGE_CHOICES = (
-        (sql, "SQL"),
-        (php, "PHP")
-    )
-    language = models.CharField(
-        max_length=20,
-        choices=LANGUAGE_CHOICES,
-        default=sql
-    )
-
-    def __str__(self):
-        return "{0}: {1}".format(self.language, self.identifier)
+"""
+Models to store information about assignments
+"""
 
 
 class Exercise(models.Model):
@@ -95,6 +81,35 @@ class Assignment(models.Model):
     time_end = models.DateTimeField()
 
     assigned_to = models.ManyToManyField(User, blank=True)
+
+
+"""
+Other models
+"""
+
+
+class Example(models.Model):
+    """
+    A code listing, contained within a section.
+    """
+
+    identifier = models.CharField(max_length=50, unique=True)
+    code = models.TextField()
+    description = models.TextField()
+
+    sql, php = "lang-sql", "lang-php"
+    LANGUAGE_CHOICES = (
+        (sql, "SQL"),
+        (php, "PHP")
+    )
+    language = models.CharField(
+        max_length=20,
+        choices=LANGUAGE_CHOICES,
+        default=sql
+    )
+
+    def __str__(self):
+        return "{0}: {1}".format(self.language, self.identifier)
 
 
 class Figure(models.Model):

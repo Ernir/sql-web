@@ -29,6 +29,9 @@ class SectionView(BaseView):
         passed in by section_slug.
         """
         the_section = get_object_or_404(Section, slug=section_slug)
+
+        the_section.read_by.add(request.user)
+
         self.params["section"] = the_section
         self.params["title"] = the_section.title
         return render(request, "section.html", self.params)
