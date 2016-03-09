@@ -85,11 +85,13 @@ class SectionOverview(View):
             "links": []
         }
         for section in sections:
+            read = section.read_by.filter(id=request.user.id).exists()
             data["nodes"].append({
                 "name": section.title,
                 "group": section.subject.id,
                 "id": section.id,
-                "location": section.get_absolute_url()
+                "location": section.get_absolute_url(),
+                "read": read,
             })
             for connection in section.connected_to.all():
                 data["links"].append({

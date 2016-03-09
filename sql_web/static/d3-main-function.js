@@ -65,12 +65,27 @@ var drawGraph = function (graph) {
         .style("fill", function (d) {
             return color(d.group);
         })
+        .style("fill-opacity", function (d) {
+            if (d.read) {
+                return 0.2;
+            } else {
+                return 1;
+            }
+        })
         .call(force.drag);
 
     var labels = gnodes.append("text")
         .text(function (d) {
             return d.name;
-        });
+        })
+        .style("fill", function (d) {
+            if (d.read) {
+                return "purple";
+            } else {
+                return "blue";
+            }
+        })
+        .style("text-decoration", "underline");
 
     force.on("tick", function () {
         link.attr("x1", function (d) {
@@ -91,8 +106,12 @@ var drawGraph = function (graph) {
         });
     });
 
-    d3.selectAll(".node").on("click", function () {
+    gnodes.on("click", function () {
         var selectedNode = d3.select(this);
         window.location = selectedNode[0][0].__data__.location;
     });
+
+    gnodes.on("mouseover", function() {
+        this.style.cursor = "pointer";
+    })
 };
