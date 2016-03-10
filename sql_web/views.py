@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
-from sql_web.models import Section, Exercise
+from sql_web.models import Section, Exercise, Subject
 
 
 class BaseView(View):
@@ -30,7 +30,8 @@ class SectionView(BaseView):
         """
         the_section = get_object_or_404(Section, slug=section_slug)
 
-        the_section.read_by.add(request.user)
+        if not request.user.is_anonymous():
+            the_section.read_by.add(request.user)
 
         self.params["section"] = the_section
         self.params["title"] = the_section.title
@@ -43,8 +44,8 @@ class SectionListView(BaseView):
     """
 
     def get(self, request):
-        the_sections = Section.objects.all()
-        self.params["sections"] = the_sections
+        subjects = Subject.objects.all()
+        self.params["subjects"] = subjects
         self.params["title"] = "Yfirlitssíða"
         return render(request, "sections.html", self.params)
 

@@ -7,9 +7,15 @@
 {% endblock %}
 <body>
 <ul>
-    {% for section in sections %}
-        <li>
-            <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+    {% for subject in subjects %}
+        <li><span id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</span>
+            <ul>
+                {% for section in subject.section_set.all %}
+                    <li>
+                        <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </li>
     {% endfor %}
 </ul>

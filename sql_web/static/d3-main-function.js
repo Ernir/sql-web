@@ -48,10 +48,7 @@ var drawGraph = function (graph) {
     var link = svg.selectAll(".link")
         .data(modifiedLinks)
         .enter().append("line")
-        .attr("class", "link")
-        .style("stroke-width", function (d) {
-            return Math.sqrt(d.value);
-        });
+        .attr("class", "link");
 
     var gnodes = svg.selectAll('g.gnode')
         .data(graph.nodes)
@@ -111,7 +108,51 @@ var drawGraph = function (graph) {
         window.location = selectedNode[0][0].__data__.location;
     });
 
-    gnodes.on("mouseover", function() {
+    gnodes.on("mouseover", function () {
         this.style.cursor = "pointer";
     })
+};
+
+function presentNodes(groupId) {
+    // Hides all nodes not belonging to the given group.
+
+    var gnodes = d3.selectAll('g.gnode');
+    var links = d3.selectAll(".link");
+    if (!groupId) {
+        gnodes.style("visibility", "visible");
+        links.style("stroke-width", function (d) {
+            return Math.sqrt(d.value)
+        });
+        return;
+    }
+
+    gnodes.style("visibility", function (d) {
+        if (d.group === groupId) {
+            return "visible";
+        } else {
+            return "hidden";
+        }
+    });
+
+    links.style("stroke-width", function (d) {
+        if (d.target.group === groupId || d.source.group === groupId) {
+            return Math.sqrt(d.value);
+        } else {
+            return 0;
+        }
+    });
+}
+
+window.onload = function () {
+    var subjects = document.getElementsByClassName("subject");
+    for (var i = 0; i < subjects.length; i++) {
+        var subject = subjects[i];
+        subject.onmouseover = function () {
+            var groupNumber = parseInt(this.id.slice(8));
+            presentNodes(groupNumber);
+        };
+        subject.onmouseout = function () {
+            presentNodes();
+        }
+    }
 };
