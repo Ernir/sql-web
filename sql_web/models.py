@@ -34,7 +34,7 @@ class Section(models.Model):
         blank=True,
         symmetrical=False
     )
-    read_by = models.ManyToManyField(User, blank=True)
+    read_by = models.ManyToManyField(User, blank=True, related_name="read")
 
     def __str__(self):
         return self.title

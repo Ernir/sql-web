@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Hæ, {{ user.email }}</h1>
+
+{% if read_sections %}
+    <p>Þú hefur lesið:</p>
+    <ul>
+        {% for section in read_sections %}
+            <li>
+                <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Þú hefur ekki enn lesið neinar greinar. Má ekki bjóða þér að líta á
+        <a href="{% url "sections" %}">yfirlitið?</a></p>
+{% endif %}
+{% if unread_sections %}
+    <p>Þú hefur mögulega áhuga á að lesa:</p>
+    <ul>
+        {% for section in unread_sections %}
+            <li>
+                <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

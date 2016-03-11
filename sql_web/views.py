@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
 from sql_web.models import Section, Exercise, Subject
@@ -48,6 +50,37 @@ class SectionListView(BaseView):
         self.params["subjects"] = subjects
         self.params["title"] = "Yfirlitssíða"
         return render(request, "sections.html", self.params)
+
+
+class ProfileView(BaseView):
+    """
+    A single user's profile
+    """
+
+    @method_decorator(login_required)
+    def get(self, request):
+        read_sections = request.user.read.all()
+
+        unread_sections = []
+        num_unread_to_show = 5
+        # Find some unread sections connected to those previously read
+        for section in read_sections:
+            connected_sections = [
+                s for s in section.connected_to.all()
+                if request.user not in s.read_by.all()
+            ]
+            for conn in connected_sections:
+                if request.user not in conn.read_by.all() \
+                        and conn not in unread_sections:
+                    unread_sections.append(conn)
+            if len(unread_sections) >= num_unread_to_show:
+                unread_sections = unread_sections[:num_unread_to_show]
+                break
+
+        self.params["read_sections"] = read_sections
+        self.params["unread_sections"] = unread_sections
+
+        return render(request, "profile.html", self.params)
 
 
 class ExerciseView(BaseView):
