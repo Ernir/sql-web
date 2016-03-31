@@ -65,6 +65,9 @@ class Exercise(models.Model):
     given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
 
+    def get_absolute_url(self):
+        return reverse("exercise", args=[self.identifier])
+
     def __str__(self):
         return self.identifier
 

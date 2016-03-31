@@ -5,6 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
 from sql_web.models import Section, Exercise, Subject
+from sql_web.sql_runner import ExerciseRunner
 
 
 class BaseView(View):
@@ -101,6 +102,30 @@ class ExerciseView(BaseView):
 
         return render(request, "exercise.html", self.params)
 
+    def post(self, request, exercise_slug):
+
+        form = ExerciseForm(request.POST)
+
+        if form.is_valid():
+            the_exercise = get_object_or_404(
+                Exercise,
+                identifier=exercise_slug
+            )
+
+            self.params["form"] = form
+            self.params["exercise"] = the_exercise
+
+            runner = ExerciseRunner()
+            schema = the_exercise.given_schema
+
+            statements = form.cleaned_data["code_area"]
+
+            runner.run(schema, statements)
+
+            return render(request, "exercise.html", self.params)
+        else:
+            return self.get(request, exercise_slug)
+        
 
 def index(request):
     pass  # ToDo make one

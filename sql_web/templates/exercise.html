@@ -5,7 +5,7 @@
     <article>
         <h1>{{ exercise.title }}</h1>
         {{ exercise.problem_description }}
-        <form action="/" method="post">
+        <form action="." method="post">
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="Keyra SQL"/>
