@@ -115,17 +115,22 @@ class ExerciseView(BaseView):
             self.params["form"] = form
             self.params["exercise"] = the_exercise
 
-            runner = ExerciseRunner()
             schema = the_exercise.given_schema
-
+            to_emulate = the_exercise.sql_to_emulate
             statements = form.cleaned_data["code_area"]
+            statement_type = "DDL"
 
-            runner.run(schema, statements)
+            runner = ExerciseRunner(
+                statements, schema, to_emulate, statement_type
+            )
+
+            valid = runner.is_valid()
+            print(valid)
 
             return render(request, "exercise.html", self.params)
         else:
             return self.get(request, exercise_slug)
-        
+
 
 def index(request):
     pass  # ToDo make one
