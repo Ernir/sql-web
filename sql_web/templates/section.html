@@ -10,7 +10,7 @@
     <article>
         <h1>{{ section.title }}</h1>
         {% autoescape off %}
-            {{ section.html_contents|render }}
+            {{ section.rendered_contents }}
         {% endautoescape %}
         {% if section.connected_to.count %}
             <p>

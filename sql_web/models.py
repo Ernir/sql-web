@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
+from django.template.loader import render_to_string
+from django.template import Template, Context
 
 """
 Models to display and organize text
@@ -29,6 +31,7 @@ class Section(models.Model):
     title = models.CharField(max_length=200)
     subject = models.ForeignKey(Subject)
     html_contents = models.TextField()
+    rendered_contents = models.TextField()
     connected_to = models.ManyToManyField(
         'self',
         blank=True,
@@ -44,6 +47,16 @@ class Section(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+
+        context = Context({"section": self})
+
+        for footnote in self.footnote_set.all():
+            footnote.delete()
+
+        self.rendered_contents = Template(
+            "{% load sql_shortcuts %}" + self.html_contents
+        ).render(context)
+
         super(Section, self).save(*args, **kwargs)
 
 
@@ -140,3 +153,27 @@ class Figure(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.short_description, self.identifier)
+
+
+class Footnote(models.Model):
+    """
+    Additional comments, related to a section's body of text
+    """
+    identifier = models.CharField(max_length=50)
+    section = models.ForeignKey(Section)
+    raw_contents = models.TextField()
+    rendered_contents = models.TextField()
+
+    def get_absolute_url(self):
+        return self.section.get_absolute_url() + "#footnote-" + self.identifier
+
+    def __str__(self):
+        return self.identifier
+
+    def save(self, *args, **kwargs):
+        context = Context({"section": self})
+        self.rendered_contents = Template(
+            "{% load sql_shortcuts %}" + self.raw_contents
+        ).render(context)
+
+        super(Footnote, self).save(*args, **kwargs)

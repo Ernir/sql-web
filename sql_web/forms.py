@@ -1,13 +1,14 @@
 from django import forms
 from django_ace import AceWidget
-from sql_web.models import Section, Exercise
+from sql_web.models import Section
 
 
 class AceEditorAdminModelForm(forms.ModelForm):
     html_contents = forms.CharField(
         widget=AceWidget(
             mode='html',
-            width="1000px",
+            width="600px",
+            height="1000px",
             wordwrap=True
         ),
     )

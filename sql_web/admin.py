@@ -13,6 +13,7 @@ class SubjectAdmin(admin.ModelAdmin):
     form = AceEditorAdminModelForm
     filter_horizontal = ["connected_to"]
     exclude = ["read_by"]
+    readonly_fields = ("rendered_contents", )
 
 
 @admin.register(Figure)

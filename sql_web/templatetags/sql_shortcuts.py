@@ -2,13 +2,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.template import Template, Context
 from django import template
 from django.template.defaultfilters import stringfilter
-from sql_web.models import Section, Figure, Example
+from sql_web.models import Section, Figure, Example, Footnote
 
 register = template.Library()
 
 
 @register.inclusion_tag("snippets/footnote.html", takes_context=True)
-def footnote(context, text_contents):
+def footnote(context, text_contents, given_identifier=""):
     """
     A template tag to turn {{ footnote "text contents" }} into a
     tufte_css sidenote.
@@ -20,10 +20,23 @@ def footnote(context, text_contents):
     else:
         context["footnote_count"] += 1
 
-    footnote_id = str(context["footnote_count"])
+    fn = Footnote()
+    fn.section = context["section"]
+
+    if given_identifier:
+        fn.identifier = given_identifier
+    else:
+        if "footnote_count" not in context:
+            context["footnote_count"] = 0
+        else:
+            context["footnote_count"] += 1
+        fn.identifier = str(context["footnote_count"])
+    fn.raw_contents = text_contents
+    fn.save()
+
     return {
-        "footnote_text": text_contents,
-        "footnote_id": footnote_id
+        "footnote_text": fn.rendered_contents,
+        "footnote_id": fn.identifier
     }
 
 
