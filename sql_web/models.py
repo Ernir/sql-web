@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from bs4 import BeautifulSoup
 from django.template import Template, Context
 from markdown import markdown
+from sql_web.markdown_extensions.internal_links import InternalLinkExtension
 
 """
 Models to display and organize text
@@ -51,7 +52,7 @@ class Section(models.Model):
         self.slug = slugify(self.title)
 
         self.rendered_contents = markdown(
-            self.contents, extensions=["footnotes", "tables"]
+            self.contents, extensions=[InternalLinkExtension(), "footnotes", "tables"]
         )
         self.post_process()
 
@@ -186,7 +187,7 @@ class Footnote(models.Model):
         return self.section.get_absolute_url() + "#footnote-" + self.identifier
 
     def __str__(self):
-        return self.identifier
+        return "{} ({})".format(self.short_description, self.identifier)
 
     def save(self, *args, **kwargs):
         context = Context({"section": self})
