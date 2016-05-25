@@ -34,13 +34,11 @@ class InternalLinkExtension(Extension):
         super(InternalLinkExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
-        self.md = md
-
         # append to end of inline patterns
         INTERNALLINK_RE = r'\[\[(?P<all_contents>(?P<identifier>[a-z\d#-_]+)(?P<sep>\|?)(?P<label>.*))\]\]'
         internal_link_pattern = InternalLinks(INTERNALLINK_RE, self.getConfigs())
         internal_link_pattern.md = md
-        md.inlinePatterns.add('wikilink', internal_link_pattern, "<not_strong")
+        md.inlinePatterns.add('internallink', internal_link_pattern, "<not_strong")
 
 
 class InternalLinks(Pattern):
@@ -54,7 +52,6 @@ class InternalLinks(Pattern):
             label = identifier
         else:
             label = m.group("label")
-        print("id: {}, sep: {}, label: {}".format(identifier, m.group("sep"), label))
         try:
             section = Section.objects.get(identifier=identifier)
             url = section.get_absolute_url()

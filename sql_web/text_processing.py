@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from markdown import markdown
+from sql_web.markdown_extensions.footnotes import FootnoteExtension
 
 
 def apply_markdown(md_text):
@@ -8,7 +9,7 @@ def apply_markdown(md_text):
     """
     # Deferred import due to circular logic
     from sql_web.markdown_extensions.internal_links import InternalLinkExtension
-    return markdown(md_text, extensions=[InternalLinkExtension(), "footnotes", "tables"])
+    return markdown(md_text, extensions=[InternalLinkExtension(), FootnoteExtension(), "tables"])
 
 
 def clean_footnotes(original_html):
