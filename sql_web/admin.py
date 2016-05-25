@@ -1,7 +1,5 @@
 from django.contrib import admin
-from sql_web.forms import AceEditorAdminModelForm
-from sql_web.models import Section, Example, Exercise, Subject, Figure, \
-    Assignment
+from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment
 
 admin.site.register(Subject)
 admin.site.register(Example)
@@ -9,11 +7,10 @@ admin.site.register(Exercise)
 
 
 @admin.register(Section)
-class SubjectAdmin(admin.ModelAdmin):
-    form = AceEditorAdminModelForm
+class SectionAdmin(admin.ModelAdmin):
     filter_horizontal = ["connected_to"]
-    exclude = ["read_by"]
-    readonly_fields = ("rendered_contents", )
+    exclude = ("read_by", "html_contents", "rendered_contents")
+    readonly_fields = ("slug", )
 
 
 @admin.register(Figure)

@@ -4,8 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
 from django.template import Template, Context
-from markdown import markdown
-from sql_web.markdown_extensions.internal_links import InternalLinkExtension
+from sql_web.text_processing import apply_markdown, clean_footnotes
 
 """
 Models to display and organize text
@@ -29,8 +28,8 @@ class Section(models.Model):
     """
 
     identifier = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField()
     title = models.CharField(max_length=200)
+    slug = models.SlugField()
     subject = models.ForeignKey(Subject)
     html_contents = models.TextField()
     contents = models.TextField()
@@ -50,33 +49,9 @@ class Section(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-
-        self.rendered_contents = markdown(
-            self.contents, extensions=[InternalLinkExtension(), "footnotes", "tables"]
-        )
-        self.post_process()
-
+        self.rendered_contents = apply_markdown(self.contents)
+        self.rendered_contents = clean_footnotes(self.rendered_contents)
         super(Section, self).save(*args, **kwargs)
-
-    def post_process(self):
-        soup = BeautifulSoup(self.rendered_contents, "html.parser")
-        footnote_container = soup.find_all("div", class_="footnote")
-
-        for footnote in soup.find_all("a", class_="footnote-ref"):
-            whole_reference = footnote.parent
-            reference_id = footnote.get("href")[1:]
-
-            footnote_content_list = [element for element in soup.find(id=reference_id).strings]
-            footnote_contents = "".join(footnote_content_list)
-            tufte_footnote = '<label for="{0}" class="margin-toggle sidenote-number"></label><input type="checkbox" id="{0}" class="margin-toggle"><span class="sidenote">{1}</span> '.format(
-                reference_id, footnote_contents)
-            whole_reference.replace_with(
-                BeautifulSoup(tufte_footnote, "html.parser"))
-
-        for element in footnote_container:
-            element.extract()
-
-        self.rendered_contents = str(soup)
 
 
 """
