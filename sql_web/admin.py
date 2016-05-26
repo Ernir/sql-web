@@ -1,10 +1,10 @@
 from django.contrib import admin
-from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment
+from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment, Footnote
 
 admin.site.register(Subject)
 admin.site.register(Example)
 admin.site.register(Exercise)
-
+admin.site.register(Footnote)
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):

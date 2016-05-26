@@ -1,19 +1,24 @@
 from markdown.util import etree
 from markdown import Extension
 from markdown.inlinepatterns import Pattern
-
-RE_SMART_CONTENT = r'((?:[^\=]|\=(?=[^\W_]|\=|\s)|(?<=\s)\=+?(?=\s))+?\=*?)'
-RE_DUMB_CONTENT = r'((?:[^\=]|(?<!\=)\=(?=[^\W_]|\=))+?)'
-RE_SMART_MARK_BASE = r'(\={2})(?![\s\=])%s(?<!\s)\={2}' % RE_SMART_CONTENT
-RE_SMART_MARK = r'(?:(?<=_)|(?<![\w\=]))%s(?:(?=_)|(?![\w\=]))' % RE_SMART_MARK_BASE
-RE_MARK_BASE = r'(\={2})(?!\s)%s(?<!\s)\={2}' % RE_DUMB_CONTENT
-RE_MARK = RE_MARK_BASE
+from sql_web.models import Footnote, Section
 
 
 class FootnoteExtension(Extension):
+    """
+    A Markdown extension for tufte-css style footnotes.
 
+    Footnotes use the following format:
+
+    [^identifier][contents]
+
+    Where identifier is a (preferably unique) identifier for the footnote in question, and contents are the text the
+    footnote contains. The identifier must be prefixed with a ^, which is not a part of the identifier.
+
+    When the resulting structure is processed by tufte-css, it is displayed as a "side-footnote"
+    """
     def __init__(self, *args, **kwargs):
-        self.config = {}
+        self.config = {"section": ["", "The identifier of a single lexical section"]}
         super(FootnoteExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
@@ -28,22 +33,26 @@ class FootnoteExtension(Extension):
 
 class Footnotes(Pattern):
     def __init__(self, pattern, config):
-        super(Footnotes, self).__init__(pattern)
         self.config = config
+        super(Footnotes, self).__init__(pattern)
+
 
     def handleMatch(self, m):
         identifier = m.group("identifier")
         text = m.group("text")
-        print(identifier, text)
+
+        section = Section.objects.get(identifier=self.config["section"])
+        fn = Footnote.objects.create(identifier=identifier, contents=text, section=section)
+        fn.save()
 
         span = etree.Element("span")
         label = etree.SubElement(span, "label")
         label.set("for", "footnote-{}".format(identifier))
         label.set("class", "margin-toggle sidenote-number")
-        input = etree.SubElement(span, "input")
-        input.set("type", "checkbox")
-        input.set("id", "footnote-{}".format(identifier))
-        input.set("class", "margin-toggle")
+        input_element = etree.SubElement(span, "input")
+        input_element.set("type", "checkbox")
+        input_element.set("id", "footnote-{}".format(identifier))
+        input_element.set("class", "margin-toggle")
         text_span = etree.SubElement(span, "span")
         text_span.set("class", "sidenote")
         text_span.text = text
