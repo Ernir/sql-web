@@ -35,7 +35,7 @@ class InternalLinkExtension(Extension):
 
     def extendMarkdown(self, md, md_globals):
         # append to end of inline patterns
-        INTERNALLINK_RE = r'\[\[(?P<all_contents>(?P<identifier>[a-z\d#-_]+)(?P<sep>\|?)(?P<label>.*))\]\]'
+        INTERNALLINK_RE = r'\[\[(?P<all_contents>(?P<identifier>[a-z\d#-_]+)(?P<sep>\|?)(?P<label>.*?))\]\]'
         internal_link_pattern = InternalLinks(INTERNALLINK_RE, self.getConfigs())
         internal_link_pattern.md = md
         md.inlinePatterns.add('internallink', internal_link_pattern, "<not_strong")
