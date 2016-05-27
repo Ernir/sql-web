@@ -3,15 +3,39 @@ from markdown import Extension
 from markdown.inlinepatterns import Pattern
 from markdown.util import etree
 from sql_web.models import Figure
-import base64, hashlib
+
 
 class FigureExtension(Extension):
+    """
+    A Markdown extension for tufte-css style figures.
+
+    Figures use the following format:
+
+    ![alt text][figure_identifier "Descriptive text for the figure"]
+
+    Which is similar to the Markdown image inclusion strategy in the specification. However, here figure_identifier is
+    assumed to be the identifier of a sql_web.models.Figure instance. It is parsed as an URL only if no matching Figure
+    is found.
+    The figure identifier may not contain spaces.
+
+    Two additional qualifiers can be prefixed to the pattern:
+
+    * "f" makes the figure a fullwidth tufte-figure
+    * "m" makes the figure a Tufte marginfigure
+
+    So
+
+    f![alt text](figure_identifier "Descriptive text for the full-width figure")
+
+    is a full-width figure.
+    """
+
     def __init__(self, *args, **kwargs):
         self.config = {}
         super(FigureExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
-        FIGURE_RE = r'\!\[(?P<alt>.*)\]\( *?(?P<url>[^ ]+) *?(?:"(?P<text>.*?)")?\)'
+        FIGURE_RE = r'(?P<qualifier>f|m?)\!\[(?P<alt>.*)\]\( *?(?P<url>[^ ]+) *?(?:"(?P<text>.*?)")?\)'
         figure_pattern = Figures(FIGURE_RE, self.getConfigs())
         figure_pattern.md = md
         md.inlinePatterns.add('new_image_link', figure_pattern, "<image_link")
@@ -29,34 +53,62 @@ class Figures(Pattern):
             text = m.group("text")
         else:
             text = alt
+
+        full_width, marginfigure = False, False
+        if m.group("qualifier"):
+            full_width = m.group("qualifier") == "f"
+            marginfigure = m.group("qualifier") == "m"
+
         try:
             # This whole exercise is to make it possible to reference figures by identifier.
             # If the argument is not a valid figure identifier, fall back to using it as an url.
             figure = Figure.objects.get(identifier=main_argument)
-            url = figure.get_absolute_url()
+            url = figure.image.url
         except ObjectDoesNotExist:
             url = main_argument
 
         # Generating a likely-to-be-unique identifier
-        identifier = hashlib.sha224(base64.urlsafe_b64decode(url)).hexdigest()
-        
+        identifier = hashlib.sha224(str.encode(url)).hexdigest()
 
-        figure_element = etree.Element("figure")
-        label = etree.SubElement(figure_element, "label")
-        label.set("for", "figure-{}".format(identifier))
-        label.set("class", "margin-toggle")
-        label.text = "⊕"
-        input_element = etree.SubElement(figure_element, "input")
-        input_element.set("type", "checkbox")
-        input_element.set("id", "figure-{}".format(identifier))
-        input_element.set("class", "margin-toggle")
-        text_span = etree.SubElement(figure_element, "span")
-        text_span.set("class", "marginnote")
-        text_span.text = text
-        image = etree.SubElement(figure_element, "img")
-        image.set("src", url)
-        image.set("alt", alt)
-        return figure_element
+        # ToDo simplify this monster
+        if not marginfigure:
+            root = etree.Element("figure")
+            if full_width:
+                root.set("class", "fullwidth")
+            label = etree.SubElement(root, "label")
+            label.set("for", "figure-{}".format(identifier))
+            label.set("class", "margin-toggle")
+            label.text = "⊕"
+            input_element = etree.SubElement(root, "input")
+            input_element.set("type", "checkbox")
+            input_element.set("id", "figure-{}".format(identifier))
+            input_element.set("class", "margin-toggle")
+            if not full_width:
+                text_span = etree.SubElement(root, "span")
+                text_span.set("class", "marginnote")
+                text_span.text = text
+            image_element = etree.SubElement(root, "img")
+            image_element.set("src", url)
+            image_element.set("alt", alt)
+        else:
+            root = etree.Element("span")
+            label = etree.SubElement(root, "label")
+            label.set("for", "figure-{}".format(identifier))
+            label.set("class", "margin-toggle")
+            label.text = "⊕"
+            input_element = etree.SubElement(root, "input")
+            input_element.set("type", "checkbox")
+            input_element.set("id", "figure-{}".format(identifier))
+            input_element.set("class", "margin-toggle")
+            margin_wrapper = etree.SubElement(root, "span")
+            margin_wrapper.set("class", "marginnote")
+            image_element = etree.SubElement(margin_wrapper, "img")
+            image_element.set("src", url)
+            image_element.set("alt", alt)
+            etree.SubElement(margin_wrapper, "br")  # Force line break
+            text_span = etree.SubElement(margin_wrapper, "span")
+            text_span.text = text
+        return root
 
 
 def makeExtension(*args, **kwargs):
