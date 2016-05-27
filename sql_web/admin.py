@@ -6,11 +6,12 @@ admin.site.register(Example)
 admin.site.register(Exercise)
 admin.site.register(Footnote)
 
+
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
     filter_horizontal = ["connected_to"]
-    exclude = ("read_by", "html_contents", "rendered_contents")
-    readonly_fields = ("slug", )
+    exclude = ("read_by", "rendered_contents")
+    readonly_fields = ("slug", "html_contents")
 
 
 @admin.register(Figure)
