@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, render_to_response
+from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
@@ -69,7 +70,7 @@ class ProfileView(BaseView):
             connected_sections = [
                 s for s in section.connected_to.all()
                 if request.user not in s.read_by.all()
-            ]
+                ]
             for conn in connected_sections:
                 if request.user not in conn.read_by.all() \
                         and conn not in unread_sections:
@@ -163,3 +164,9 @@ class SectionOverview(View):
                     "value": 1
                 })
         return JsonResponse(data)
+
+
+def handler404(request):
+    response = render_to_response('404.html', {"title": "Síða fannst ekki!"}, context_instance=RequestContext(request))
+    response.status_code = 404
+    return response

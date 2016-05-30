@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
+
+{% block text_content %}
+    <article>
+        <h1>Síðan fannst ekki!</h1>
+        <p>Þú virðist hafa ratað inn á síðu sem ekki er til.</p>
+        <p>Hafir þú komist inn á þessa síðu í gegnum innri tengil sem ætti að vera virkur, vinsamlegast láttu kennara
+            vita.</p>
+    </article>
+{% endblock %}
