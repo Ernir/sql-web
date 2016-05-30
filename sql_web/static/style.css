@@ -10,7 +10,8 @@ span.marginnote {
 }
 
 pre.code {
-    overflow-x: auto;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 code.inline-sql {

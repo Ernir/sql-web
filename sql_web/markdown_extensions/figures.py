@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from markdown import Extension
 from markdown.inlinepatterns import Pattern
 from markdown.util import etree
-from sql_web.models import Figure
+from sql_web.models import Figure, Example
 
 
 class FigureExtension(Extension):
@@ -51,6 +51,7 @@ class Figures(Pattern):
     def handleMatch(self, m):
         alt = m.group("alt")
         main_argument = m.group("url")
+        print(main_argument)
         if m.group("text"):
             text = m.group("text")
         else:
@@ -61,16 +62,33 @@ class Figures(Pattern):
             full_width = m.group("qualifier") == "f"
             marginfigure = m.group("qualifier") == "m"
 
+        figure = None
         try:
-            # This whole exercise is to make it possible to reference figures by identifier.
-            # If the argument is not a valid figure identifier, fall back to using it as an url.
             figure = Figure.objects.get(identifier=main_argument)
-            url = figure.image.url
         except ObjectDoesNotExist:
+            pass  # This is not exceptional
+
+        example = None
+        if not figure:
+            try:
+                example = Example.objects.get(identifier=main_argument)
+                text = example.description
+            except ObjectDoesNotExist:
+                pass
+
+        url = ""
+        if figure:
+            url = figure.image.url
+            to_encode = url
+        elif example:
+            code = example.code
+            to_encode = code
+        else:
             url = main_argument
+            to_encode = url
 
         # Generating a likely-to-be-unique identifier
-        identifier = hashlib.sha224(str.encode(url)).hexdigest()
+        identifier = hashlib.sha224(str.encode(to_encode)).hexdigest()
 
         # ToDo simplify this monster
         if not marginfigure:
@@ -89,9 +107,14 @@ class Figures(Pattern):
                 text_span = etree.SubElement(root, "span")
                 text_span.set("class", "marginnote")
                 text_span.text = text
-            image_element = etree.SubElement(root, "img")
-            image_element.set("src", url)
-            image_element.set("alt", alt)
+            if figure:
+                image_element = etree.SubElement(root, "img")
+                image_element.set("src", figure.image.url)
+                image_element.set("alt", alt)
+            elif example:
+                code_element = etree.SubElement(root, "pre")
+                code_element.set("class", "code prettyprint {}".format(example.language))
+                code_element.text = example.code
         else:
             root = etree.Element("span")
             label = etree.SubElement(root, "label")
