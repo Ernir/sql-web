@@ -1,5 +1,5 @@
 from markdown import markdown
-
+from sql_web.markdown_extensions.inline_code import InlineCodeExtension
 
 def apply_markdown(md_text, section_id):
     """
@@ -13,5 +13,6 @@ def apply_markdown(md_text, section_id):
         InternalLinkExtension(),
         FootnoteExtension(section=section_id),
         FigureExtension(),
+        InlineCodeExtension(),
         "tables"
     ])
