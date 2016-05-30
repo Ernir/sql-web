@@ -130,8 +130,7 @@ class Figure(models.Model):
     """
 
     identifier = models.CharField(max_length=50, unique=True)
-    short_description = models.CharField(max_length=200, blank=True)
-    full_description = models.TextField()
+    description = models.TextField()
     image = models.ImageField()
 
     def image_tag(self):
@@ -143,12 +142,12 @@ class Figure(models.Model):
     image_tag.allow_tags = True
 
     def save(self, *args, **kwargs):
-        if not (self.short_description):
-            self.short_description = self.full_description[:200]
+        if self.identifier[:5] != "mynd:":
+            self.identifier = "mynd:" + self.identifier
         super(Figure, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{} ({})".format(self.short_description, self.identifier)
+        return "{} ({})".format(self.description[:50], self.identifier)
 
 
 class Footnote(models.Model):

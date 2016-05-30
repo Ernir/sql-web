@@ -1,3 +1,5 @@
+import hashlib
+
 from django.core.exceptions import ObjectDoesNotExist
 from markdown import Extension
 from markdown.inlinepatterns import Pattern

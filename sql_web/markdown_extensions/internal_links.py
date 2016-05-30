@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from markdown import Extension
 from markdown.inlinepatterns import Pattern
 from markdown.util import etree
-from sql_web.models import Section
+from sql_web.models import Section, Figure
 
 
 class InternalLinkExtension(Extension):
@@ -51,14 +51,8 @@ class InternalLinks(Pattern):
             label = identifier
         else:
             label = m.group("label")
-        try:
-            section = Section.objects.get(identifier=identifier)
-            url = section.get_absolute_url()
-        except ObjectDoesNotExist:
-            url = ""
 
-        if not url:
-            url = "/{}/".format(identifier)
+        url = self.get_url_from_identifier(identifier)
 
         a = etree.Element('a')
         a.text = label
@@ -66,6 +60,27 @@ class InternalLinks(Pattern):
         if self.config["html_class"]:
             a.set('class', self.config["html_class"])
         return a
+
+    def get_url_from_identifier(self, identifier):
+        section = None
+        try:
+            section = Section.objects.get(identifier=identifier)
+        except ObjectDoesNotExist:
+            pass
+        figure = None
+        try:
+            figure = Figure.objects.get(identifier=identifier)
+        except ObjectDoesNotExist:
+            pass
+
+        if section:
+            url = section.get_absolute_url()
+        elif figure:
+            url = figure.image.url
+        else:
+            url = "/{}/".format(identifier)
+
+        return url
 
 
 def makeExtension(*args, **kwargs):
