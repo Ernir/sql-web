@@ -22,7 +22,7 @@ class FootnoteExtension(Extension):
         super(FootnoteExtension, self).__init__(*args, **kwargs)
 
     def extendMarkdown(self, md, md_globals):
-        FOOTNOTE_RE = r'\[\^(?P<identifier>[a-z\d#-_]+)\]\[(?P<text>.*)\]'
+        FOOTNOTE_RE = r'\[\^(?P<identifier>[a-z\d#-_]+)\]\[(?P<text>.*?)\]'
         footnote_pattern = Footnotes(FOOTNOTE_RE, self.getConfigs())
         footnote_pattern.md = md
         md.inlinePatterns.add('footnote', footnote_pattern, "<not_strong")
