@@ -149,18 +149,32 @@ class SectionOverview(View):
             "nodes": [],
             "links": []
         }
+
+        #  The database IDs of sections are likely to have gaps in them, which causes D3.js problems.
+        #  Thus, the n different sections are re-numbered [0... n-1] before emitting the response.
+        condensed_index = 0
+        indices = {}
+
+        # Generate the vertices:
         for section in sections:
             read = section.read_by.filter(id=request.user.id).exists()
+
+            indices[section.id] = condensed_index
+            condensed_index += 1
+
             data["nodes"].append({
                 "name": section.title,
                 "group": section.subject.id,
-                "id": section.id,
+                "id": indices[section.id],
                 "location": section.get_absolute_url(),
                 "read": read,
             })
+
+        # Generate the edges
+        for section in sections:
             for connection in section.connected_to.all():
                 data["links"].append({
-                    "source": section.id, "target": connection.id,
+                    "source": indices[section.id], "target": indices[connection.id],
                     "value": 1
                 })
         return JsonResponse(data)

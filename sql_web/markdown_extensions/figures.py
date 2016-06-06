@@ -51,7 +51,6 @@ class Figures(Pattern):
     def handleMatch(self, m):
         alt = m.group("alt")
         main_argument = m.group("url")
-        print(main_argument)
         if m.group("text"):
             text = m.group("text")
         else:
