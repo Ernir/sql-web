@@ -15,9 +15,13 @@ class Subject(models.Model):
     """
 
     title = models.CharField(max_length=200)
+    number = models.IntegerField(unique=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ("number",)
 
 
 class Section(models.Model):
@@ -39,7 +43,7 @@ class Section(models.Model):
     read_by = models.ManyToManyField(User, blank=True, related_name="read")
 
     def __str__(self):
-        return self.title
+        return "K{}: {}".format(self.subject.number, self.title)
 
     def get_absolute_url(self):
         return reverse("section", args=[self.slug])
@@ -55,6 +59,9 @@ class Section(models.Model):
         self.rendered_contents = apply_markdown(self.contents, self.identifier)
 
         super(Section, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ("subject__number", "title")
 
 
 """
