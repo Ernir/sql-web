@@ -5,6 +5,7 @@ sql_web/static/d3/
 staticfiles
 mediafiles
 .idea
+.directory
 *.csv
 *.sh
 *.json

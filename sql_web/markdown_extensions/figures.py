@@ -13,7 +13,7 @@ class FigureExtension(Extension):
 
     Figures use the following format:
 
-    ![alt text][figure_identifier "Descriptive text for the figure"]
+    ![alt text](figure_identifier "Descriptive text for the figure")
 
     Which is similar to the Markdown image inclusion strategy in the specification. However, here figure_identifier is
     assumed to be the identifier of a sql_web.models.Figure instance. It is parsed as an URL only if no matching Figure
