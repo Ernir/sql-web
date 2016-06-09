@@ -1,6 +1,5 @@
 venv
 *.pyc
-sql_web/static/tufte-css/
 sql_web/static/d3/
 staticfiles
 mediafiles
