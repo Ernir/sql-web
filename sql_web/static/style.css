@@ -19,3 +19,12 @@ code.inline-sql {
     font-variant: small-caps;
     font-size: 1.125rem;
 }
+
+table {
+    border-bottom: solid 2px black;
+    border-top: solid 2px black;
+}
+
+table thead th {
+    border-bottom: solid 1px black;
+}
