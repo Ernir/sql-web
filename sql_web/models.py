@@ -117,12 +117,13 @@ class Example(models.Model):
     code = models.TextField()
     description = models.TextField()
 
-    sql, php, python, java = "lang-sql", "lang-php", "lang-python", "lang-java"
+    sql, php, python, java, bash = "lang-sql", "lang-php", "lang-python", "lang-java", "lang-bash"
     LANGUAGE_CHOICES = (
         (sql, "SQL"),
         (php, "PHP"),
         (python, "Python"),
-        (java, "Java")
+        (java, "Java"),
+        (bash, "Bash")
     )
     language = models.CharField(
         max_length=20,
