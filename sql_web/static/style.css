@@ -11,7 +11,7 @@ span.marginnote {
 
 pre.code {
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 code.inline-sql {
