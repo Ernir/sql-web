@@ -1,9 +1,4 @@
-d3.xhr("/bakatil/vidfangsefni/", "application/json", function (request) {
-    var data = JSON.parse(request.response);
-    drawGraph(data);
-});
-
-var drawGraph = function (graph) {
+var drawGraph = function (graph, n) {
 
     var modifiedLinks = [];
     graph.links.forEach(function (e) {
@@ -32,11 +27,12 @@ var drawGraph = function (graph) {
     var color = d3.scale.category20();
 
     var force = d3.layout.force()
-        .charge(-200)
-        .linkDistance(300)
+        .charge(-1000)
+        .linkDistance(200)
         .size([width, height]);
 
-    var svg = d3.select("body").append("svg")
+    var containerId = "#svg-container-" + n;
+    var svg = d3.select(containerId).insert("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -113,46 +109,13 @@ var drawGraph = function (graph) {
     })
 };
 
-function presentNodes(groupId) {
-    // Hides all nodes not belonging to the given group.
-
-    var gnodes = d3.selectAll('g.gnode');
-    var links = d3.selectAll(".link");
-    if (!groupId) {
-        gnodes.style("visibility", "visible");
-        links.style("stroke-width", function (d) {
-            return Math.sqrt(d.value)
-        });
-        return;
-    }
-
-    gnodes.style("visibility", function (d) {
-        if (d.group === groupId) {
-            return "visible";
-        } else {
-            return "hidden";
-        }
-    });
-
-    links.style("stroke-width", function (d) {
-        if (d.target.group === groupId || d.source.group === groupId) {
-            return Math.sqrt(d.value);
-        } else {
-            return 0;
-        }
-    });
-}
-
 window.onload = function () {
     var subjects = document.getElementsByClassName("subject");
     for (var i = 0; i < subjects.length; i++) {
-        var subject = subjects[i];
-        subject.onmouseover = function () {
-            var groupNumber = parseInt(this.id.slice(8));
-            presentNodes(groupNumber);
-        };
-        subject.onmouseout = function () {
-            presentNodes();
-        }
+        var subjectNumber = parseInt(subjects[i].id.replace(/[^0-9]/g, ''));
+        d3.xhr("/bakatil/vidfangsefni/" + subjectNumber + "/", "application/json", function (request) {
+            var data = JSON.parse(request.response);
+            drawGraph(data, data.subject);
+        });
     }
 };

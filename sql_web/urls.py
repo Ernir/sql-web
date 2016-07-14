@@ -14,4 +14,6 @@ urlpatterns = [
     # Not for the users:
     url(r"^bakatil/vidfangsefni/$", views.SectionOverview.as_view(),
         name="section_overview"),
+    url(r"^bakatil/vidfangsefni/(?P<subject_id>\d+)/$", views.SectionOverview.as_view(),
+        name="single_section_overview"),
 ]

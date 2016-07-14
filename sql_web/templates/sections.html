@@ -3,24 +3,25 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 {% block css %}
+
     <link rel="stylesheet" href="{% static "d3-main-style.css" %}"/>
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
 {% endblock %}
 <body>
-<ul>
-    {% for subject in subjects %}
-        <li><span id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</span>
-            <ul>
-                {% for section in subject.section_set.all %}
-                    <li>
-                        <a href="{% url "section" section.slug %}">{{ section.title }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-</ul>
-<div class="svg-container">
-</div>
+{% for subject in subjects %}
+    <div>
+        <h2 id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</h2>
+        <ul>
+            {% for section in subject.section_set.all %}
+                <li>
+                    <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <div id="svg-container-{{ subject.id }}">
+        </div>
+    </div>
+{% endfor %}
 <script src="{% static "d3/d3-min.js" %}"></script>
 {% block js %}
     <script src="{% static "d3-main-function.js" %}"></script>

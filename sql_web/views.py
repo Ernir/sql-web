@@ -143,12 +143,17 @@ Non-user visible views - JSON endpoints and similar
 
 
 class SectionOverview(View):
-    def get(self, request):
-        sections = Section.objects.all()
+    def get(self, request, subject_id=None):
         data = {
             "nodes": [],
-            "links": []
+            "links": [],
         }
+        sections_query = Section.objects
+        if subject_id:
+            subject = get_object_or_404(Subject, id=subject_id)
+            sections_query = sections_query.filter(subject=subject)
+            data["subject"] = int(subject_id)
+        sections = sections_query.all()
 
         #  The database IDs of sections are likely to have gaps in them, which causes D3.js problems.
         #  Thus, the n different sections are re-numbered [0... n-1] before emitting the response.
@@ -173,10 +178,11 @@ class SectionOverview(View):
         # Generate the edges
         for section in sections:
             for connection in section.connected_to.all():
-                data["links"].append({
-                    "source": indices[section.id], "target": indices[connection.id],
-                    "value": 1
-                })
+                if section.id in indices and connection.id in indices:
+                    data["links"].append({
+                        "source": indices[section.id], "target": indices[connection.id],
+                        "value": 1
+                    })
         return JsonResponse(data)
 
 
