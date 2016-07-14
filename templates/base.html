@@ -12,6 +12,12 @@
           sizes="16x16 24x24 32x32 48x48" href="{% static "sql.ico" %}"/>
 </head>
 <body>
+<nav>
+    <ul>
+        <li><a href="{% url "sections" %}">Yfirlit</a></li>
+        <li><a href="{% url "profile" %}">Síðan mín</a></li>
+    </ul>
+</nav>
 {% block text_content %}
 {% endblock %}
 </body>

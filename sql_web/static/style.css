@@ -1,3 +1,24 @@
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li a {
+    display: block;
+    padding: 14px 14px;
+    text-align: center;
+}
+
+nav ul li a:hover {
+    background-color: #FFF0E0;
+}
+
 article {
     text-align: justify;
     text-justify: inter-word;
