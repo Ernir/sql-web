@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
+<body>
+{% block text_content %}
+    <article>
+        {% for text_block in index_page_content %}
+            <h2>{{ text_block.title }}</h2>
+            {% autoescape off %}
+                {{ text_block.rendered_contents }}
+            {% endautoescape %}
+        {% endfor %}
+    </article>
+{% endblock %}
+</body>

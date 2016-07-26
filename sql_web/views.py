@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import View
 from sql_web.forms import ExerciseForm
-from sql_web.models import Section, Exercise, Subject
+from sql_web.models import Section, Exercise, Subject, IndexText
 from sql_web.sql_runner import ExerciseRunner
 
 
@@ -20,6 +20,13 @@ class BaseView(View):
         self.params = {
             "title": "SQL kennslusíða",  # Default value
         }
+
+
+class IndexView(BaseView):
+    def get(self, request):
+        self.params["title"] = "Upphafssíða"
+        self.params["index_page_content"] = IndexText.objects.all()
+        return render(request, "index.html", self.params)
 
 
 class SectionView(BaseView):

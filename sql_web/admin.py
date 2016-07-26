@@ -1,5 +1,6 @@
 from django.contrib import admin
-from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment, Footnote
+from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment, Footnote, IndexText
+from adminsortable2.admin import SortableAdminMixin
 
 admin.site.register(Subject)
 admin.site.register(Example)
@@ -22,3 +23,8 @@ class FigureAdmin(admin.ModelAdmin):
 @admin.register(Assignment)
 class AssignmentAdmin(admin.ModelAdmin):
     filter_horizontal = ["exercises", "reading", "assigned_to"]
+
+
+@admin.register(IndexText)
+class IndexTextAdmin(SortableAdminMixin, admin.ModelAdmin):
+    exclude = ("rendered_contents",)

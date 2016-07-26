@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
+from markdown import markdown
 from sql_web.text_processing import apply_markdown
 
 """
@@ -106,6 +107,23 @@ class Assignment(models.Model):
 """
 Other models
 """
+
+
+class IndexText(models.Model):
+    title = models.CharField(max_length=200)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    contents = models.TextField()
+    rendered_contents = models.TextField()
+
+    def save(self, *args, **kwargs):
+        self.rendered_contents = markdown(self.contents, extensions=["tables"])
+        super(IndexText, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+    class Meta(object):
+        ordering = ('order',)
 
 
 class Example(models.Model):

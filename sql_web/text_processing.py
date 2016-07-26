@@ -1,6 +1,7 @@
 from markdown import markdown
 from sql_web.markdown_extensions.inline_code import InlineCodeExtension
 
+
 def apply_markdown(md_text, section_id):
     """
     Applies Python's Markdown to the given text string, with the extensions required by the site.
