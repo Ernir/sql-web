@@ -1,0 +1,437 @@
+\documentclass[a4paper,12pt,twoside,BCOR=10mm]{scrbook}
+
+% Packages
+\usepackage[utf8]{inputenc} % Updated by Ernir
+\usepackage[icelandic]{babel} % Updated by Ernir
+\usepackage[T1]{fontenc} % Updated by Ernir
+
+\usepackage{graphicx}
+\usepackage[intoc]{nomencl}
+\usepackage{enumerate,color}
+\usepackage{url}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{appendix}
+\usepackage{eso-pic}
+\usepackage{amsmath, amssymb} % Inlined by Ernir
+\usepackage[numbib,nottoc]{tocbibind} % Numbib option added by Ernir
+\usepackage[sort&compress,authoryear]{natbib}
+\usepackage{subcaption} % Obsolete subfigure package removed by Ernir
+\usepackage[format=plain,labelformat=simple,labelsep=colon]{caption}
+\usepackage{placeins}
+\usepackage{tabularx}
+
+%%% ADDITIONS BY ERNIR
+\usepackage{textcomp} % To disable font warnings http://www.latex-community.org/forum/viewtopic.php?t=8608
+\usepackage{scrhack} % To suppress KOMA warning http://tex.stackexchange.com/questions/51867/koma-warning-about-toc
+\usepackage{booktabs}
+\usepackage[newfloat]{minted}
+\usepackage[rounded]{syntax}
+
+
+\SetupFloatingEnvironment{listing}{name=Kóðalistun}
+\SetupFloatingEnvironment{listing}{listname=Kóðalistunarskrá}
+
+
+% Mállýsingar
+\newenvironment{repnull}[0]{%
+\begin{stack}
+\\
+\begin{rep}
+}{%
+\end{rep}
+\end{stack}
+}
+\newenvironment{syntaxenv}[1]{%
+\par\noindent\begin{minipage}{\linewidth}\vspace{0.5em}\begin{quote}\noindent%
+\hspace*{-2em}\synt{#1}:\hfill\par%
+\noindent%
+\begin{minipage}{\linewidth}\begin{syntdiag}%
+}{%
+\end{syntdiag}\end{minipage}\end{quote}\end{minipage}%
+}
+%%% END ADDITIONS
+
+
+
+% Configurations
+\graphicspath{{figs/}}
+
+\setlength{\parskip}{\baselineskip}
+\setlength{\parindent}{0cm}
+\raggedbottom
+
+% Mun fallegri lausn
+\setkomafont{captionlabel}{\itshape}
+\setkomafont{caption}{\itshape}
+\setkomafont{section}{\FloatBarrier\Large}
+% \setcapwidth[l]{\textwidth} % Ernir: Kommentað út til að þagga niður í viðvörun um að þetta hafi verið hunsað
+\setcapindent{1em}
+
+%%%%%%%%%%% MODIFY THESE LINES ONLY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\thesisyear{2016}       						% Year thesis submitted
+\def\thesismonth{10}						% Month thesis submitted
+\def\thesisauthor{Eiríkur Ernir Þorsteinsson}					% Thesis authoreiningaraðferðinni
+\def\thesistitle{Vefkennsla í notkun gagnasafna með könnunarnámi} 						% Title of thesis
+\def\thesisshorttitle{Vefkennsla í notkun gagnasafna með könnunarnámi} 	% Title of thesis
+\def\thesiscredits{40} 							% Credits awarded for the project
+\def\thesissubject{Menntun framhaldsskólakennara}
+\def\thesiskind{M.Sc.}							% Masters of PhD thesis
+\def\thesiskindformal{Magister Scientiarum}				% Masters of PhD thesis
+\def\thesisnroftutors{1}						% Number of tutors
+\def\thesisschool{Verkfræði- og náttúruvísindasvið}			% School
+\def\thesisfaculty{Iðnaðarverkfræði-, vélaverkfræði- og tölvunarfræðideild}							% Faculty
+\def\thesisaddress{Hjarðarhaga 2-6}				% Office address
+\def\thesispostalcode{107 Reykjavík}			% Office address
+\def\thesistelephone{699-4392}						% Office telephone
+\def\thesispublisher{-}						% Publisher
+\def\thesistutors{Hjálmtýr Hafsteinsson}
+\def\thesisrepresentative{XXNN3}					% Tutors name
+\def\thesiscommittee{XXNN4 \\ XXNN5 }
+\def\thesiskeywords{SQL, Exploratory Learning}			% Keywords
+\def\thesisISBN{XX}           						% Thesis ISBN number
+\def\thesisdedication{Dedication}
+\def\thesisPrinting{Háskólaprent, Fálkagata 2, 107 Reykjavík}
+
+% Function to add footer to frontpage
+\newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][\paperheight]{\paperwidth}{
+\vfill
+\centering
+\hspace*{-0.6cm}
+\includegraphics[width=\paperwidth,height=\paperheight,
+keepaspectratio]{foot}
+}}
+\setlength{\unitlength}{\paperwidth}
+\begin{picture}(0,0)(0,-0.15)
+\put(0,0){\color{white}\parbox{1\paperwidth}{\centering\bfseries\sffamily \Large \thesisfaculty \\
+Háskóli Íslands\\
+\thesisyear}}
+\end{picture}
+}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\thispagestyle{empty}
+\AddToShipoutPicture*{\BackgroundPic}
+%
+\begin{center}
+\vspace*{1cm}
+\includegraphics[width=43.6mm]{logotitle}\\
+\vspace*{3.0cm}
+\huge \sffamily \bfseries \thesistitle
+
+\vspace*{5.5cm}
+\normalfont \Large \sffamily \thesisauthor
+\AddToShipoutPicture*{\BackgroundPic}
+\vfill
+
+\end{center}
+
+\newpage 
+\thispagestyle{empty} \mbox{}
+\newpage
+\vspace*{1.35cm}
+\thispagestyle{empty}
+\begin{center}
+
+\Large \textbf{\sffamily{\MakeUppercase{\thesistitle}}} \\
+
+\vspace*{1.7cm}
+\sffamily{\thesisauthor} \\
+\vspace*{1.8cm}
+\normalsize \thesiscredits~ECTS thesis submitted in partial fulfillment of a \\
+\textit{\thesiskindformal} degree in \thesissubject
+
+\vspace*{1.0cm}
+\large
+\ifnum\thesisnroftutors >1 Advisors \\ \thesistutors \\ \vspace*{0.4cm}
+\else Advisor \\ \thesistutors \\ \vspace*{1.04cm}
+\fi
+Faculty Representative \\
+\thesisrepresentative
+
+\vspace*{0.4cm}
+M.Sc. committee \\
+\thesiscommittee
+
+\vfill
+Faculty of \thesisfaculty \\
+\thesisschool \\
+University of Iceland \\
+Reykjavik, \thesismonth~\thesisyear
+\newpage
+\end{center}
+ \newpage
+ \thispagestyle{empty}
+ \mbox{} \vfill
+ % \setcounter{page}{0} \renewcommand{\baselinestretch}{1.5}\normalsize
+ \sffamily{\thesistitle} \\
+ \sffamily{\thesisshorttitle} \\
+ \thesiscredits ~ECTS thesis submitted in partial fulfillment of a \thesiskind~degree in \thesissubject
+\\ \\
+Copyright \textcopyright~\thesisyear~ \thesisauthor \\
+All rights reserved \\
+
+
+Faculty of \thesisfaculty \\
+\thesisschool \\
+University of Iceland \\
+\thesisaddress \\
+\thesispostalcode, Reykjavik \\
+Iceland
+
+Telephone: \thesistelephone \\ \\
+\vspace*{\lineskip}
+
+Bibliographic information: \\
+\thesisauthor, \thesisyear, \thesistitle, \thesiskind~thesis, Faculty of \thesisfaculty, University of Iceland. \\
+
+ISBN~\thesisISBN
+
+Printing: \thesisPrinting \\
+Reykjavik, Iceland, \thesismonth~\thesisyear \\
+% \newpage
+% \thispagestyle{empty} \mbox{}
+% \vfill
+% \begin{center}\textit{\thesisdedication}\end{center} \vspace*{5cm}
+% \vfill 
+
+\thispagestyle{empty}
+\cleardoublepage
+\end{titlepage}
+\hypersetup{pageanchor=true}
+
+% \dedication{\textit{Dedication} \small \\ Tileinkun má sleppa og skal þá fjarlægja blaðsíðuna. \\
+% Tileinkun skal birtast á oddatölu blaðsíðu (hægri síðu).}
+\pagenumbering{roman}
+
+\setcounter{page}{5}
+\section*{\huge Abstract}
+Útdráttur á ensku sem er að hámarki 250 orð.
+\vfill \vspace*{1cm}
+\section*{\huge Útdráttur}
+Hér kemur útdráttur á íslensku sem er að hámarki 250 orð. Reynið að koma útdráttum á eina blaðsíðu en ef tvær blaðsíður eru nauðsynlegar á seinni blaðsíða útdráttar að hefjast á oddatölusíðu (hægri síðu).
+\vfill
+\newpage
+
+\tableofcontents
+\listoffigures
+\listoftables
+\listoflistings
+
+\chapter*{Íslenskur orðaforði}
+
+Íslenska er, stærðar málsvæðisins vegna, ekki notuð jafn mikið og enska við skrif um tæknileg málefni. 
+Því er líklegt að sá orðaforði sem notaður er í ritgerð á borð við þessa komi jafnvel vönustu lesendum spánskt fyrir sjónir. 
+Til glöggvunar heldur tafla \ref{tab:translations} utan um helstu þýðingar sem notaðar eru.
+
+\begin{table}
+\caption{Upprunaleg merking ýmissa orða á Íslensku}
+\label{tab:translations}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Íslenska&Enska\\
+\midrule
+Frumkóði & Source code\\
+Ívafsmál & Markup language\\
+Málskipan & Syntax\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\chapter*{Acknowledgments}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+
+Hjálmtýr Hafsteinsson
+
+Hrefna Karítas Sigurjónsdóttir
+
+\chapter{Inngangur}
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\section{Forsaga verkefnisins}
+Sumarið 2014 skrifaði höfundur stutta kennslubók, til stuðnings við kennslu í fyrstu áföngum Tækniskólans í Reykjavík í notkun gagnasafna. Lagst var í skrifin eftir að ljóst var að nálgun nýlegra íslenskra bóka um gagnasafnsfræði\cite{sigurdur2003, jon2008} hentaði illa fyrir nemendur á fyrsta hæfniþrepi.
+
+Þarfir áfanganna í Tækniskólanum eins og þeir voru kenndir á þeim tíma voru í forgrunni við skrif bókarinnar. Farið var hægt yfir grundvallaratriði fyrirspurna og annarra mikið notaðra atriða í MySQL gagnagrunnskerfinu.
+
+Kennslubókin var, með styrk frá Þróunarsjóði námsgagna, gefin út rafrænt sem PDF-skjal. Bókin var og er öllum aðgengileg á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-bok-ts}}. 
+
+Bókinni var vel tekið af þeim kennurum Tækniskólans sem sáu um kennslu í notkun gagnasafna. Engu að síður varð fljótt ljóst að efninu mætti betur koma til skila með öðrum hætti - í gegnum vafrann.
+\section{Önnur kennslutól}
+Hugmyndin um að nýta vefinn og tölvuforrit til kennslu í notkun gagnasafna er ekki ný af nálinni. 
+
+Auðvelt er að finna umfjöllun um eldri tilraunir til að búa til kennsluforrit í akademísku umhverfi. SQL-Tutor \cite{mitrovic1998} er kerfi komið til ára sinna, en þróun á því hófst árið 1996. Kerfið er ``intelligent tutoring system'' (ITS), ætlað til að uppfylla hlutverk leiðbeinanda þegar nemandi vinnur að því að semja fyrirspurnir. Kerfið tekur við fyrirspurnum frá nemendum og metur hvort þær séu réttar, en í stað hefðbundinna villuskilaboða leggur SQL-Tutor áherslu á að veita nemandanum leiðsögn um hvað það er sem gæti hafa farið úrskeiðis. Acharya\cite{bhagat2002} er svipaðs eðlis, en það er ITS-kerfi sem líka leggur áherslu á greiningu nemendafyrirspurna. Acharya leyfir frjálsa könnun nemandans á efnisatriðum og sýnir honum ráðleggingar byggðar á þeim efnisatriðum sem hann hefur þegar skoðað, en aðferðunum sem notaðar eru til að framleiða ráðleggingarnar er einungis lýst stuttlega. AsseSQL \cite{prior2014assesql} er tól til að veita sjálfvirka endurgjöf og ákvarða einkunnir. SQLator \cite{sadiq2004sqlator} leyfir nemendum að kanna gagnagrunn fyrirspurna til að framkvæma og fá á endurgjöf.
+
+Auk þeirra tóla sem fengið hafa akademíska umfjöllun er fjöldinn allur af námstækifærum til staðar á netinu.
+
+Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda, þeir hlutar kerfisins sem snúa að kennurum eru seinni tíma viðbætur.
+
+Kerfi sem hefur verið notað til stuðnings í Tækniskólanum er SQLZoo\footnote{\url{http://sqlzoo.net/}}. Um ``interactive tutorial'' er að ræða, þar sem nemandanum gefst kostur á að vinna sig í gegnum sífellt flóknari verkefni. Hægt er að framkvæma SQL-skipanir á vefsíðunni sjálfri, með tafarlausri endurgjöf. Síðan er byggð á MediaWiki og hún þar með opin fyrir breytingum utanaðkomandi aðila.
+Líkt og í mörgum öðrum kennslukerfum samanstendur SQLZoo fyrst og fremst af æfingum í að framkvæma fyrirspurnir. Upplýsingum er ekki gefið samhengi, heldur er nemandanum strax beint að því að fara að skrifa SQL-skipanir. Framvindan í gegnum námsefnið er fyrst og fremst línuleg.
+
+Schemaverse\footnote{\url{https://schemaverse.com/}} er leikur fremur en kennslutól, en leikurinn er spilaður með því að framkvæma SQL-skipanir til að stjórna ``geimskipum'' sem keppa við geimskip annarra. Möguleiki er á að nota leikinn til þjálfunar fyrir lengra komna nemendur og þá sem hvattir eru af samkeppni.
+\subsection{Greining á forverum}
+Akademísku kerfin leggja öll áherslu á að greina fyrirspurnir, oft með afar úthugsuðum aðferðum. Acharya\cite{bhagat2002} notar sanntöflur, 
+
+Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar kennslu til stuðnings. Þau innihalda ekki allar upplýsingar sem nemandi þarf til að leysa verkefnin, ekkert kerfanna hefur það sem yfirlýst markmið að koma í stað fyrirlestra eða kennslubókar. 
+
+Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla.
+
+Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla.
+\chapter{Kennslufræðilegar hugmyndir}
+
+Texti frekar en vídeó af því texta er auðvelt að uppfæra.
+
+\section{Viðfangsefni sem net/Topic Maps}
+\section{Myndræn framsetning}
+\section{Könnunarnám}
+\section{Efnisáherslur}
+\chapter{Útfærsla vefsins}
+\section{Tæknilegar lausnir í notkun}
+\subsection{Django}
+\subsection{Markdown}
+Greinar kennsluvefsins eru skrifaðar í ívafsmálinu Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Aðaláhersluatriði Markdown er að frumkóði textaskjalsins sé læsilegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar sem rökréttar eru til framsetningar. 
+
+Sniðið er sem sagt sérstaklega hannað að skrifa texta án truflana. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða spjallborði á netinu.
+
+Markdown-málið er upphaflega skilgreint óformlega með Perl-forritinu \texttt{Markdown.pl}, skrifað af John Gruber árið 2004, sem þýðir texta skrifaðan í Markdown yfir í HTML. Kennsluvefurinn notar Markdown á svipaðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
+
+\begin{figure}
+\caption{Upprunalegur Markdown-kóði og HTML-ið sem hann skilgreinir}
+\label{fig:markdown}
+\begin{center}
+\texttt{Markdown styður *skáletrun*}
+
+$\downarrow$
+
+\texttt{<p>Markdown styður <em>skáletrun</em></p>}
+
+\end{center}
+\end{figure}
+
+Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleika tengdum framsetningu textans. Auk þess eru Markdown-túlkar einfeldningsleg textatúlkunarforrit, sem ekki gera sér grein fyrir innri uppbyggingu texta eða tengsla á milli viðfangsefna. Til að styðja myndræna framsetningu og innri tengingar textans er því nauðsynlegt að smíða viðbætur við túlkinn.
+
+Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar.
+\subsubsection{Myndir}
+Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \ref{code:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
+
+\begin{figure}
+\caption{Myndainnfellingar í Markdown}
+\label{code:markdown-image-inclusion}
+\begin{subfigure}[b]{\textwidth}
+\caption{Upprunaleg útgáfa}
+\label{code:markdown-image-inclusion-original}
+\begin{syntaxenv}{markdown-image}
+  `!' `[' <alt-text> `]' `(' <image-hyperlink> 
+  \begin{stack}
+  `"' <title> `"'\\
+  
+  \end{stack}
+  `)'
+\end{syntaxenv}
+\end{subfigure}
+
+\begin{subfigure}[b]{\textwidth}
+\caption{Viðbætt útgáfa}
+\label{code:markdown-image-inclusion-enhanced}
+\begin{syntaxenv}{enhanced-markdown-image}
+  \begin{stack}
+  \\
+  `f'\\
+  `m'
+  \end{stack}
+  `!' `[' <alt-text> `]' `(' <image-identifier>
+  \begin{stack}
+  `"' <title> `"'\\
+  
+  \end{stack}
+  `)'
+\end{syntaxenv}
+\end{subfigure}
+\end{figure}
+
+Viðbótin, sem vinnur samkvæmt mállýsingu á mynd \ref{code:markdown-image-inclusion-enhanced}, býður upp á aukamöguleika sem sérstaklega tengjast kennsluvefnum og hans framsetningarmöguleikum.
+
+Athugum að texti kennsluvefsins er settur fram í tveimur dálkum, aðaldálki og spássíudálki (sjá undirkafla \ref{sec:tufte-css}). Fyrst er gefinn möguleiki á að skeyta stafnum \texttt{m} eða stafnum \texttt{f} framan við myndskilgreininguna. Sé stafnum sleppt fyllir myndin aðaldálkinn. Sé stafurinn \texttt{m} gefinn fyllir myndin spássíudálkinn. Sé stafurinn \texttt{f} gefinn fyllir myndin báða dálkana.
+
+Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt að lesa \texttt{<image-identifier>} sem einkvæmt auðkenni Django-model hlutar sem skilgreinir mynd. Finnist engin mynd með viðkomandi auðkenni er leitað að kóðasýnidæmi með auðkennið \texttt{<image-identifier>}. Finnist ekkert kóðasýnidæmi heldur er \texttt{<image-identifier>} notað beint sem vefslóð og virknin þá sem fyrr.
+\begin{listing}
+\caption{Möguleg dæmi um myndainnfellingar í Markdown}
+\label{code:markdown-image-examples}
+Óbreytt Markdown:
+\begin{verbatim}
+![Alt text](/path/to/img.jpg "Optional title")
+\end{verbatim}
+Með viðbót:
+\begin{verbatim}
+![Alt text](identifier "Optional title")
+f![Alt text](identifier "Optional title")
+m![Alt text](identifier "Optional title")
+\end{verbatim}
+\end{listing}
+
+
+\subsubsection{Spássíugreinar}
+Framsetning efnisins gerir ráð fyrir notkun hliðarútskýringa í spássíum. Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}} gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum, frekar en spássíugreinum. Viðbótin var því endurskrifuð.
+
+Viðbótin vinnur samkvæmt mállýsingu á mynd \ref{code:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown.
+
+\begin{figure}
+\caption{Spássíugreinar í Markdown}
+\label{code:markdown-footnote}
+\begin{syntaxenv}{markdown-footnote}
+  `[' `^' <note-identifier> `]' `[' <contents> `]'
+\end{syntaxenv}
+\end{figure}
+
+\subsubsection{Innri tenglar}
+Gert er ráð fyrir að tengingar á milli greina séu mikið notaðar innan texta kennsluvefsins. Óbreytt Markdown inniheldur almennar leiðir til að fella tengla inn í setningar, en slíkt hefur ókosti í för með sér:
+
+\begin{enumerate}
+ \item Breytist vefslóð kennsluvefsins þarf að gera breytingar á frumtextanum til að viðhalda tenglunum
+ \item Vefslóðir innihalda mikið af upplýsingum sem eru textahöfundum óviðkomandi
+\end{enumerate}
+
+Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \ref{code:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
+
+\begin{figure}
+\caption{Innri tenglar í Markdown}
+\label{code:markdown-internal-link}
+\begin{syntaxenv}{markdown-internal-link}
+  `[' `[' <identifier>
+  \begin{stack}
+   `|' <label>\\
+  \end{stack}
+  `]' `]'
+\end{syntaxenv}
+\end{figure}
+
+\subsubsection{Forritskóði}
+
+\subsection{D3.js}
+\subsection{Tufte-css}
+\label{sec:tufte-css}
+\subsection{SQLite í minni}
+
+\chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
+\section{Takmarkanir á núverandi útgáfu}
+\section{Fyrirliggjandi verk}
+\subsection{Leikjun}
+
+\bibliographystyle{plain}
+\bibliography{master}
+
+\appendix
+\renewcommand{\chaptername}{Appendix}
+\chapter{Annað}
+
+
+\end{document}
