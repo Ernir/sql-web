@@ -14,9 +14,14 @@
 <body>
 <nav>
     <ul>
-        <li><a href="{% url "index" %}">SQL</a> </li>
+        <li><a href="{% url "index" %}">SQL</a></li>
         <li><a href="{% url "sections" %}">Yfirlit</a></li>
-        <li><a href="{% url "profile" %}">Síðan mín</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url "profile" %}">Síðan mín</a></li>
+            <li><a href="{% url "custom_logout" %}">Skrá út</a></li>
+        {% else %}
+            <li><a href="{% url "profile" %}">Skrá inn</a></li>
+        {% endif %}
     </ul>
 </nav>
 {% block text_content %}

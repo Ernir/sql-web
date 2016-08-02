@@ -1,5 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from django.views.generic.edit import CreateView
 from sql_web import views
+from sql_web.forms import UserCreationForm
 
 urlpatterns = [
     # User-facing
@@ -11,10 +13,14 @@ urlpatterns = [
     url(r"^verkefni/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(),
         name="exercise"),
     url(r"^min-sida/$", views.ProfileView.as_view(), name="profile"),
+    url(r"^skraning/$",
+        CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')),
+    url(r"^utskraning/$", views.LogoutView.as_view(), name="custom_logout",),
 
     # Not for the users:
     url(r"^bakatil/vidfangsefni/$", views.SectionOverview.as_view(),
         name="section_overview"),
     url(r"^bakatil/vidfangsefni/(?P<subject_id>\d+)/$", views.SectionOverview.as_view(),
         name="single_section_overview"),
+    url('^accounts/', include('django.contrib.auth.urls')),
 ]

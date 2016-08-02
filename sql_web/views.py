@@ -1,6 +1,7 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render, render_to_response
+from django.shortcuts import get_object_or_404, render, render_to_response, redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import View
@@ -91,6 +92,12 @@ class ProfileView(BaseView):
         self.params["title"] = "Síðan mín"
 
         return render(request, "profile.html", self.params)
+
+
+class LogoutView(BaseView):
+    def get(self, request):
+        logout(request)
+        return redirect("index")
 
 
 class ExerciseView(BaseView):
