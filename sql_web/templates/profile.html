@@ -1,34 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<h1>Hæ, {{ user.email }}</h1>
+{% extends "base.html" %}
+{% load staticfiles %}
 
-{% if read_sections %}
-    <p>Þú hefur lesið:</p>
-    <ul>
-        {% for section in read_sections %}
-            <li>
-                <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Þú hefur ekki enn lesið neinar greinar. Má ekki bjóða þér að líta á
-        <a href="{% url "sections" %}">yfirlitið?</a></p>
-{% endif %}
-{% if unread_sections %}
-    <p>Þú hefur mögulega áhuga á að lesa:</p>
-    <ul>
-        {% for section in unread_sections %}
-            <li>
-                <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
-</body>
-</html>
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
+
+{% block text_content %}
+    <article>
+        <h1>Hæ, {{ user.email }}</h1>
+        {% if unread_sections %}
+            <p>Þú hefur mögulega<span><label class="margin-toggle sidenote-number" for="footnote-unread"></label><input
+                    class="margin-toggle" id="footnote-unread" type="checkbox"/><span class="sidenote">Þetta lesefni er tengt efni sem þú hefur lesið áður.</span></span>
+                áhuga á að lesa: </p>
+            <ul>
+                {% for section in unread_sections %}
+                    <li>
+                        <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if read_sections %}
+            <p>Þú hefur lesið:</p>
+            <ul>
+                {% for section in read_sections %}
+                    <li>
+                        <a href="{{ section.get_absolute_url }}">{{ section.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Þú hefur ekki enn lesið neinar greinar. Má ekki bjóða þér að líta á
+                <a href="{% url "sections" %}">yfirlitið?</a></p>
+        {% endif %}
+    </article>
+{% endblock %}

@@ -88,6 +88,7 @@ class ProfileView(BaseView):
 
         self.params["read_sections"] = read_sections
         self.params["unread_sections"] = unread_sections
+        self.params["title"] = "Síðan mín"
 
         return render(request, "profile.html", self.params)
 
@@ -138,10 +139,6 @@ class ExerciseView(BaseView):
             return render(request, "exercise.html", self.params)
         else:
             return self.get(request, exercise_slug)
-
-
-def index(request):
-    pass  # ToDo make one
 
 
 """
