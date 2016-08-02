@@ -65,67 +65,6 @@ class Section(models.Model):
         ordering = ("subject__number", "title")
 
 
-"""
-Models to store information about assignments
-"""
-
-
-class Exercise(models.Model):
-    """
-    A description of a problem to solve, along with a definition of the
-    "correct" result.
-    """
-
-    identifier = models.CharField(max_length=50, unique=True)
-    title = models.CharField(max_length=200)
-    problem_description = models.TextField()
-    prepopulated = models.TextField()
-    given_schema = models.TextField(blank=True)
-    sql_to_emulate = models.TextField()
-
-    def get_absolute_url(self):
-        return reverse("exercise", args=[self.identifier])
-
-    def __str__(self):
-        return self.identifier
-
-
-class Assignment(models.Model):
-    """
-    A group of exercises to complete and sections to read
-    """
-
-    exercises = models.ManyToManyField(Exercise, blank=True)
-    reading = models.ManyToManyField(Section, blank=True)
-
-    time_start = models.DateTimeField()
-    time_end = models.DateTimeField()
-
-    assigned_to = models.ManyToManyField(User, blank=True)
-
-
-"""
-Other models
-"""
-
-
-class IndexText(models.Model):
-    title = models.CharField(max_length=200)
-    order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    contents = models.TextField()
-    rendered_contents = models.TextField()
-
-    def save(self, *args, **kwargs):
-        self.rendered_contents = markdown(self.contents, extensions=["tables"])
-        super(IndexText, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.title
-
-    class Meta(object):
-        ordering = ('order',)
-
-
 class Example(models.Model):
     """
     A code listing, contained within a section.
@@ -192,3 +131,84 @@ class Footnote(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.section.title, self.identifier)
+
+
+"""
+Models to store information about assignments
+"""
+
+
+class Exercise(models.Model):
+    """
+    A description of a problem to solve, along with a definition of the
+    "correct" result.
+    """
+
+    identifier = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=200)
+    problem_description = models.TextField()
+    prepopulated = models.TextField()
+    given_schema = models.TextField(blank=True)
+    sql_to_emulate = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse("exercise", args=[self.identifier])
+
+    def __str__(self):
+        return self.identifier
+
+
+class Assignment(models.Model):
+    """
+    A group of exercises to complete and sections to read
+    """
+
+    exercises = models.ManyToManyField(Exercise, blank=True)
+    reading = models.ManyToManyField(Section, blank=True)
+
+    time_start = models.DateTimeField()
+    time_end = models.DateTimeField()
+
+    assigned_to = models.ManyToManyField(User, blank=True)
+
+    def __str__(self):
+        return "Verkefni, í gildi frá {} til {}".format(str(self.time_start), str(self.time_end))
+
+
+class Course(models.Model):
+    """
+    Students are organized into courses
+    """
+
+    name = models.CharField(max_length=200)
+    open_to_all = models.BooleanField(default=True, help_text="Sé áfanginn lokaður sérð þú um að skrá inn nemendur")
+    members = models.ManyToManyField(User, blank=True)
+    assignments = models.ManyToManyField(Assignment, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        # ToDo handle assignments
+        super(Course, self).save(*args, **kwargs)
+
+"""
+Other models
+"""
+
+
+class IndexText(models.Model):
+    title = models.CharField(max_length=200)
+    order = models.PositiveIntegerField(default=0, blank=False, null=False)
+    contents = models.TextField()
+    rendered_contents = models.TextField()
+
+    def save(self, *args, **kwargs):
+        self.rendered_contents = markdown(self.contents, extensions=["tables"])
+        super(IndexText, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.title
+
+    class Meta(object):
+        ordering = ('order',)

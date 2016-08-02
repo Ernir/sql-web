@@ -1,11 +1,12 @@
 from django.contrib import admin
-from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment, Footnote, IndexText
+from sql_web.models import Section, Example, Exercise, Subject, Figure, Assignment, Footnote, IndexText, Course
 from adminsortable2.admin import SortableAdminMixin
 
 admin.site.register(Subject)
 admin.site.register(Example)
 admin.site.register(Exercise)
 admin.site.register(Footnote)
+admin.site.register(Course)
 
 
 @admin.register(Section)
