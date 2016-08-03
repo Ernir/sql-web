@@ -6,7 +6,12 @@ admin.site.register(Subject)
 admin.site.register(Example)
 admin.site.register(Exercise)
 admin.site.register(Footnote)
-admin.site.register(Course)
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    filter_horizontal = ["assignments", "members"]
+    exclude = ("rendered_description", "slug")
 
 
 @admin.register(Section)

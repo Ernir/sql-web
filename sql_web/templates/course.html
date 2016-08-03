@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
+
+{% block text_content %}
+    <h1>{{ course.name }}</h1>
+    {% autoescape off %}
+        {{ course.rendered_description }}
+    {% endautoescape %}
+    {% if not registered %}
+        <form action="." method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Skrá mig"/>
+        </form>
+    {% else %}
+        <p><small>Þú ert meðlimur í þessu námskeiði. Hafðu samband við kennara viljir þú eyða skráningunni.</small></p>
+    {% endif %}
+{% endblock %}

@@ -33,5 +33,27 @@
             <p>Þú hefur ekki enn lesið neinar greinar. Má ekki bjóða þér að líta á
                 <a href="{% url "sections" %}">yfirlitið?</a></p>
         {% endif %}
+        <p>
+            {% if currently_member_of %}
+                {% if currently_member_of|length == 1 %}
+                    Þú ert meðlimur í námskeiðinu
+                {% else %}
+                    Þú ert meðlimur í eftirfarandi námskeiðum:
+                {% endif %}
+                {{ currently_member_of|join:", " }}.
+            {% else %}
+                Þú ert ekki meðlimur í neinu námskeiði.
+            {% endif %}
+        </p>
+        {% if available_courses %}
+            <p>Þú getur skráð þig í eftirfarandi námskeið:
+                {% for course in available_courses %}
+                    <a href="{{ course.get_absolute_url }}">{{ course.name }}</a>
+                    {% if not forloop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
     </article>
 {% endblock %}

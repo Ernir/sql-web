@@ -180,17 +180,27 @@ class Course(models.Model):
     Students are organized into courses
     """
 
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     open_to_all = models.BooleanField(default=True, help_text="Sé áfanginn lokaður sérð þú um að skrá inn nemendur")
-    members = models.ManyToManyField(User, blank=True)
     assignments = models.ManyToManyField(Assignment, blank=True)
+    members = models.ManyToManyField(User, blank=True)
+    description = models.TextField()
+
+    rendered_description = models.TextField()
+    slug = models.SlugField(max_length=200)
+
+    def get_absolute_url(self):
+        return reverse("course", args=[self.slug])
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         # ToDo handle assignments
+        self.slug = slugify(self.name)
+        self.rendered_description = markdown(self.description, extensions=["tables"])
         super(Course, self).save(*args, **kwargs)
+
 
 """
 Other models

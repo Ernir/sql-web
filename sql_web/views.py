@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404, render, render_to_response, redi
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from sql_web.forms import ExerciseForm
-from sql_web.models import Section, Exercise, Subject, IndexText
+from sql_web.forms import ExerciseForm, CourseRegistrationForm
+from sql_web.models import Section, Exercise, Subject, IndexText, Course
 from sql_web.sql_runner import ExerciseRunner
 
 
@@ -69,8 +69,12 @@ class ProfileView(BaseView):
 
     @method_decorator(login_required)
     def get(self, request):
-        read_sections = request.user.read.all()
+        currently_member_of = request.user.course_set.all()
+        available_courses = Course.objects.filter(open_to_all=True).all()
+        # Manual filtering due to ORM limitations. ToDO find prettier way.
+        available_courses = [course for course in available_courses if course not in currently_member_of]
 
+        read_sections = request.user.read.all()
         unread_sections = []
         num_unread_to_show = 5
         # Find some unread sections connected to those previously read
@@ -87,6 +91,8 @@ class ProfileView(BaseView):
                 unread_sections = unread_sections[:num_unread_to_show]
                 break
 
+        self.params["available_courses"] = available_courses
+        self.params["currently_member_of"] = currently_member_of
         self.params["read_sections"] = read_sections
         self.params["unread_sections"] = unread_sections
         self.params["title"] = "Síðan mín"
@@ -146,6 +152,27 @@ class ExerciseView(BaseView):
             return render(request, "exercise.html", self.params)
         else:
             return self.get(request, exercise_slug)
+
+
+class CourseView(BaseView):
+    def get(self, request, course_slug):
+        the_course = get_object_or_404(Course, slug=course_slug)
+        return self.course_view_common(request, the_course)
+
+    def post(self, request, course_slug):
+        the_course = get_object_or_404(Course, slug=course_slug)
+        # if "directive" in request.POST and request.POST["directive"] == "unregister":
+        form = CourseRegistrationForm(request.POST)
+        if form.is_valid():
+            if "directive" in request.POST and request.POST["directive"] == "on":
+                the_course.members.add(request.user)
+        return self.course_view_common(request, the_course)
+
+    def course_view_common(self, request, the_course):
+        self.params["course"] = the_course
+        self.params["registered"] = request.user in the_course.members.all()
+        self.params["form"] = CourseRegistrationForm()
+        return render(request, "course.html", self.params)
 
 
 """

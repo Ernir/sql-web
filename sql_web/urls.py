@@ -16,6 +16,7 @@ urlpatterns = [
     url(r"^skraning/$",
         CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')),
     url(r"^utskraning/$", views.LogoutView.as_view(), name="custom_logout",),
+    url(r"^namskeid/(?P<course_slug>.+)/$", views.CourseView.as_view(), name="course"),
 
     # Not for the users:
     url(r"^bakatil/vidfangsefni/$", views.SectionOverview.as_view(),

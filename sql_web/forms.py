@@ -62,3 +62,7 @@ class AceEditorAdminModelForm(forms.ModelForm):
 
 class ExerciseForm(forms.Form):
     code_area = forms.CharField(widget=forms.Textarea)
+
+
+class CourseRegistrationForm(forms.Form):
+    directive = forms.BooleanField(label="Hakaðu hér og ýttu á takkann til að skrá þig í námskeiðið.")
