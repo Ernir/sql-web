@@ -9,9 +9,13 @@
     <article>
         <h1>Hæ, {{ user.username }}</h1>
         {% if unread_sections %}
-            <p>Þú hefur mögulega<span><label class="margin-toggle sidenote-number" for="footnote-unread"></label><input
-                    class="margin-toggle" id="footnote-unread" type="checkbox"/><span class="sidenote">Þetta lesefni er tengt efni sem þú hefur lesið áður.</span></span>
-                áhuga á að lesa: </p>
+            <p>Þú hefur mögulega áhuga á að lesa eftirfarandi greinar:
+                <span>
+                <label for="footnote-unread" class="margin-toggle">&#8853;</label><input type="checkbox"
+                                                                                         id="footnote-unread"
+                                                                                         class="margin-toggle"/><span
+                        class="marginnote">Þetta lesefni er tengt efni sem þú hefur lesið áður.</span></span>
+            </p>
             <ul>
                 {% for section in unread_sections %}
                     <li>
