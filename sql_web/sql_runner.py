@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import OperationalError
 
 
-class ExerciseRunner():
+class ExerciseRunner:
     """
     A class that handles validating student-submitted SQL statements.
     """
@@ -41,6 +41,7 @@ class ExerciseRunner():
     def _validate_dml(self):
         conn = sqlite3.connect(":memory:")
         cursor = conn.cursor()
+
         try:
             cursor.executescript(self.schema)
         except OperationalError:
@@ -51,7 +52,7 @@ class ExerciseRunner():
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
         try:
-            cursor.executescript(self.statements)
+            user_result = cursor.execute(self.statements).fetchall()
         except OperationalError as oe:
             conn.close()
             return self.INCORRECT, self.COMMAND_ERROR_MSG.format(str(oe))
@@ -59,13 +60,33 @@ class ExerciseRunner():
             conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
-        if self.querysets_equal():
-            return self.CORRECT, self.CORRECT_MSG
+        if self._querysets_equal(user_result, conn):
+            result, message = self.CORRECT, self.CORRECT_MSG
         else:
-            return self.INCORRECT, self.WRONG_INFO_MSG
+            result, message = self.INCORRECT, self.WRONG_INFO_MSG
+        conn.close()
+        return result, message
 
-    def querysets_equal(self):
-        return self.CORRECT
+    def _querysets_equal(self, user_result, conn):
+        cursor = conn.cursor()
+        try:
+            expected_result = cursor.execute(self.to_emulate).fetchall()
+        except OperationalError:
+            conn.close()
+            return self.INCORRECT, self.BAD_SETUP_MSG
+        except Exception:
+            conn.close()
+            return self.INCORRECT, self.UNEXPECTED_ERROR
+
+        while expected_result:  # We check all elements in the set of expected results
+            result = expected_result.pop()  # We pick out the elements one by one...
+            try:
+                i = user_result.index(result)  # ... if the element is in the user's queryset, we pick it out too
+                user_result.pop(i)
+            except ValueError:
+                break
+        # If the querysets were equal, all elements were picked out, otherwise one of the lists still has elements.
+        return not expected_result and not user_result
 
     def _validate_ddl(self):
         """
