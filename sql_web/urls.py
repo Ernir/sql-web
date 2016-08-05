@@ -6,16 +6,15 @@ from sql_web.forms import UserCreationForm
 urlpatterns = [
     # User-facing
     url(r"^$", views.IndexView.as_view(), name="index"),
-    url(r"^vidfangsefni/$", views.SectionListView.as_view(),
-        name="sections"),
-    url(r"^vidfangsefni/(?P<section_slug>.+)/$",
-        views.SectionView.as_view(), name="section"),
-    url(r"^verkefni/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(),
-        name="exercise"),
+    url(r"^vidfangsefni/$", views.SectionListView.as_view(), name="sections"),
+    url(r"^vidfangsefni/(?P<section_slug>.+)/$", views.SectionView.as_view(), name="section"),
+    url(r"^aefing/$", views.ExerciseListView.as_view(), name="exercises"),
+    url(r"^aefingar/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(), name="exercise"),
     url(r"^min-sida/$", views.ProfileView.as_view(), name="profile"),
     url(r"^skraning/$",
-        CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')),
-    url(r"^utskraning/$", views.LogoutView.as_view(), name="custom_logout",),
+        CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')
+        ),
+    url(r"^utskraning/$", views.LogoutView.as_view(), name="custom_logout", ),
     url(r"^namskeid/(?P<course_slug>.+)/$", views.CourseView.as_view(), name="course"),
 
     # Not for the users:

@@ -11,15 +11,27 @@
         {% autoescape off %}
             {{ section.rendered_contents }}
         {% endautoescape %}
-        {% if section.connected_to.count %}
+        {% if section.connected_to %}
+            <h2>Tengt efni</h2>
             <p>
-                Tengt efni:
+
                 {% for s in section.connected_to.all %}
                     <a href="{{ s.get_absolute_url }}">{{ s.title }}</a>
                     {% if not forloop.last %}
                         ,
                     {% endif %}
-                {% endfor %}
+                {% endfor %}.
+            </p>
+        {% endif %}
+        {% if section.associated_exercises %}
+            <h2>Tengd verkefni</h2>
+            <p>
+                {% for e in section.associated_exercises.all %}
+                    <a href="{{ e.get_absolute_url }}">{{ e.title }}</a>
+                    {% if not forloop.last %}
+                        ,
+                    {% endif %}
+                {% endfor %}.
             </p>
         {% endif %}
     </article>

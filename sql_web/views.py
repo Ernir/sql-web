@@ -58,7 +58,7 @@ class SectionListView(BaseView):
     def get(self, request):
         subjects = Subject.objects.all()
         self.params["subjects"] = subjects
-        self.params["title"] = "Yfirlitssíða"
+        self.params["title"] = "Yfirlitssíða viðfangsefna"
         return render(request, "sections.html", self.params)
 
 
@@ -152,6 +152,26 @@ class ExerciseView(BaseView):
             return render(request, "exercise.html", self.params)
         else:
             return self.get(request, exercise_slug)
+
+
+class ExerciseListView(BaseView):
+    """
+    A list of all defined exercises.
+    """
+
+    def get(self, request):
+        exercises = Exercise.objects.all()
+        completed_exercises, not_completed_exercises = [], []
+        for e in exercises:
+            if request.user in e.completed_by.all():
+                completed_exercises.append(e)
+            else:
+                not_completed_exercises.append(e)
+        print(completed_exercises, not_completed_exercises)
+        self.params["complete"] = completed_exercises
+        self.params["incomplete"] = not_completed_exercises
+        self.params["title"] = "Yfirlitssíða verkefna"
+        return render(request, "exercises.html", self.params)
 
 
 class CourseView(BaseView):

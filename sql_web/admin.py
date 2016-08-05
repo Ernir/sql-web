@@ -4,8 +4,12 @@ from adminsortable2.admin import SortableAdminMixin
 
 admin.site.register(Subject)
 admin.site.register(Example)
-admin.site.register(Exercise)
 admin.site.register(Footnote)
+
+
+@admin.register(Exercise)
+class ExerciseAdmin(admin.ModelAdmin):
+    filter_horizontal = ["completed_by", ]
 
 
 @admin.register(Course)
@@ -16,7 +20,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    filter_horizontal = ["connected_to"]
+    filter_horizontal = ["connected_to", "associated_exercises"]
     exclude = ("read_by", "rendered_contents")
     readonly_fields = ("slug",)
 

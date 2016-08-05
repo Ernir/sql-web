@@ -36,11 +36,8 @@ class Section(models.Model):
     subject = models.ForeignKey(Subject)
     contents = models.TextField()
     rendered_contents = models.TextField()
-    connected_to = models.ManyToManyField(
-        'self',
-        blank=True,
-        symmetrical=False
-    )
+    connected_to = models.ManyToManyField('self', blank=True, symmetrical=False)
+    associated_exercises = models.ManyToManyField("Exercise", blank=True)
     read_by = models.ManyToManyField(User, blank=True, related_name="read")
 
     def __str__(self):
@@ -150,6 +147,7 @@ class Exercise(models.Model):
     prepopulated = models.TextField()
     given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
+    completed_by = models.ManyToManyField(User, blank=True)
 
     def get_absolute_url(self):
         return reverse("exercise", args=[self.identifier])
