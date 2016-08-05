@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
+{% endblock %}
 
 {% block text_content %}
     <h1>{{ exercise.title }}</h1>

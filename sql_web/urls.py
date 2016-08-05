@@ -8,8 +8,8 @@ urlpatterns = [
     url(r"^$", views.IndexView.as_view(), name="index"),
     url(r"^vidfangsefni/$", views.SectionListView.as_view(), name="sections"),
     url(r"^vidfangsefni/(?P<section_slug>.+)/$", views.SectionView.as_view(), name="section"),
-    url(r"^aefing/$", views.ExerciseListView.as_view(), name="exercises"),
-    url(r"^aefingar/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(), name="exercise"),
+    url(r"^aefingar/$", views.ExerciseListView.as_view(), name="exercises"),
+    url(r"^aefing/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(), name="exercise"),
     url(r"^min-sida/$", views.ProfileView.as_view(), name="profile"),
     url(r"^skraning/$",
         CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')
