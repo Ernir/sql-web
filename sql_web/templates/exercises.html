@@ -22,7 +22,7 @@
         {% if complete %}
             <p>Þú hefur lokið eftirfarandi æfingum:</p>
             <ul>
-                {% for exercise in incomplete %}
+                {% for exercise in complete %}
                     <li><a href="{{ exercise.get_absolute_url }}">{{ exercise.title }}</a></li>
                 {% endfor %}
             </ul>

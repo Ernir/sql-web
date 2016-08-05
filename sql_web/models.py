@@ -150,7 +150,7 @@ class Exercise(models.Model):
 
     DDL = "DDL"
     DML = "DML"
-    STATEMENT_TYPE_CHOICES = ((DDL, "DDL"), (DML, "DML"))
+    STATEMENT_TYPE_CHOICES = ((DDL, "Other"), (DML, "SELECT"))
     statement_type = models.CharField(max_length=3, choices=STATEMENT_TYPE_CHOICES, default=DML)
 
     completed_by = models.ManyToManyField(User, blank=True)
