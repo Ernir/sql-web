@@ -140,14 +140,18 @@ class ExerciseView(BaseView):
             schema = the_exercise.given_schema
             to_emulate = the_exercise.sql_to_emulate
             statements = form.cleaned_data["code_area"]
-            statement_type = "DDL"
+            statement_type = the_exercise.statement_type
 
             runner = ExerciseRunner(
                 statements, schema, to_emulate, statement_type
             )
 
-            valid = runner.is_valid()
-            print(valid)
+            valid, message = runner.is_valid()
+            self.params["message"] = message
+            print(message)
+
+            if valid:
+                the_exercise.completed_by.add(request.user)
 
             return render(request, "exercise.html", self.params)
         else:

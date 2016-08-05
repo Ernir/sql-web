@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load sql_web_extras %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static "tufte-css/tufte.css" %}"/>
@@ -8,9 +9,18 @@
 {% block text_content %}
     <h1>{{ exercise.title }}</h1>
     {{ exercise.problem_description }}
+    <p>{% marginnote "message" message %}</p>
     <form action="." method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Keyra SQL"/>
     </form>
+    {% if exercise.given_schema %}
+        <p>Gera skal ráð fyrir að eftirfarandi skipanir hafi verið keyrðar áður en þú keyrir þína skipun:</p>
+        <code>
+            {% autoescape off %}
+                {{ exercise.given_schema }}
+            {% endautoescape %}
+        </code>
+    {% endif %}
 {% endblock %}

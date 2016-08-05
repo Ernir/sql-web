@@ -61,7 +61,7 @@ class AceEditorAdminModelForm(forms.ModelForm):
 
 
 class ExerciseForm(forms.Form):
-    code_area = forms.CharField(widget=forms.Textarea)
+    code_area = forms.CharField(label="SQL-skipunin er:", widget=forms.Textarea)
 
 
 class CourseRegistrationForm(forms.Form):

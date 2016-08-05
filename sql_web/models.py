@@ -147,6 +147,12 @@ class Exercise(models.Model):
     prepopulated = models.TextField()
     given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
+
+    DDL = "DDL"
+    DML = "DML"
+    STATEMENT_TYPE_CHOICES = ((DDL, "DDL"), (DML, "DML"))
+    statement_type = models.CharField(max_length=3, choices=STATEMENT_TYPE_CHOICES, default=DML)
+
     completed_by = models.ManyToManyField(User, blank=True)
 
     def get_absolute_url(self):

@@ -1,0 +1,9 @@
+<span>
+    <label for="{{ marginnote_id }}" class="margin-toggle">&#8853;</label>
+    <input type="checkbox" id="{{ marginnote_id }}" class="margin-toggle"/>
+    <span class="marginnote">
+        {% autoescape off %}
+            {{ marginnote_contents }}
+        {% endautoescape %}
+    </span>
+</span>
