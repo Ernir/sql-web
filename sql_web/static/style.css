@@ -58,7 +58,11 @@ table thead th {
     border-bottom: solid 1px black;
 }
 
-/* Form styling */
+/*
+Form styling
+*/
+
+/* User registration form */
 
 .registration input[type=text] {
     width: 360px;
@@ -76,5 +80,19 @@ table thead th {
 }
 
 .registration .helptext {
+    display: block;
+}
+
+/* Exercise input form */
+
+.exercise-area label {
+    display: block;
+}
+
+.exercise-area textarea {
+    width: 52.5%;
+}
+
+.exercise-area input[type=submit] {
     display: block;
 }

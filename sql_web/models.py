@@ -144,7 +144,7 @@ class Exercise(models.Model):
     identifier = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=200)
     problem_description = models.TextField()
-    prepopulated = models.TextField()
+    prepopulated = models.TextField(blank=True)
     given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
 
