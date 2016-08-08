@@ -9,9 +9,9 @@ class ExerciseRunner:
 
     BAD_SETUP_MSG = "Uppsetning æfingarinnar olli villu, sem bendir til þess að æfingin hafi verið rangt sett inn. " \
                     "Mælt er með því að hafa samband við kennara."
-    COMMAND_ERROR_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
+    BROKEN_COMMAND_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
     CORRECT_MSG = "Rétt!"
-    WRONG_INFO_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu."
+    WRONG_RESULTS_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu."
     NO_EXACT_MATCH = "Skipunin sem þú gafst passar ekki nákvæmlega við þá skipun sem búist var við. " \
                      "Má ekki bjóða þér að reyna aftur?"
     UNEXPECTED_ERROR = "Keyrsla skipunarinnar olli villu sem enginn gerði ráð fyrir!" \
@@ -21,7 +21,7 @@ class ExerciseRunner:
 
     def __init__(self, statements, schema, to_emulate, statement_type):
         self.schema = schema
-        self.statements = statements
+        self.user_statements = statements
         self.to_emulate = to_emulate
         self.statement_type = statement_type
 
@@ -39,9 +39,13 @@ class ExerciseRunner:
             raise ValueError("Ég skil ekki verkefnisgerðina \"{}\"".format(self.statement_type))
 
     def _validate_dml(self):
+        """
+        Runs the given queries against an in-memory SQLite database for comparison
+        """
         conn = sqlite3.connect(":memory:")
         cursor = conn.cursor()
 
+        # Set up the pre-defined database schema.
         try:
             cursor.executescript(self.schema)
         except OperationalError:
@@ -51,24 +55,7 @@ class ExerciseRunner:
             conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
-        try:
-            user_result = cursor.execute(self.statements).fetchall()
-        except OperationalError as oe:
-            conn.close()
-            return self.INCORRECT, self.COMMAND_ERROR_MSG.format(str(oe))
-        except Exception:
-            conn.close()
-            return self.INCORRECT, self.UNEXPECTED_ERROR
-
-        if self._querysets_equal(user_result, conn):
-            result, message = self.CORRECT, self.CORRECT_MSG
-        else:
-            result, message = self.INCORRECT, self.WRONG_INFO_MSG
-        conn.close()
-        return result, message
-
-    def _querysets_equal(self, user_result, conn):
-        cursor = conn.cursor()
+        # Fetch the results of the query that should be emulated.
         try:
             expected_result = cursor.execute(self.to_emulate).fetchall()
         except OperationalError:
@@ -78,22 +65,52 @@ class ExerciseRunner:
             conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
-        while expected_result:  # We check all elements in the set of expected results
-            result = expected_result.pop()  # We pick out the elements one by one...
+        # Fetch the results of whatever statement the user entered.
+        try:
+            user_result = cursor.execute(self.user_statements).fetchall()
+        except OperationalError as oe:
+            conn.close()
+            return self.INCORRECT, self.BROKEN_COMMAND_MSG.format(str(oe))
+        except Exception:
+            conn.close()
+            return self.INCORRECT, self.UNEXPECTED_ERROR
+
+        # Compare the results of the queryset to be emulated and the result of the user's query
+        ordered = "ORDER BY" in self.to_emulate.upper()
+        if self._querysets_equal(user_result, expected_result, ordered):
+            result, message = self.CORRECT, self.CORRECT_MSG
+        else:
+            result, message = self.INCORRECT, self.WRONG_RESULTS_MSG
+        conn.close()
+        return result, message
+
+    @staticmethod
+    def _querysets_equal(user_queryset, expected_queryset, ordered=False):
+        """
+        Compares two querysets as returned by a Python sqlite3 cursor for equality.
+        """
+        while user_queryset and expected_queryset:
             try:
-                i = user_result.index(result)  # ... if the element is in the user's queryset, we pick it out too
-                user_result.pop(i)
+                result = expected_queryset.pop(0)  # We pick out the elements one by one...
+            except IndexError:
+                break
+            try:
+                i = user_queryset.index(result)  # ... if the element is in the user's queryset, we find it...
             except ValueError:
                 break
+
+            # ... and pop it out.
+            if not ordered or i == 0:
+                user_queryset.pop(i)
         # If the querysets were equal, all elements were picked out, otherwise one of the lists still has elements.
-        return not expected_result and not user_result
+        return not expected_queryset and not user_queryset
 
     def _validate_ddl(self):
         """
         Performs naive string comparisons on the given SQL statements.
         """
         # First, strip whitespace and normalize case:
-        clean_statements = "".join(self.statements.split()).lower()
+        clean_statements = "".join(self.user_statements.split()).lower()
         clean_to_emulate = "".join(self.to_emulate.split()).lower()
         if clean_statements == clean_to_emulate:
             return self.CORRECT, self.CORRECT_MSG
