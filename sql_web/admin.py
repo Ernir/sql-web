@@ -10,6 +10,7 @@ admin.site.register(Footnote)
 @admin.register(Exercise)
 class ExerciseAdmin(admin.ModelAdmin):
     filter_horizontal = ["completed_by", ]
+    exclude = ("rendered_description",)
 
 
 @admin.register(Course)

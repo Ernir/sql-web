@@ -8,7 +8,9 @@
 
 {% block text_content %}
     <h1>{{ exercise.title }}</h1>
-    <p>{{ exercise.problem_description }}</p>
+    {% autoescape off %}
+        {{ exercise.rendered_description }}
+    {% endautoescape %}
     <p>{% marginnote "message" message %}</p>
     <form action="." method="post" class="exercise-area">
         {% csrf_token %}

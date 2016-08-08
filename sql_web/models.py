@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
 from markdown import markdown
+from sql_web.markdown_extensions.inline_code import InlineCodeExtension
 from sql_web.text_processing import apply_markdown
 
 """
@@ -144,6 +145,7 @@ class Exercise(models.Model):
     identifier = models.CharField(max_length=50, unique=True)
     title = models.CharField(max_length=200)
     problem_description = models.TextField()
+    rendered_description = models.TextField()
     prepopulated = models.TextField(blank=True)
     given_schema = models.TextField(blank=True)
     sql_to_emulate = models.TextField()
@@ -160,6 +162,10 @@ class Exercise(models.Model):
 
     def __str__(self):
         return self.identifier
+
+    def save(self, *args, **kwargs):
+        self.rendered_description = markdown(self.problem_description, extensions=["tables", InlineCodeExtension()])
+        super(Exercise, self).save(*args, **kwargs)
 
 
 class Assignment(models.Model):
@@ -202,7 +208,7 @@ class Course(models.Model):
     def save(self, *args, **kwargs):
         # ToDo handle assignments
         self.slug = slugify(self.name)
-        self.rendered_description = markdown(self.description, extensions=["tables"])
+        self.rendered_description = markdown(self.description, extensions=["tables", InlineCodeExtension()])
         super(Course, self).save(*args, **kwargs)
 
 
@@ -218,7 +224,7 @@ class IndexText(models.Model):
     rendered_contents = models.TextField()
 
     def save(self, *args, **kwargs):
-        self.rendered_contents = markdown(self.contents, extensions=["tables"])
+        self.rendered_contents = markdown(self.contents, extensions=["tables", InlineCodeExtension()])
         super(IndexText, self).save(*args, **kwargs)
 
     def __str__(self):
