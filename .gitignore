@@ -9,6 +9,14 @@ mediafiles
 *.sh
 *.json
 
-latex_converter/*.html
-latex_converter/*.tex
-latex_converter/myndir
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.lof
+report/*.log
+report/*.lol
+report/*.lot
+report/*.out
+report/*.pdf
+report/*.toc
+report/_minted*
