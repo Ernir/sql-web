@@ -137,14 +137,9 @@ class ExerciseView(BaseView):
             self.params["form"] = form
             self.params["exercise"] = the_exercise
 
-            schema = the_exercise.given_schema
-            to_emulate = the_exercise.sql_to_emulate
-            statements = form.cleaned_data["code_area"]
-            statement_type = the_exercise.statement_type
+            user_statments = form.cleaned_data["code_area"]
 
-            runner = ExerciseRunner(
-                statements, schema, to_emulate, statement_type
-            )
+            runner = ExerciseRunner(user_statments, the_exercise)
 
             valid, message = runner.is_valid()
             self.params["message"] = message

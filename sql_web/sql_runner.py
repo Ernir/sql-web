@@ -7,6 +7,8 @@ class ExerciseRunner:
     A class that handles validating student-submitted SQL statements.
     """
 
+    UNALTERED_INPUT = "Engar breytingar voru gerðar á skipuninni sem var gefin í upphafi. " \
+                      "Þú þarft að gera breytingu til að leysa verkefnið."
     BAD_SETUP_MSG = "Uppsetning æfingarinnar olli villu, sem bendir til þess að æfingin hafi verið rangt sett inn. " \
                     "Mælt er með því að hafa samband við kennara."
     BROKEN_COMMAND_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
@@ -20,11 +22,12 @@ class ExerciseRunner:
     INCORRECT = False
     CORRECT = True
 
-    def __init__(self, statements, schema, to_emulate, statement_type):
-        self.schema = schema
+    def __init__(self, statements, exercise):
         self.user_statements = statements
-        self.to_emulate = to_emulate
-        self.statement_type = statement_type
+        self.schema = exercise.given_schema
+        self.prepopulated = exercise.prepopulated
+        self.to_emulate = exercise.sql_to_emulate
+        self.statement_type = exercise.statement_type
 
     def is_valid(self):
         """
@@ -32,12 +35,27 @@ class ExerciseRunner:
         First element of the tuple is a boolean, True if the exercise is validated as correct, False otherwise.
         The second element is a string containing a message about the result.
         """
+
+        sane, message = self._is_sane()
+        if not sane:
+            return sane, message
+
         if self.statement_type == "DDL":
             return self._validate_ddl()
         elif self.statement_type == "DML":
             return self._validate_dml()
         else:
             raise ValueError("Unexpected statement type: \"{}\"".format(self.statement_type))
+
+    def _is_sane(self):
+        """
+        Checks the entered statement for input errors.
+        Returns a boolean indicating whether an error is found. If there's an error, also return an error message.
+        """
+        if self.prepopulated.strip() == self.user_statements.strip():
+            return self.INCORRECT, self.UNALTERED_INPUT
+        # ToDo identify more common input errors.
+        return self.CORRECT, ""
 
     def _validate_dml(self):
         """
