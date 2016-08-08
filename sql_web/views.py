@@ -148,7 +148,6 @@ class ExerciseView(BaseView):
 
             valid, message = runner.is_valid()
             self.params["message"] = message
-            print(message)
 
             if valid:
                 the_exercise.completed_by.add(request.user)

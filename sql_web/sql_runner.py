@@ -11,11 +11,12 @@ class ExerciseRunner:
                     "Mælt er með því að hafa samband við kennara."
     BROKEN_COMMAND_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
     CORRECT_MSG = "Rétt!"
-    WRONG_RESULTS_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu."
+    WRONG_RESULTS_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu. "
     NO_EXACT_MATCH = "Skipunin sem þú gafst passar ekki nákvæmlega við þá skipun sem búist var við. " \
                      "Má ekki bjóða þér að reyna aftur?"
     UNEXPECTED_ERROR = "Keyrsla skipunarinnar olli villu sem enginn gerði ráð fyrir!" \
                        "Mælt er með því að hafa samband við kennara."
+    NUM_DIFFERENCES = "Fjöldi stafabreytinga sem gera þarf á lausninni til að hún sé eins og lausn kennarans er {}. "
     INCORRECT = False
     CORRECT = True
 
@@ -36,7 +37,7 @@ class ExerciseRunner:
         elif self.statement_type == "DML":
             return self._validate_dml()
         else:
-            raise ValueError("Ég skil ekki verkefnisgerðina \"{}\"".format(self.statement_type))
+            raise ValueError("Unexpected statement type: \"{}\"".format(self.statement_type))
 
     def _validate_dml(self):
         """
@@ -70,7 +71,11 @@ class ExerciseRunner:
             user_result = cursor.execute(self.user_statements).fetchall()
         except OperationalError as oe:
             conn.close()
-            return self.INCORRECT, self.BROKEN_COMMAND_MSG.format(str(oe))
+            return self.INCORRECT, "{}.\n {}".format(
+                self.BROKEN_COMMAND_MSG.format(str(oe)), self.NUM_DIFFERENCES.format(
+                    self._lax_levenshtein(self.user_statements, self.to_emulate)
+                )
+            )
         except Exception:
             conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
@@ -80,8 +85,12 @@ class ExerciseRunner:
         if self._querysets_equal(user_result, expected_result, ordered):
             result, message = self.CORRECT, self.CORRECT_MSG
         else:
-            result, message = self.INCORRECT, self.WRONG_RESULTS_MSG
-        conn.close()
+            result, message = self.INCORRECT, "{}\n {}".format(
+                self.WRONG_RESULTS_MSG, self.NUM_DIFFERENCES.format(
+                    self._lax_levenshtein(self.user_statements, self.to_emulate)
+                )
+            )
+            conn.close()
         return result, message
 
     @staticmethod
@@ -109,10 +118,43 @@ class ExerciseRunner:
         """
         Performs naive string comparisons on the given SQL statements.
         """
-        # First, strip whitespace and normalize case:
-        clean_statements = "".join(self.user_statements.split()).lower()
-        clean_to_emulate = "".join(self.to_emulate.split()).lower()
-        if clean_statements == clean_to_emulate:
+        distance = self._lax_levenshtein(self.user_statements, self.to_emulate)
+        if distance == 0:
             return self.CORRECT, self.CORRECT_MSG
         else:
-            return self.INCORRECT, self.NO_EXACT_MATCH
+            return self.INCORRECT, "{}\n {}".format(
+                self.NO_EXACT_MATCH, self.NUM_DIFFERENCES.format(
+                    self._lax_levenshtein(self.user_statements, self.to_emulate)
+                )
+            )
+
+    def _lax_levenshtein(self, s1, s2):
+        """
+        Returns the Levenshtein distance between two strings, discarding spaces and case differences.
+        """
+        s1 = "".join(s1.split()).lower()
+        s2 = "".join(s2.split()).lower()
+        return self._levenshtein(s1, s2)
+
+    def _levenshtein(self, s1, s2):
+        """
+        Calculates the Levenshtein distance between two strings.
+        Implementation borrowed from:
+        https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings/Levenshtein_distance#Python
+        """
+        if len(s1) < len(s2):
+            return self._levenshtein(s2, s1)
+        if len(s2) == 0:
+            return len(s1)
+
+        previous_row = range(len(s2) + 1)
+        for i, c1 in enumerate(s1):
+            current_row = [i + 1]
+            for j, c2 in enumerate(s2):
+                insertions = previous_row[j + 1] + 1
+                deletions = current_row[j] + 1
+                substitutions = previous_row[j] + (c1 != c2)
+                current_row.append(min(insertions, deletions, substitutions))
+            previous_row = current_row
+
+        return previous_row[-1]
