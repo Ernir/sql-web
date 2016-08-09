@@ -116,6 +116,9 @@ class ExerciseRunner:
         """
         Compares two querysets as returned by a Python sqlite3 cursor for equality.
         """
+        if len(user_queryset) != len(expected_queryset):
+            return False
+
         while user_queryset and expected_queryset:
             try:
                 result = expected_queryset.pop(0)  # We pick out the elements one by one...
