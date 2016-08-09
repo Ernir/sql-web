@@ -236,21 +236,22 @@ Til glöggvunar heldur tafla \ref{tab:translations} utan um helstu þýðingar s
 \toprule
 Íslenska&Enska\\
 \midrule
-Frumkóði & Source code\\
+Hér á eftir að gera: &CTRL-F á (e. \\
 Ívafsmál & Markup language\\
 Málskipan & Syntax\\
+Æfing & Exercise\\
 \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
 
-\chapter*{Acknowledgments}
-\addcontentsline{toc}{chapter}{Acknowledgments}
-
-Hjálmtýr Hafsteinsson
-
-Hrefna Karítas Sigurjónsdóttir
+% \chapter*{Acknowledgments}
+% \addcontentsline{toc}{chapter}{Acknowledgments}
+% 
+% Hjálmtýr Hafsteinsson
+% 
+% Hrefna Karítas Sigurjónsdóttir
 
 \chapter{Inngangur}
 
@@ -258,7 +259,7 @@ Hrefna Karítas Sigurjónsdóttir
 \setcounter{page}{1}
 
 \section{Forsaga verkefnisins}
-Sumarið 2014 skrifaði höfundur stutta kennslubók, til stuðnings við kennslu í fyrstu áföngum Tækniskólans í Reykjavík í notkun gagnasafna. Lagst var í skrifin eftir að ljóst var að nálgun nýlegra íslenskra bóka um gagnasafnsfræði\cite{sigurdur2003, jon2008} hentaði illa fyrir nemendur á fyrsta hæfniþrepi.
+Sumarið 2014 skrifaði höfundur stutta kennslubók, til stuðnings við kennslu í fyrstu áföngum Tækniskólans í Reykjavík í notkun gagnasafna. Lagst var í skrifin eftir að ljóst var að nálgun nýlegra íslenskra bóka um gagnasafnsfræði\cite{sigurdur2003, jon2008} hentaði illa fyrir 16 til 17 ára nemendur.
 
 Þarfir áfanganna í Tækniskólanum eins og þeir voru kenndir á þeim tíma voru í forgrunni við skrif bókarinnar. Farið var hægt yfir grundvallaratriði fyrirspurna og annarra mikið notaðra atriða í MySQL gagnagrunnskerfinu.
 
@@ -268,7 +269,7 @@ Bókinni var vel tekið af þeim kennurum Tækniskólans sem sáu um kennslu í 
 \section{Önnur kennslutól}
 Hugmyndin um að nýta vefinn og tölvuforrit til kennslu í notkun gagnasafna er ekki ný af nálinni. 
 
-Auðvelt er að finna umfjöllun um eldri tilraunir til að búa til kennsluforrit í akademísku umhverfi. SQL-Tutor \cite{mitrovic1998} er kerfi komið til ára sinna, en þróun á því hófst árið 1996. Kerfið er ``intelligent tutoring system'' (ITS), ætlað til að uppfylla hlutverk leiðbeinanda þegar nemandi vinnur að því að semja fyrirspurnir. Kerfið tekur við fyrirspurnum frá nemendum og metur hvort þær séu réttar, en í stað hefðbundinna villuskilaboða leggur SQL-Tutor áherslu á að veita nemandanum leiðsögn um hvað það er sem gæti hafa farið úrskeiðis. Acharya\cite{bhagat2002} er svipaðs eðlis, en það er ITS-kerfi sem líka leggur áherslu á greiningu nemendafyrirspurna. Acharya leyfir frjálsa könnun nemandans á efnisatriðum og sýnir honum ráðleggingar byggðar á þeim efnisatriðum sem hann hefur þegar skoðað, en aðferðunum sem notaðar eru til að framleiða ráðleggingarnar er einungis lýst stuttlega. AsseSQL \cite{prior2014assesql} er tól til að veita sjálfvirka endurgjöf og ákvarða einkunnir. SQLator \cite{sadiq2004sqlator} leyfir nemendum að kanna gagnagrunn fyrirspurna til að framkvæma og fá á endurgjöf.
+Auðvelt er að finna umfjöllun um eldri tilraunir til að búa til kennsluforrit í akademísku umhverfi. SQL-Tutor \cite{mitrovic1998} er kerfi komið til ára sinna, en þróun á því hófst árið 1996. Kerfið er ``intelligent tutoring system'' (ITS), ætlað til að uppfylla hlutverk leiðbeinanda þegar nemandi vinnur að því að semja fyrirspurnir. Kerfið tekur við fyrirspurnum frá nemendum og metur hvort þær séu réttar, en í stað hefðbundinna villuskilaboða leggur SQL-Tutor áherslu á að veita nemandanum leiðsögn um hvað það er sem gæti hafa farið úrskeiðis. Acharya\cite{bhagat2002} er svipaðs eðlis, en það er ITS-kerfi sem líka leggur áherslu á greiningu nemendafyrirspurna. Acharya leyfir frjálsa könnun nemandans á efnisatriðum og sýnir honum ráðleggingar byggðar á þeim efnisatriðum sem hann hefur þegar skoðað, en aðferðunum sem notaðar eru til að framleiða ráðleggingarnar er einungis lýst stuttlega. AsseSQL \cite{prior2014assesql} er tól til að veita sjálfvirka endurgjöf og ákvarða einkunnir. SQLator \cite{sadiq2004sqlator} leyfir nemendum að kanna gagnagrunn fyrirspurna til að framkvæma og fá endurgjöf á æfingum.
 
 Auk þeirra tóla sem fengið hafa akademíska umfjöllun er fjöldinn allur af námstækifærum til staðar á netinu.
 
@@ -285,9 +286,9 @@ Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar ken
 
 Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla.
 
-Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla.
+Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla. 
 \chapter{Kennslufræðilegar hugmyndir}
-
+\label{sec:kennslufraedilegar-hugmyndir}
 Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 
 \section{Viðfangsefni sem net/Topic Maps}
@@ -295,10 +296,80 @@ Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 \section{Könnunarnám}
 \section{Efnisáherslur}
 \chapter{Útfærsla vefsins}
+\section{Greining á SQL-skipunum nemenda}
+Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld.
+
+Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django\ref{sec:django} \texttt{model} hlut, sem hefur nokkra eiginleika sem vert er að nefna:
+
+\begin{itemize}
+ \item Nafn, auðkenni og lýsingu
+ \item Gerðarlýsingu (e. \emph{schema}) ásamt gögnum, sem sett er upp áður en skipanir eru keyrðar
+ \item SQL-skipun sem ætlunin er að láta nemandann líkja eftir
+ \item Sjálfgefna skipun, sem nemandinn skal breyta
+ \item Tilgreiningu á ``gerð'' æfingarinnar - \texttt{SELECT} æfing eða annars konar æfing
+\end{itemize}
+
+Þessir eiginleikar, að viðbættri SQL-skipun sem nemandinn skrifar inn, myndar eina keyrslu á æfingu. Keyrsla á æfingu skilar sanngildi sem tilgreinir hvort að SQL-skipun nemandans hafi verið rétt miðað við gefnar forsendur, ásamt skilaboðum til nemandans.
+\subsection{Keyrsla á æfingum}
+Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
+
+\subsubsection{Mat á skipunum öðrum en SELECT skipunum}
+Snúist æfingin ekki um \texttt{SELECT} skipun er strengjasamanburður notaður til að athuga hvort að skipunin sé sambærileg við þá sem herma skal eftir. Samanburðurinn felst í því að Levenshtein-fjarlægð er reiknuð á milli skipananna tveggja. 
+
+Levenshtein-fjarlægð er mælikvarði á hversu líkar tvær runur eru. Í þessu tilviki er um að ræða talningu á því hversu margar eins stafs breytingar þyrfti að gera á streng sem inniheldur fyrirspurn nemandans til að breyta henni í fyrirspurn kennarans.
+
+Fjarlægðin er reiknuð án þess að taka tillit til biltákna (e. \emph{whitespace characters}) eða mismunar á milli hástafa og lágstafa. Sé Levenshtein-fjarlægðin á milli strengjanna 0 er skipunin rétt, annars röng. Sé skipunin röng og fjarlægðin lítil er nemandanum birt fjarlægðin, ásamt útskýringu. Markmiðið með að birta Levenshtein-fjarlægðina sé hún lág er til að gefa nemendum vísbendingu um að viðkomandi gæti verið á réttri leið en með smávægilega málskipunarvillu (e. \emph{syntax error}), en málskipunarvillur er sá villuflokkur sem nemendur lenda hvað oftast í við að skrifa SQL\cite{ahadi2016students}.
+
+\subsubsection{Mat á SELECT skipunum}
+Þegar um \texttt{SELECT}-skipanir er að ræða er möguleiki á að sannreyna niðurstöðurnar á sveigjanlegri máta.
+
+Í slíkum æfingum er gerðarlýsingin sett upp og fyrirspurnirnar, bæði fyrirspurn nemandans og samanburðarfyrirspurnin, keyrðar á henni. Út úr þeim keyrslum koma tvö mengi niðurstaðna sem hægt er að bera saman, annars vegar ``nemendamengi'' og hins vegar ``samanburðarmengi''. Séu mengin eins er nemendaskipunin talin rétt.
+
+Gagnagrunnsviðmótið skilar niðurstöðumengjunum sem listum (e. \emph{lists}) af línum (e. \emph{tuples}). Þessar gagnagrindur (e. \emph{data structures}) eru almenns eðlis, sem setja möguleikum á samanburðum nokkrar skorður.
+
+Samanburðurinn fer fram með eftirfarandi hætti:
+\begin{itemize}
+ \item Athugað er hvort að mengin séu af sömu stærð, séu þau það ekki er samanburðinum strax hafnað
+ \item Ítrað er yfir samanburðarmengið og leitað að tilsvarandi stökum í nemendamenginu
+ \begin{itemize}
+  \item Stökin eru fjarlægð úr tilsvarandi mengjum við samanburðinn
+  \item Keyrslu er hætt finnist stak ekki í nemendamenginu
+  \item Sé samanburðarmengið myndað með fyrirspurn sem inniheldur \texttt{ORDER BY} er sú krafa gerð að stakið sé fremst í nemendamenginu
+ \end{itemize}
+ \item Samanburðurinn á milli mengjanna er sannur ef ítrunin tæmir þau bæði.
+\end{itemize}
+
+\begin{table}
+\caption[Tímaflækja samanburða]{Tímaflækja samanburða á fyrirspurnamengjum í æfingum kennsluvefsins}
+\label{tab:comparison-complexity}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Aðgerð&Tímaflækja í versta tilfelli\\
+\midrule
+Staðfesting á misstórum mengjum& $O(1)$\\
+Samanburður á óröðuðum mengjum& $O(n^2)$\\
+Samanburður á röðuðum mengjum& $O(n)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+Ítrunin yfir samanburðarmengið tekur línulegan tíma með tilliti til fjölda staka í menginu. Einföld samanburðarleit á borð við þá sem notuð er á nemendamengið er sömuleiðis með línulegan keyrslutíma. Gert er ráð fyrir því að samanburður tveggja lína taki fastan tíma.
+
+Áætlaðar tímaflækjur fyrir samanburði niðurstaðnanna má sjá á töflu \ref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. Tímaflækja samanburðanna er slæm þegar bera þarf saman tvö óröðuð, jafn stór mengi. Þetta hefur engu að síður ekki valdið vandræðum við raunverulegar aðstæður. Aðferðin hefur auk þess nokkra kosti sem gera hana áreiðanlegri en fyrirsjáanlegir möguleikar á að nota skilvirkari aðferðir.
+
+\paragraph{Aðrar leiðir til að framkvæma samanburði} Þekkt er að hægt sé að bera saman tvö mengi á línulegum tíma með tilliti til fjölda staka sé uppfletting möguleg á föstum tíma. Mengi í Python styðja uppflettingu á föstum tíma, að því gefnu að hægt sé að reikna tætivistföng (e. \emph{hash values}) fyrir stökin. Þar sem kennari getur útbúið æfingar með flestum gerðum gagna er óáreiðanlegt að gera ráð fyrir miklu um uppbyggingu hverrar línu.
+
+Einnig er hægt að bera saman mengi á $O(n\log n)$ tíma séu stökin raðanleg. Hvoru mengi um sig er þá raðað með samanburðarröðunarreikniriti og stök mengjanna þvínæst pöruð saman í röð. Þessi leið er einnig illfær. Þó að gögn í gagnagrunnum séu jafnan þess eðlis að hægt sé að raða þeim, þá væri óáreiðanlegt að gera ráð fyrir samræmanlegri röðun nema með því að tilgreina lykil á bæði mengin. Ekki er hægt að stjórna sniði nemendafyrirspurnarinnar, svo ákvörðun á lykli fyrir þær fyrirspurnir væri líka óáreiðanleg.
+
+Báðar leiðinar eru skilvirkari en sú sem valin er, en fela í sér möguleikann á ólíklegum en torskildum villum fyrir notendur vefsins.
+\subsubsection{SQLite í minni}
+
 \section{Tæknilegar lausnir í notkun}
 \subsection{Django}
+\label{sec:django}
 \subsection{Markdown}
-Greinar kennsluvefsins eru skrifaðar í ívafsmálinu Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Aðaláhersluatriði Markdown er að frumkóði textaskjalsins sé læsilegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar sem rökréttar eru til framsetningar. 
+Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar sem rökréttar eru til framsetningar. 
 
 Sniðið er sem sagt sérstaklega hannað að skrifa texta án truflana. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða spjallborði á netinu.
 
@@ -318,7 +389,7 @@ $\downarrow$
 \end{figure}
 
 Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleika tengdum framsetningu textans. Auk þess eru Markdown-túlkar einfeldningsleg textatúlkunarforrit, sem ekki gera sér grein fyrir innri uppbyggingu texta eða tengsla á milli viðfangsefna. Til að styðja myndræna framsetningu og innri tengingar textans er því nauðsynlegt að smíða viðbætur við túlkinn.
-
+ 
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar.
 \subsubsection{Myndir}
 Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \ref{code:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
@@ -419,12 +490,14 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
 \subsection{D3.js}
 \subsection{Tufte-css}
 \label{sec:tufte-css}
-\subsection{SQLite í minni}
 
 \chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
 \section{Takmarkanir á núverandi útgáfu}
+\subsection{Greining á INSERT, UPDATE og DELETE skipunum}
 \section{Fyrirliggjandi verk}
 \subsection{Leikjun}
+\subsection{Flæðigreining}
+Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli.
 
 \bibliographystyle{plain}
 \bibliography{master}
