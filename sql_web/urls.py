@@ -12,8 +12,8 @@ urlpatterns = [
     url(r"^aefing/(?P<exercise_slug>.+)/$", views.ExerciseView.as_view(), name="exercise"),
     url(r"^min-sida/$", views.ProfileView.as_view(), name="profile"),
     url(r"^skraning/$",
-        CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/')
-        ),
+        CreateView.as_view(template_name='registration/register.html', form_class=UserCreationForm, success_url='/'),
+    name = "custom_register"),
     url(r"^utskraning/$", views.LogoutView.as_view(), name="custom_logout", ),
     url(r"^namskeid/(?P<course_slug>.+)/$", views.CourseView.as_view(), name="course"),
 
