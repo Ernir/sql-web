@@ -287,21 +287,27 @@ Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar ken
 Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla.
 
 Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla. 
-\chapter{Kennslufræðilegar hugmyndir}
+\chapter{Hugmyndafræði}
+\section{Kennslufræði}
 \label{sec:kennslufraedilegar-hugmyndir}
 Texti frekar en vídeó af því texta er auðvelt að uppfæra.
-
+\section{Opinn hugbúnaður, opið efni og opin dreifing}
 \section{Viðfangsefni sem net/Topic Maps}
 \section{Myndræn framsetning}
 \section{Könnunarnám}
 \section{Efnisáherslur}
 \chapter{Útfærsla vefsins}
-Vefurinn er skrifaður í forritunarmálinu Python með notkun Django (sjá \ref{sec:django}). Fyrir utan hefðbunda vefforritun með Django eru nokkur atriði sem kröfðust sérhæfðrar útfærslu, sjá \ref{sec:command-analysis} og \ref{sec:markdown-additions}.
+Vefurinn er skrifaður í forritunarmálinu Python með notkun Django (sjá \ref{sec:django}). Efnið er skrifað með Markdown (sjá \ref{sec:markdown}).
 
-Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
-\section{Tæknilegar lausnir í notkun}
+Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}, ásamt sjálfgefnu efni. Allar þriðju aðila tæknilausnir sem vefurinn notar eru sömuleiðis opnar. Niðurstaðan er að hægt er að setja upp keyrandi útgáfu af kennsluvefnum með því einu að sækja grunnkóðann og fylgja uppsetningarleiðbeiningum. % TODO skrifa þessar blessuðu uppsetningarleiðbeiningar.
+\section{Tæknilausnir frá þriðja aðila í notkun}
 \subsection{Django}
 \label{sec:django}
+Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
+
+Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem erfa frá Django \texttt{model} klösum, sem eru hluti af Object-relational Mapping (ORM) kerfi grindarinnar. Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni. Allir \texttt{model} klasar eru skilgreindir í skránni \texttt{sql\_web/models.py}.
+
+Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í \texttt{templates/base.html}.
 \subsection{Markdown}
 \label{sec:markdown}
 Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða á spjallborði á netinu.
@@ -416,14 +422,14 @@ Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleik
  
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar.
 \subsubsection{Myndir}
-Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \ref{code:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
+Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \ref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
 
 \begin{figure}
 \caption{Myndainnfellingar í Markdown}
-\label{code:markdown-image-inclusion}
+\label{fig:markdown-image-inclusion}
 \begin{subfigure}[b]{\textwidth}
 \caption{Upprunaleg útgáfa}
-\label{code:markdown-image-inclusion-original}
+\label{fig:markdown-image-inclusion-original}
 \begin{syntaxenv}{markdown-image}
   `!' `[' <alt-text> `]' `(' <image-hyperlink> 
   \begin{stack}
@@ -436,7 +442,7 @@ Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notu�
 
 \begin{subfigure}[b]{\textwidth}
 \caption{Viðbætt útgáfa}
-\label{code:markdown-image-inclusion-enhanced}
+\label{fig:markdown-image-inclusion-enhanced}
 \begin{syntaxenv}{enhanced-markdown-image}
   \begin{stack}
   \\
@@ -453,14 +459,14 @@ Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notu�
 \end{subfigure}
 \end{figure}
 
-Viðbótin, sem vinnur samkvæmt mállýsingu á mynd \ref{code:markdown-image-inclusion-enhanced}, býður upp á aukamöguleika sem sérstaklega tengjast kennsluvefnum og hans framsetningarmöguleikum.
+Viðbótin, sem vinnur samkvæmt mállýsingu á mynd \ref{fig:markdown-image-inclusion-enhanced}, býður upp á aukamöguleika sem sérstaklega tengjast kennsluvefnum og hans framsetningarmöguleikum.
 
 Athugum að texti kennsluvefsins er settur fram í tveimur dálkum, aðaldálki og spássíudálki (sjá undirkafla \ref{sec:tufte-css}). Fyrst er gefinn möguleiki á að skeyta stafnum \texttt{m} eða stafnum \texttt{f} framan við myndskilgreininguna. Sé stafnum sleppt fyllir myndin aðaldálkinn. Sé stafurinn \texttt{m} gefinn fyllir myndin spássíudálkinn. Sé stafurinn \texttt{f} gefinn fyllir myndin báða dálkana.
 
 Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt að lesa \texttt{<image-identifier>} sem einkvæmt auðkenni Django-model hlutar sem skilgreinir mynd. Finnist engin mynd með viðkomandi auðkenni er leitað að kóðasýnidæmi með auðkennið \texttt{<image-identifier>}. Finnist ekkert kóðasýnidæmi heldur er \texttt{<image-identifier>} notað beint sem vefslóð og virknin þá sem fyrr.
 \begin{listing}
 \caption{Möguleg dæmi um myndainnfellingar í Markdown}
-\label{code:markdown-image-examples}
+\label{fig:markdown-image-examples}
 Óbreytt Markdown:
 \begin{verbatim}
 ![Alt text](/path/to/img.jpg "Optional title")
@@ -477,11 +483,11 @@ m![Alt text](identifier "Optional title")
 \subsubsection{Spássíugreinar}
 Framsetning efnisins gerir ráð fyrir notkun hliðarútskýringa í spássíum. Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}} gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum, frekar en spássíugreinum. Viðbótin var því endurskrifuð.
 
-Viðbótin vinnur samkvæmt mállýsingu á mynd \ref{code:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown.
+Viðbótin vinnur samkvæmt mállýsingu á mynd \ref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown.
 
 \begin{figure}
 \caption{Spássíugreinar í Markdown}
-\label{code:markdown-footnote}
+\label{fig:markdown-footnote}
 \begin{syntaxenv}{markdown-footnote}
   `[' `^' <note-identifier> `]' `[' <contents> `]'
 \end{syntaxenv}
@@ -495,11 +501,11 @@ Gert er ráð fyrir að tengingar á milli greina séu mikið notaðar innan tex
  \item Vefslóðir innihalda mikið af upplýsingum sem eru textahöfundum óviðkomandi
 \end{enumerate}
 
-Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \ref{code:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
+Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \ref{fig:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
 
 \begin{figure}
 \caption{Innri tenglar í Markdown}
-\label{code:markdown-internal-link}
+\label{fig:markdown-internal-link}
 \begin{syntaxenv}{markdown-internal-link}
   `[' `[' <identifier>
   \begin{stack}
@@ -524,7 +530,7 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
 
 \appendix
 \renewcommand{\chaptername}{Appendix}
-\chapter{Annað}
+\chapter{Kóðadæmi}
 
 
 \end{document}
