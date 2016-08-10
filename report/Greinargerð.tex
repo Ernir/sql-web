@@ -360,11 +360,25 @@ Samanburður á röðuðum mengjum& $O(n)$\\
 
 \paragraph{Aðrar leiðir til að framkvæma samanburði} Þekkt er að hægt sé að bera saman tvö mengi á línulegum tíma með tilliti til fjölda staka sé uppfletting möguleg á föstum tíma. Mengi í Python styðja uppflettingu á föstum tíma, að því gefnu að hægt sé að reikna tætivistföng (e. \emph{hash values}) fyrir stökin. Þar sem kennari getur útbúið æfingar með flestum gerðum gagna er óáreiðanlegt að gera ráð fyrir miklu um uppbyggingu hverrar línu.
 
-Einnig er hægt að bera saman mengi á $O(n\log n)$ tíma séu stökin raðanleg. Hvoru mengi um sig er þá raðað með samanburðarröðunarreikniriti og stök mengjanna þvínæst pöruð saman í röð. Þessi leið er einnig illfær. Þó að gögn í gagnagrunnum séu jafnan þess eðlis að hægt sé að raða þeim, þá væri óáreiðanlegt að gera ráð fyrir samræmanlegri röðun nema með því að tilgreina lykil á bæði mengin. Ekki er hægt að stjórna sniði nemendafyrirspurnarinnar, svo ákvörðun á lykli fyrir þær fyrirspurnir væri líka óáreiðanleg.
+Einnig er hægt að bera saman mengi á $O(n\log n)$ tíma séu stökin raðanleg. Hvoru mengi um sig er þá raðað með samanburðarröðunarreikniriti og stök mengjanna þvínæst pöruð saman í röð. Þessi leið er einnig illfær. Þó að gögn í gagnagrunnum séu jafnan þess eðlis að hægt sé að raða þeim, þá er röðun ekki áreiðanleg nema á þau sé skilgreindur lykil. Ekki er hægt að stjórna sniði nemendafyrirspurnarinnar, svo ákvörðun á lykli fyrir þær fyrirspurnir væri líka óáreiðanleg.
 
 Báðar leiðinar eru skilvirkari en sú sem valin er, en fela í sér möguleikann á ólíklegum en torskildum villum fyrir notendur vefsins.
 \subsubsection{SQLite í minni}
+Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gagnagrunni sem einungis er til í minni kerfisins. Þegar meta skal skipun er tómur gagnagrunnur búinn til í minni, gerðarlýsingin sett upp, nemendafyrirspurnin og samanburðarfyrirspurnin keyrð og gagnagrunninum að lokum eytt. Sjá mynd \ref{fig:sql-evaluation-execution}.
 
+\begin{figure}
+\caption{Framkvæmd mats á nemendafyrirspurn}
+\label{fig:sql-evaluation-execution}
+\begin{center}
+\includegraphics{KeyrslaFyrirspurnar}
+\end{center}
+
+\end{figure}
+
+
+Helsti kostur þessa fyrirkomulags er öryggi. Gagnagrunnurinn er tímabundinn og inniheldur engin gögn nema þau sem eru æfingunni viðkomandi. Tengingin hefur ekki heimildir til að tengjast skráarkerfinu né heldur til að framkvæma SQLite-stýriskipanir (``dot-commands'') sem gætu framkallað breytingar á kerfinu sjálfu eða lesið þaðan upplýsingar. Það er aldrei hættulaust að keyra kóða annars fólks með jafn litlu eftirliti og forritunarkennslukerfi krefst, en með þessum hætti er tekið fyrir algengustu gerðir skaðlegra villna og árása.
+
+Keyrsluhraði, eða öllu heldur skortur þar á, hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Mögulegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti.
 \section{Tæknilegar lausnir í notkun}
 \subsection{Django}
 \label{sec:django}
