@@ -296,7 +296,39 @@ Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 \section{Könnunarnám}
 \section{Efnisáherslur}
 \chapter{Útfærsla vefsins}
-\section{Greining á SQL-skipunum nemenda}
+Vefurinn er skrifaður í forritunarmálinu Python með notkun Django (sjá \ref{sec:django}). Fyrir utan hefðbunda vefforritun með Django eru nokkur atriði sem kröfðust sérhæfðrar útfærslu, sjá \ref{sec:command-analysis} og \ref{sec:markdown-additions}.
+
+Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
+\section{Tæknilegar lausnir í notkun}
+\subsection{Django}
+\label{sec:django}
+\subsection{Markdown}
+\label{sec:markdown}
+Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða á spjallborði á netinu.
+
+Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur og auðskrifanlegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar sem rökréttar eru til framsetningar. 
+
+\begin{figure}
+\caption{Upprunalegur Markdown-kóði og HTML-ið sem hann skilgreinir}
+\label{fig:markdown}
+\begin{center}
+\texttt{Markdown styður *skáletrun*}
+
+$\downarrow$
+
+\texttt{<p>Markdown styður <em>skáletrun</em></p>}
+
+\end{center}
+\end{figure}
+
+Sniðið er sem sagt sérstaklega hannað að skrifa texta án truflana, sem svo er oft þýddur yfir í þyngri ívafsmál (venjulega HTML) með þar til gerðu forriti. Markdown-málið er upphaflega skilgreint óformlega með slíku forriti, Perl-forritinu \texttt{Markdown.pl}, skrifað af John Gruber árið 2004. Kennsluvefurinn notar Markdown á svipaðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
+
+\subsection{D3.js}
+\subsection{Tufte-css}
+\label{sec:tufte-css}
+\section{Sérsmíðaðar tæknilausnir}
+\subsection{Greining á SQL-skipunum nemenda}
+\label{sec:command-analysis}
 Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld.
 
 Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django\ref{sec:django} \texttt{model} hlut, sem hefur nokkra eiginleika sem vert er að nefna:
@@ -310,7 +342,7 @@ Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (
 \end{itemize}
 
 Þessir eiginleikar, að viðbættri SQL-skipun sem nemandinn skrifar inn, myndar eina keyrslu á æfingu. Keyrsla á æfingu skilar sanngildi sem tilgreinir hvort að SQL-skipun nemandans hafi verið rétt miðað við gefnar forsendur, ásamt skilaboðum til nemandans.
-\subsection{Keyrsla á æfingum}
+
 Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
 
 \subsubsection{Mat á skipunum öðrum en SELECT skipunum}
@@ -372,36 +404,14 @@ Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gag
 \begin{center}
 \includegraphics{KeyrslaFyrirspurnar}
 \end{center}
-
 \end{figure}
-
 
 Helsti kostur þessa fyrirkomulags er öryggi. Gagnagrunnurinn er tímabundinn og inniheldur engin gögn nema þau sem eru æfingunni viðkomandi. Tengingin hefur ekki heimildir til að tengjast skráarkerfinu né heldur til að framkvæma SQLite-stýriskipanir (``dot-commands'') sem gætu framkallað breytingar á kerfinu sjálfu eða lesið þaðan upplýsingar. Það er aldrei hættulaust að keyra kóða annars fólks með jafn litlu eftirliti og forritunarkennslukerfi krefst, en með þessum hætti er tekið fyrir algengustu gerðir skaðlegra villna og árása.
 
-Keyrsluhraði, eða öllu heldur skortur þar á, hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Mögulegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti.
-\section{Tæknilegar lausnir í notkun}
-\subsection{Django}
-\label{sec:django}
-\subsection{Markdown}
-Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar sem rökréttar eru til framsetningar. 
+Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Mögulegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti.
 
-Sniðið er sem sagt sérstaklega hannað að skrifa texta án truflana. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða spjallborði á netinu.
-
-Markdown-málið er upphaflega skilgreint óformlega með Perl-forritinu \texttt{Markdown.pl}, skrifað af John Gruber árið 2004, sem þýðir texta skrifaðan í Markdown yfir í HTML. Kennsluvefurinn notar Markdown á svipaðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
-
-\begin{figure}
-\caption{Upprunalegur Markdown-kóði og HTML-ið sem hann skilgreinir}
-\label{fig:markdown}
-\begin{center}
-\texttt{Markdown styður *skáletrun*}
-
-$\downarrow$
-
-\texttt{<p>Markdown styður <em>skáletrun</em></p>}
-
-\end{center}
-\end{figure}
-
+\subsection{Markdown viðbætur}
+\label{sec:markdown-additions}
 Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleika tengdum framsetningu textans. Auk þess eru Markdown-túlkar einfeldningsleg textatúlkunarforrit, sem ekki gera sér grein fyrir innri uppbyggingu texta eða tengsla á milli viðfangsefna. Til að styðja myndræna framsetningu og innri tengingar textans er því nauðsynlegt að smíða viðbætur við túlkinn.
  
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar.
@@ -500,10 +510,6 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
 \end{figure}
 
 \subsubsection{Forritskóði}
-
-\subsection{D3.js}
-\subsection{Tufte-css}
-\label{sec:tufte-css}
 
 \chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
 \section{Takmarkanir á núverandi útgáfu}
