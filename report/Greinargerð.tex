@@ -305,7 +305,7 @@ Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\f
 \label{sec:django}
 Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
 
-Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem erfa frá Django \texttt{model} klösum, sem eru hluti af Object-relational Mapping (ORM) kerfi grindarinnar. Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni. Allir \texttt{model} klasar eru skilgreindir í skránni \texttt{sql\_web/models.py}.
+Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem erfa frá Django \texttt{model} klösum, sem eru hluti af Object-relational Mapping (ORM) kerfi grindarinnar. Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni. Allir \texttt{model} klasar eru skilgreindir í skránni \texttt{sql\_web/models.py}\ref{code:django-model-objects}.
 
 Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í \texttt{templates/base.html}.
 \subsection{Markdown}
@@ -349,7 +349,7 @@ Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (
 
 Þessir eiginleikar, að viðbættri SQL-skipun sem nemandinn skrifar inn, myndar eina keyrslu á æfingu. Keyrsla á æfingu skilar sanngildi sem tilgreinir hvort að SQL-skipun nemandans hafi verið rétt miðað við gefnar forsendur, ásamt skilaboðum til nemandans.
 
-Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
+Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py}\ref{code:example-runner}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
 
 \subsubsection{Mat á skipunum öðrum en SELECT skipunum}
 Snúist æfingin ekki um \texttt{SELECT} skipun er strengjasamanburður notaður til að athuga hvort að skipunin sé sambærileg við þá sem herma skal eftir. Samanburðurinn felst í því að Levenshtein-fjarlægð er reiknuð á milli skipananna tveggja. 
@@ -531,6 +531,12 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
 \appendix
 \renewcommand{\chaptername}{Appendix}
 \chapter{Kóðadæmi}
-
+Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. Allan grunnkóða má einnig finna á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
+\section{Django model klasar}
+\label{code:django-model-objects}
+\inputminted[fontsize=\scriptsize, frame=lines, linenos=true, python3=true, label=models.py]{python}{../sql\string_web/models.py}
+\section{Keyrsluklasi æfinga}
+\label{code:example-runner}
+\inputminted[fontsize=\scriptsize, frame=lines, linenos=true, python3=true, label=models.py]{python}{../sql\string_web/sql\string_runner.py}
 
 \end{document}
