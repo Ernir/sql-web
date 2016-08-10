@@ -11,10 +11,9 @@
         {% autoescape off %}
             {{ section.rendered_contents }}
         {% endautoescape %}
-        {% if section.connected_to %}
+        {% if section.connected_to.count %}
             <h2>Tengt efni</h2>
             <p>
-
                 {% for s in section.connected_to.all %}
                     <a href="{{ s.get_absolute_url }}">{{ s.title }}</a>
                     {% if not forloop.last %}
@@ -23,7 +22,7 @@
                 {% endfor %}.
             </p>
         {% endif %}
-        {% if section.associated_exercises %}
+        {% if section.associated_exercises.count %}
             <h2>Tengd verkefni</h2>
             <p>
                 {% for e in section.associated_exercises.all %}
