@@ -139,13 +139,14 @@ class ExerciseView(BaseView):
 
             user_statments = form.cleaned_data["code_area"]
 
-            runner = ExerciseRunner(user_statments, the_exercise)
+            self.params["message"] = "Alvarleg kerfisvilla kom upp. Vinsamlegast hafðu samband við kennara."
+            with ExerciseRunner(user_statments, the_exercise) as runner:
+                print(runner)
+                valid, message = runner.is_valid()
+                self.params["message"] = message
 
-            valid, message = runner.is_valid()
-            self.params["message"] = message
-
-            if valid:
-                the_exercise.completed_by.add(request.user)
+                if valid and request.user.is_authenticated():
+                    the_exercise.completed_by.add(request.user)
 
             return render(request, "exercise.html", self.params)
         else:
@@ -165,7 +166,6 @@ class ExerciseListView(BaseView):
                 completed_exercises.append(e)
             else:
                 not_completed_exercises.append(e)
-        print(completed_exercises, not_completed_exercises)
         self.params["complete"] = completed_exercises
         self.params["incomplete"] = not_completed_exercises
         self.params["title"] = "Yfirlitssíða verkefna"

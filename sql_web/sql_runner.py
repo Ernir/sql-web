@@ -29,6 +29,14 @@ class ExerciseRunner:
         self.to_emulate = exercise.sql_to_emulate
         self.statement_type = exercise.statement_type
 
+        self.conn = sqlite3.connect(":memory:")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.conn.close()
+
     def is_valid(self):
         """
         Returns a 2-tuple.
@@ -61,41 +69,34 @@ class ExerciseRunner:
         """
         Runs the given queries against an in-memory SQLite database for comparison
         """
-        conn = sqlite3.connect(":memory:")
-        cursor = conn.cursor()
+        cursor = self.conn.cursor()
 
         # Set up the pre-defined database schema.
         try:
             cursor.executescript(self.schema)
         except OperationalError:
-            conn.close()
             return self.INCORRECT, self.BAD_SETUP_MSG
         except Exception:
-            conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
         # Fetch the results of the query that should be emulated.
         try:
             expected_result = cursor.execute(self.to_emulate).fetchall()
         except OperationalError:
-            conn.close()
             return self.INCORRECT, self.BAD_SETUP_MSG
         except Exception:
-            conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
         # Fetch the results of whatever statement the user entered.
         try:
             user_result = cursor.execute(self.user_statements).fetchall()
         except OperationalError as oe:
-            conn.close()
             return self.INCORRECT, "{}.\n {}".format(
                 self.BROKEN_COMMAND_MSG.format(str(oe)), self.NUM_DIFFERENCES.format(
                     self._lax_levenshtein(self.user_statements, self.to_emulate)
                 )
             )
         except Exception:
-            conn.close()
             return self.INCORRECT, self.UNEXPECTED_ERROR
 
         # Compare the results of the queryset to be emulated and the result of the user's query
@@ -108,7 +109,6 @@ class ExerciseRunner:
                     self._lax_levenshtein(self.user_statements, self.to_emulate)
                 )
             )
-            conn.close()
         return result, message
 
     @staticmethod
