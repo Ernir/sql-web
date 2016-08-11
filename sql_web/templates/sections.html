@@ -15,9 +15,11 @@
                 <h2 id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</h2>
                 <ul>
                     {% for section in subject.section_set.all %}
-                        <li>
-                            <a href="{% url "section" section.slug %}">{{ section.title }}</a>
-                        </li>
+                        {% if section.visible %}
+                            <li>
+                                <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 <div id="svg-container-{{ subject.id }}">

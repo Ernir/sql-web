@@ -7,6 +7,10 @@
 
 {% block text_content %}
     <article>
+        {% if not self.visible %}
+            <p>Þessi grein er ósýnileg almennum notendum síðunnar.</p>
+            <p>Sýnileika greinarinnar má breyta <a href="/admin/sql_web/section/{{ section.id }}/">hér</a>.</p>
+        {% endif %}
         <h1>{{ section.title }}</h1>
         {% autoescape off %}
             {{ section.rendered_contents }}

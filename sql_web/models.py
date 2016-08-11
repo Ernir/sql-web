@@ -38,11 +38,16 @@ class Section(models.Model):
     contents = models.TextField()
     rendered_contents = models.TextField()
     connected_to = models.ManyToManyField('self', blank=True, symmetrical=False)
+    visible = models.BooleanField(default=True, help_text="Fjarlægið hakið til að fela efnið frá nemendum.")
     associated_exercises = models.ManyToManyField("Exercise", blank=True)
     read_by = models.ManyToManyField(User, blank=True, related_name="read")
 
     def __str__(self):
-        return "K{}: {}".format(self.subject.number, self.title)
+        if not self.visible:
+            visibility = "(FALIÐ) "
+        else:
+            visibility = ""
+        return "{}K{}: {}".format(visibility, self.subject.number, self.title)
 
     def get_absolute_url(self):
         return reverse("section", args=[self.slug])

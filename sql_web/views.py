@@ -44,6 +44,9 @@ class SectionView(BaseView):
         """
         the_section = get_object_or_404(Section, slug=section_slug)
 
+        if not the_section.visible and not request.user.is_superuser:
+            return render(request, "hidden.html", self.params)
+
         if not request.user.is_anonymous():
             the_section.read_by.add(request.user)
 
@@ -80,10 +83,10 @@ class ProfileView(BaseView):
         unread_sections = []
         num_unread_to_show = 5
         # Find some unread sections connected to those previously read
-        for section in read_sections:
+        for read_section in read_sections:
             connected_sections = [
-                s for s in section.connected_to.all()
-                if request.user not in s.read_by.all()
+                rs for rs in read_section.connected_to.filter(visible=True).all()
+                if request.user not in rs.read_by.all()
                 ]
             for conn in connected_sections:
                 if request.user not in conn.read_by.all() \
@@ -183,7 +186,6 @@ class CourseView(BaseView):
 
     def post(self, request, course_slug):
         the_course = get_object_or_404(Course, slug=course_slug)
-        # if "directive" in request.POST and request.POST["directive"] == "unregister":
         form = CourseRegistrationForm(request.POST)
         if form.is_valid():
             if "directive" in request.POST and request.POST["directive"] == "on":
@@ -208,8 +210,8 @@ class SectionOverview(View):
             "nodes": [],
             "links": [],
         }
-        sections_query = Section.objects
-        if subject_id:
+        sections_query = Section.objects.filter(visible=True)
+        if subject_id:  # It is possible to specifify a specific subject
             subject = get_object_or_404(Subject, id=subject_id)
             sections_query = sections_query.filter(subject=subject)
             data["subject"] = int(subject_id)
