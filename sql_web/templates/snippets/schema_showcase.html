@@ -1,0 +1,21 @@
+{% for table in schema_display %}
+    <p>Taflan <span class="code">{{ table.name }}</span>:</p>
+    <table>
+        <thead>
+        <tr>
+            {% for col in table.columns %}
+                <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for line in table.data %}
+            <tr>
+                {% for col in line %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}

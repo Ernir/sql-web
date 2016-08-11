@@ -17,8 +17,7 @@
         {{ form }}
         <input type="submit" value="Keyra SQL"/>
     </form>
-    {% if exercise.given_schema %}
-        <p>Gera skal ráð fyrir að eftirfarandi skipanir hafi verið keyrðar áður en þú keyrir þína skipun:</p>
-        <pre class="code">{% autoescape off %}{{ exercise.given_schema }}{% endautoescape %}</pre>
+    {% if schema_display %}
+        {% include "snippets/schema_showcase.html" %}
     {% endif %}
 {% endblock %}

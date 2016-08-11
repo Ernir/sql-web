@@ -13,7 +13,7 @@ class ExerciseRunner:
     BAD_SETUP_MSG = "Uppsetning æfingarinnar olli villu, sem bendir til þess að æfingin hafi verið rangt sett inn. " \
                     "Mælt er með því að hafa samband við kennara."
     BROKEN_COMMAND_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
-    CORRECT_MSG = "Rétt!"
+    CORRECT_MSG = "Rétt! Verkefninu er nú lokið og niðurstaðan vistuð."
     WRONG_RESULTS_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu. "
     NO_EXACT_MATCH = "Skipunin sem þú gafst passar ekki nákvæmlega við þá skipun sem búist var við. " \
                      "Má ekki bjóða þér að reyna aftur?"
@@ -69,19 +69,24 @@ class ExerciseRunner:
         cursor = self.conn.cursor()
         if not self.schema_setup_complete:
             self._setup_schema()
+        try:
+            # SQLite stores raw data about its tables, which we need
+            raw_tables = cursor.execute("SELECT name, sql FROM sqlite_master WHERE type = 'table'").fetchall()
+            tables = [{"name": raw_table[0], "schema": raw_table[1]} for raw_table in raw_tables]
 
-        raw_tables = cursor.execute("SELECT name, sql FROM sqlite_master WHERE type = 'table'").fetchall()
-        tables = [{"name": raw_table[0], "schema": raw_table[1]} for raw_table in raw_tables]
-        for table in tables:
-            schema = "".join(table["schema"].splitlines())
-            all_columns = re.search(".*\((.*)\)", schema).group(1)
-            column_definitions = [col_def.strip() for col_def in all_columns.split(",")]
-            table["columns"] = []
-            for column in column_definitions:
-                table["columns"].append(column.split()[0])
+            for table in tables:
+                # We need to extract the column names of each table
+                schema = "".join(table["schema"].splitlines())
+                all_columns = re.search(".*\((.*)\)", schema).group(1)
+                column_definitions = [col_def.strip() for col_def in all_columns.split(",")]
+                table["columns"] = []
+                for column in column_definitions:
+                    table["columns"].append(column.split()[0])
 
-            statement = "SELECT {} FROM {}".format(",".join(table["columns"]), table["name"])
-            table["data"] = cursor.execute(statement).fetchall()
+                statement = "SELECT {} FROM {}".format(",".join(table["columns"]), table["name"])
+                table["data"] = cursor.execute(statement).fetchall()
+        except OperationalError:
+            tables = []
         return tables
 
     def _is_sane(self):

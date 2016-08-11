@@ -1,3 +1,5 @@
+from sqlite3 import OperationalError
+
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -118,7 +120,9 @@ class ExerciseView(BaseView):
         )
         data = {"code_area": the_exercise.prepopulated}
         form = ExerciseForm(initial=data)
-
+        with ExerciseRunner(the_exercise.prepopulated, the_exercise) as runner:
+            if the_exercise.given_schema:
+                self.params["schema_display"] = runner.parse_schema()
         self.params["form"] = form
         self.params["exercise"] = the_exercise
 
@@ -139,15 +143,15 @@ class ExerciseView(BaseView):
 
             user_statments = form.cleaned_data["code_area"]
 
-            self.params["message"] = "Alvarleg kerfisvilla kom upp. Vinsamlegast hafðu samband við kennara."
             with ExerciseRunner(user_statments, the_exercise) as runner:
-                print(runner)
                 valid, message = runner.is_valid()
                 self.params["message"] = message
 
                 if valid and request.user.is_authenticated():
                     the_exercise.completed_by.add(request.user)
 
+                if the_exercise.given_schema:
+                    self.params["schema_display"] = runner.parse_schema()
             return render(request, "exercise.html", self.params)
         else:
             return self.get(request, exercise_slug)
