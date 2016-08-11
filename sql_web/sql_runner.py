@@ -1,3 +1,4 @@
+import re
 import sqlite3
 from sqlite3 import OperationalError
 
@@ -29,6 +30,7 @@ class ExerciseRunner:
         self.to_emulate = exercise.sql_to_emulate
         self.statement_type = exercise.statement_type
 
+        self.schema_setup_complete = False
         self.conn = sqlite3.connect(":memory:")
 
     def __enter__(self):
@@ -55,6 +57,33 @@ class ExerciseRunner:
         else:
             raise ValueError("Unexpected statement type: \"{}\"".format(self.statement_type))
 
+    def parse_schema(self):
+        """
+        Returns Python-readable information about the defined tables, which consists of a list of dictionaries with
+        the following parameters:
+        name: The name of a database table
+        schema: The CREATE TABLE statement used to create the table in the first place
+        columns: A list of the table's column names, in order
+        data: All of the table's data, as a list of tuples, in column order.
+        """
+        cursor = self.conn.cursor()
+        if not self.schema_setup_complete:
+            self._setup_schema()
+
+        raw_tables = cursor.execute("SELECT name, sql FROM sqlite_master WHERE type = 'table'").fetchall()
+        tables = [{"name": raw_table[0], "schema": raw_table[1]} for raw_table in raw_tables]
+        for table in tables:
+            schema = "".join(table["schema"].splitlines())
+            all_columns = re.search(".*\((.*)\)", schema).group(1)
+            column_definitions = [col_def.strip() for col_def in all_columns.split(",")]
+            table["columns"] = []
+            for column in column_definitions:
+                table["columns"].append(column.split()[0])
+
+            statement = "SELECT {} FROM {}".format(",".join(table["columns"]), table["name"])
+            table["data"] = cursor.execute(statement).fetchall()
+        return tables
+
     def _is_sane(self):
         """
         Checks the entered statement for input errors.
@@ -71,14 +100,8 @@ class ExerciseRunner:
         """
         cursor = self.conn.cursor()
 
-        # Set up the pre-defined database schema.
-        try:
-            cursor.executescript(self.schema)
-        except OperationalError:
-            return self.INCORRECT, self.BAD_SETUP_MSG
-        except Exception:
-            return self.INCORRECT, self.UNEXPECTED_ERROR
-
+        if not self.schema_setup_complete:
+            self._setup_schema()
         # Fetch the results of the query that should be emulated.
         try:
             expected_result = cursor.execute(self.to_emulate).fetchall()
@@ -110,6 +133,19 @@ class ExerciseRunner:
                 )
             )
         return result, message
+
+    def _setup_schema(self):
+        # Set up the pre-defined database schema.
+        cursor = self.conn.cursor()
+        try:
+            cursor.executescript(self.schema)
+            self.schema_setup_complete = True
+        except OperationalError:
+            self.schema_setup_complete = False
+            return self.INCORRECT, self.BAD_SETUP_MSG
+        except Exception:
+            self.schema_setup_complete = False
+            return self.INCORRECT, self.UNEXPECTED_ERROR
 
     @staticmethod
     def _querysets_equal(user_queryset, expected_queryset, ordered=False):
