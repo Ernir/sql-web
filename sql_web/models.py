@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
 from django.utils.text import slugify
 from markdown import markdown
 from sql_web.markdown_extensions.inline_code import InlineCodeExtension
@@ -217,6 +218,28 @@ class Course(models.Model):
         super(Course, self).save(*args, **kwargs)
 
 
+"""
+User management
+"""
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    js_enabled = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "UserProfile for {}".format(self.user.username)
+
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(create_user_profile, sender=User)
 """
 Other models
 """

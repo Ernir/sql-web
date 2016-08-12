@@ -22,14 +22,18 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <div id="svg-container-{{ subject.id }}">
-                </div>
+                {% if js_enabled %}
+                    <div id="svg-container-{{ subject.id }}">
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </article>
 {% endblock %}
-{% block js %}
-    <script src="{% static "d3/d3-min.js" %}"></script>
-    <script src="{% static "d3-main-function.js" %}"></script>
-{% endblock %}
+{% if js_enabled %}
+    {% block js %}
+        <script src="{% static "d3/d3-min.js" %}"></script>
+        <script src="{% static "d3-main-function.js" %}"></script>
+    {% endblock %}
+{% endif %}
 </body>

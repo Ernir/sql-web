@@ -96,3 +96,17 @@ Form styling
 .exercise-area input[type=submit] {
     display: block;
 }
+
+/* Settings change form */
+
+.settings-change form {
+    margin-top: 20px;
+}
+
+.settings-change label {
+    font-size: 1.4rem;
+}
+
+.settings-change ul {
+    list-style-type: none;
+}

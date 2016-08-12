@@ -66,3 +66,11 @@ class ExerciseForm(forms.Form):
 
 class CourseRegistrationForm(forms.Form):
     directive = forms.BooleanField(label="Hakaðu hér og ýttu á takkann til að skrá þig í námskeiðið.")
+
+
+class SettingsChangeForm(forms.Form):
+    CHOICES = [
+        (False, "Slökkt á Javascript"),
+        (True, "Kveikt á Javascript")
+    ]
+    js_enabled = forms.ChoiceField(label="Nota JavaScript á yfirlitssíðu (myndir)", choices=CHOICES, widget=forms.RadioSelect)

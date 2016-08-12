@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render, render_to_response, redi
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic import View
-from sql_web.forms import ExerciseForm, CourseRegistrationForm
+from sql_web.forms import ExerciseForm, CourseRegistrationForm, SettingsChangeForm
 from sql_web.models import Section, Exercise, Subject, IndexText, Course
 from sql_web.sql_runner import ExerciseRunner
 
@@ -64,6 +64,7 @@ class SectionListView(BaseView):
         subjects = Subject.objects.all()
         self.params["subjects"] = subjects
         self.params["title"] = "Yfirlitssíða viðfangsefna"
+        self.params["js_enabled"] = not not request.user.userprofile.js_enabled
         return render(request, "sections.html", self.params)
 
 
@@ -74,6 +75,23 @@ class ProfileView(BaseView):
 
     @method_decorator(login_required)
     def get(self, request):
+        form = SettingsChangeForm(initial={"js_enabled": request.user.userprofile.js_enabled})
+        self.params["form"] = form
+        return self.profile_view_common(request)
+
+    @method_decorator(login_required)
+    def post(self, request):
+        form = SettingsChangeForm(request.POST)
+        if form.is_valid():
+            profile = request.user.userprofile
+            profile.js_enabled = form.cleaned_data["js_enabled"] == "True"
+            profile.save()
+        else:  # Change nothing
+            pass
+        self.params["form"] = form
+        return self.profile_view_common(request)
+
+    def profile_view_common(self, request):
         currently_member_of = request.user.course_set.all()
         available_courses = Course.objects.filter(open_to_all=True).all()
         # Manual filtering due to ORM limitations. ToDO find prettier way.

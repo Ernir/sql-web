@@ -8,6 +8,7 @@
 {% block text_content %}
     <article>
         <h1>Hæ, {{ user.username }}</h1>
+        <h2>Lesefni</h2>
         {% if unread_sections %}
             <p>Þú hefur mögulega áhuga á að lesa eftirfarandi greinar:
                 <span>
@@ -37,6 +38,7 @@
             <p>Þú hefur ekki enn lesið neinar greinar. Má ekki bjóða þér að líta á
                 <a href="{% url "sections" %}">yfirlitið?</a></p>
         {% endif %}
+        <h2>Námskeið</h2>
         <p>
             {% if currently_member_of %}
                 {% if currently_member_of|length == 1 %}
@@ -59,5 +61,13 @@
                 {% endfor %}
             </p>
         {% endif %}
+        <h2>Stillingar</h2>
+        <div class="settings-change">
+            <form action="." method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Uppfæra stillingar"/>
+            </form>
+        </div>
     </article>
 {% endblock %}
