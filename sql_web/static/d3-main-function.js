@@ -21,14 +21,14 @@ var drawGraph = function (graph, n) {
         });
     });
 
-    var width = 900;
-    var height = 500;
+    var width = 700;
+    var height = 700;
 
     var color = d3.scale.category20();
 
     var force = d3.layout.force()
-        .charge(-1000)
-        .linkDistance(200)
+        .charge(-200)
+        .linkDistance(300)
         .size([width, height]);
 
     var containerId = "#svg-container-" + n;

@@ -19,6 +19,7 @@ class Subject(models.Model):
 
     title = models.CharField(max_length=200)
     number = models.IntegerField(unique=True)
+    best_start = models.ForeignKey("Section", null=True, related_name="considered_best_start_by")
 
     def __str__(self):
         return self.title

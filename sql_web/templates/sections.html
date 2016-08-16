@@ -13,6 +13,19 @@
         {% for subject in subjects %}
             <div>
                 <h2 id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</h2>
+                {% if subject.best_start %}
+                    <p>Hér gæti verið gott að byrja að lesa
+                        <a href="{% url "section" subject.best_start.slug %}">{{ subject.best_start.title }}</a>.
+                    </p>
+                {% endif %}
+                <div>
+                    <span>
+                        <label for="{{ marginnote_id }}" class="margin-toggle">&#8853;</label>
+                        <input type="checkbox" id="{{ marginnote_id }}" class="margin-toggle"/>
+                        <span class="marginnote">
+                        </span>
+                    </span>
+                </div>
                 <ul>
                     {% for section in subject.section_set.all %}
                         {% if section.visible %}

@@ -60,9 +60,14 @@ class SectionListView(BaseView):
 
     def get(self, request):
         subjects = Subject.objects.all()
+
+        for s in subjects:
+            if s.best_start and request.user in s.best_start.read_by.all():
+                s.best_start.necessary = False
+
         self.params["subjects"] = subjects
         self.params["title"] = "Yfirlitssíða viðfangsefna"
-        self.params["js_enabled"] = not not request.user.userprofile.js_enabled
+        self.params["js_enabled"] = request.user.is_anonymous() or request.user.userprofile.js_enabled
         return render(request, "sections.html", self.params)
 
 
@@ -160,9 +165,9 @@ class ExerciseView(BaseView):
             self.params["form"] = form
             self.params["exercise"] = the_exercise
 
-            user_statments = form.cleaned_data["code_area"]
+            user_statements = form.cleaned_data["code_area"]
 
-            with ExerciseRunner(user_statments, the_exercise) as runner:
+            with ExerciseRunner(user_statements, the_exercise) as runner:
                 valid, message = runner.is_valid()
                 self.params["message"] = message
 
@@ -221,6 +226,11 @@ Non-user visible views - JSON endpoints and similar
 
 
 class SectionOverview(View):
+    """
+    Used to return the context data for the sections.
+    It is returned in JSON format, as an object containing node and link references.
+    """
+
     def get(self, request, subject_id=None):
         data = {
             "nodes": [],
