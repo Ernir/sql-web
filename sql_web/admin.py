@@ -23,7 +23,7 @@ class CourseAdmin(admin.ModelAdmin):
 class SectionAdmin(admin.ModelAdmin):
     filter_horizontal = ["connected_to", "associated_exercises"]
     exclude = ("read_by", "rendered_contents")
-    readonly_fields = ("slug",)
+    readonly_fields = ("slug", "distance")
 
 
 @admin.register(Figure)

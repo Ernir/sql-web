@@ -19,10 +19,35 @@ class Subject(models.Model):
 
     title = models.CharField(max_length=200)
     number = models.IntegerField(unique=True)
-    best_start = models.ForeignKey("Section", null=True, related_name="considered_best_start_by")
+    best_start = models.ForeignKey("Section", related_name="considered_best_start_by")
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.order_sections()
+        super(Subject, self).save(*args, **kwargs)
+
+    def order_sections(self):
+        """
+        Uses a breadth-first search to find the distance between each subject and the recommended starting section.
+        """
+        assert self.best_start_id is not None  # This not holding means relational integrity isn't holding.
+        self.best_start.distance = 0
+        self.best_start.save()
+
+        explored = set()
+        queue = [self.best_start]
+        while queue:
+            section = queue.pop(0)
+            # We are not interested in computing/overriding values for hidden sections and sections in other subjects
+            connections = section.connected_to.filter(visible=True, subject=self).all()
+            for c in connections:
+                if c not in explored:
+                    explored.add(c)
+                    c.distance = section.distance + 1
+                    c.save()
+                    queue.append(c)
 
     class Meta:
         ordering = ("number",)
@@ -41,6 +66,7 @@ class Section(models.Model):
     rendered_contents = models.TextField()
     connected_to = models.ManyToManyField('self', blank=True, symmetrical=False)
     visible = models.BooleanField(default=True, help_text="Fjarlægið hakið til að fela efnið frá nemendum.")
+    distance = models.IntegerField(help_text="Reiknuð fjarlægð frá ráðlagðri upphafsgrein viðfangsefnisins", default=0)
     associated_exercises = models.ManyToManyField("Exercise", blank=True)
     read_by = models.ManyToManyField(User, blank=True, related_name="read")
 
@@ -67,7 +93,7 @@ class Section(models.Model):
         super(Section, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ("subject__number", "title")
+        ordering = ("subject__number", "distance", "title")
 
 
 class Example(models.Model):
