@@ -1,63 +1,56 @@
-var drawGraph = function (graph, n) {
+var drawGraph = function (data, subject) {
+    /*
+    Creates one subject connectivity graph.
+    Heavily based on this graph: http://bl.ocks.org/mbostock/1153292
+     */
+    var links = data.links;
+    var nodes = data.nodes;
 
-    var modifiedLinks = [];
-    graph.links.forEach(function (e) {
-        // Get the source and target nodes
-        var sourceNode = graph.nodes.filter(
-            function (n) {
-                return n.id === e.source;
-            }
-        )[0];
-        var targetNode = graph.nodes.filter(
-            function (n) {
-                return n.id === e.target;
-            }
-        )[0];
-        // Add the edge to the array
-        modifiedLinks.push({
-            source: sourceNode,
-            target: targetNode,
-            value: e.value
-        });
+    // Update the links with the full data
+    // ToDo: Just initialize them properly
+    links.forEach(function (link) {
+        link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+        link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
     });
 
-    var width = 700;
-    var height = 700;
-
-    var color = d3.scale.category20();
+    var width = 500;
+    var height = 500;
 
     var force = d3.layout.force()
-        .charge(-200)
-        .linkDistance(300)
-        .size([width, height]);
+        .nodes(d3.values(nodes))
+        .links(links)
+        .size([width, height])
+        .linkDistance(80)
+        .charge(-300)
+        .on("tick", tick)
+        .start();
 
-    var containerId = "#svg-container-" + n;
+    var containerId = "#svg-container-" + subject;
     var svg = d3.select(containerId).insert("svg")
         .attr("width", width)
         .attr("height", height);
 
-    force
-        .nodes(graph.nodes)
-        .links(graph.links)
-        .start();
+    svg.append("defs").append("marker")
+        .attr("id", "arrow")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 15)
+        .attr("refY", -1.5)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
+        .attr("orient", "auto")
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5");
 
-    var link = svg.selectAll(".link")
-        .data(modifiedLinks)
-        .enter().append("line")
-        .attr("class", "link");
+    var path = svg.append("g").selectAll("path")
+        .data(force.links())
+        .enter().append("path")
+        .attr("class", "link")
+        .attr("marker-end", "url(#arrow)");
 
-    var gnodes = svg.selectAll('g.gnode')
-        .data(graph.nodes)
-        .enter()
-        .append('g')
-        .classed('gnode', true);
-
-    var node = gnodes.append("circle")
-        .attr("class", "node")
-        .attr("r", 10)
-        .style("fill", function (d) {
-            return color(d.group);
-        })
+    var circle = svg.append("g").selectAll("circle")
+        .data(force.nodes())
+        .enter().append("circle")
+        .attr("r", 6)
         .style("fill-opacity", function (d) {
             if (d.read) {
                 return 0.2;
@@ -67,46 +60,36 @@ var drawGraph = function (graph, n) {
         })
         .call(force.drag);
 
-    var labels = gnodes.append("text")
+    var text = svg.append("g").selectAll("text")
+        .data(force.nodes())
+        .enter().append("text")
+        .attr("x", 8)
+        .attr("y", ".31em")
         .text(function (d) {
             return d.name;
-        })
-        .style("fill", function (d) {
-            if (d.read) {
-                return "purple";
-            } else {
-                return "blue";
-            }
-        })
-        .style("text-decoration", "underline");
-
-    force.on("tick", function () {
-        link.attr("x1", function (d) {
-            return d.source.x;
-        })
-            .attr("y1", function (d) {
-                return d.source.y;
-            })
-            .attr("x2", function (d) {
-                return d.target.x;
-            })
-            .attr("y2", function (d) {
-                return d.target.y;
-            });
-
-        gnodes.attr("transform", function (d) {
-            return 'translate(' + [d.x, d.y] + ')';
         });
-    });
 
-    gnodes.on("click", function () {
-        var selectedNode = d3.select(this);
-        window.location = selectedNode[0][0].__data__.location;
-    });
-
-    gnodes.on("mouseover", function () {
+    circle.on("mouseover", function () {
         this.style.cursor = "pointer";
-    })
+    });
+
+    // Use elliptical arc path segments to doubly-encode directionality.
+    function tick() {
+        path.attr("d", linkArc);
+        circle.attr("transform", transform);
+        text.attr("transform", transform);
+    }
+
+    function linkArc(d) {
+        var dx = d.target.x - d.source.x,
+            dy = d.target.y - d.source.y,
+            dr = Math.sqrt(dx * dx + dy * dy);
+        return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+    }
+
+    function transform(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+    }
 };
 
 window.onload = function () {
