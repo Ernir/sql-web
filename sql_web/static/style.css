@@ -21,6 +21,16 @@ nav ul li a:hover {
     background-color: #FFF0E0;
 }
 
+/* Spacing between subjects on the subject overview */
+
+.subject-container {
+    min-height: 350px;
+}
+
+.subject-container .marginnote {
+    margin-top: -30px;
+}
+
 /* Text justification */
 
 article {

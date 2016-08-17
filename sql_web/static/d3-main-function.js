@@ -13,8 +13,8 @@ var drawGraph = function (data, subject) {
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
     });
 
-    var width = 500;
-    var height = 500;
+    var width = 400;
+    var height = 300;
 
     var force = d3.layout.force()
         .nodes(d3.values(nodes))

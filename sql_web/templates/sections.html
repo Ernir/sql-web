@@ -11,21 +11,21 @@
 {% block text_content %}
     <article>
         {% for subject in subjects %}
-            <div>
+            <div class="subject-container">
                 <h2 id="subject-{{ subject.id }}" class="subject">{{ subject.title }}</h2>
-                {% if subject.best_start %}
-                    <p>Hér gæti verið gott að byrja að lesa
-                        <a href="{% url "section" subject.best_start.slug %}">{{ subject.best_start.title }}</a>.
+                {% if js_enabled %}
+                    <p>
+                        <label for="marginnote-{{ subject.id }}" class="margin-toggle">&#8853;</label>
+                        <input type="checkbox" id="marginnote-{{ subject.id }}" class="margin-toggle"/>
+                        <span class="marginnote">
+                        <strong>Tengsl greina undir "{{ subject.title }}"</strong>
+                        <span id="svg-container-{{ subject.id }}"></span>
+                        </span>
                     </p>
                 {% endif %}
-                <div>
-                    <span>
-                        <label for="{{ marginnote_id }}" class="margin-toggle">&#8853;</label>
-                        <input type="checkbox" id="{{ marginnote_id }}" class="margin-toggle"/>
-                        <span class="marginnote">
-                        </span>
-                    </span>
-                </div>
+                <p>Hér gæti verið gott að byrja að lesa
+                    <a href="{% url "section" subject.best_start.slug %}">{{ subject.best_start.title }}</a>.
+                </p>
                 <ul>
                     {% for section in subject.section_set.all %}
                         {% if section.visible %}
@@ -35,10 +35,6 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                {% if js_enabled %}
-                    <div id="svg-container-{{ subject.id }}">
-                    </div>
-                {% endif %}
             </div>
         {% endfor %}
     </article>
