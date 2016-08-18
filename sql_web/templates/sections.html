@@ -26,15 +26,26 @@
                 <p>Hér gæti verið gott að byrja að lesa
                     <a href="{% url "section" subject.best_start.slug %}">{{ subject.best_start.title }}</a>.
                 </p>
-                <ul>
-                    {% for section in subject.section_set.all %}
-                        {% if section.visible %}
+                {% if subject.unread_sections %}
+                    <p>Þú átt eftir að lesa eftirfarandi greinar:</p>
+                    <ul>
+                        {% for section in subject.unread_sections %}
                             <li>
                                 <a href="{% url "section" section.slug %}">{{ section.title }}</a>
                             </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if subject.read_sections %}
+                    <p>Þú hefur lesið eftirfarandi greinar:</p>
+                    <ul>
+                        {% for section in subject.read_sections %}
+                            <li>
+                                <a href="{% url "section" section.slug %}">{{ section.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         {% endfor %}
     </article>

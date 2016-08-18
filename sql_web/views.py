@@ -59,11 +59,19 @@ class SectionListView(BaseView):
     """
 
     def get(self, request):
-        subjects = Subject.objects.all()
+        subjects = Subject.objects.prefetch_related("section_set").select_related("best_start").all()
 
         for s in subjects:
             if s.best_start and request.user in s.best_start.read_by.all():
                 s.best_start.necessary = False
+
+            s.read_sections = []
+            s.unread_sections = []
+            for section in s.section_set.filter(visible=True):
+                if request.user in section.read_by.all():
+                    s.read_sections.append(section)
+                else:
+                    s.unread_sections.append(section)
 
         self.params["subjects"] = subjects
         self.params["title"] = "Yfirlitssíða viðfangsefna"
