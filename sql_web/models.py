@@ -206,15 +206,19 @@ class Assignment(models.Model):
     A group of exercises to complete and sections to read
     """
 
+    title = models.CharField(max_length=200, blank=True, null=True)
     exercises = models.ManyToManyField(Exercise, blank=True)
     reading = models.ManyToManyField(Section, blank=True)
 
     time_start = models.DateTimeField()
     time_end = models.DateTimeField()
 
-    assigned_to = models.ManyToManyField(User, blank=True)
+    assigned_course = models.ManyToManyField("Course", blank=True, help_text="Setja verkefni fyrir alla nemendur í námskeiðinu")
+    assigned_students = models.ManyToManyField(User, blank=True, help_text="Setja verkefni fyrir einstaka nemendur")
 
     def __str__(self):
+        if self.title:
+            return self.title
         return "Verkefni, í gildi frá {} til {}".format(str(self.time_start), str(self.time_end))
 
 
@@ -225,7 +229,6 @@ class Course(models.Model):
 
     name = models.CharField(max_length=200, unique=True)
     open_to_all = models.BooleanField(default=True, help_text="Sé áfanginn lokaður sérð þú um að skrá inn nemendur")
-    assignments = models.ManyToManyField(Assignment, blank=True)
     members = models.ManyToManyField(User, blank=True)
     description = models.TextField()
 

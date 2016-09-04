@@ -15,7 +15,7 @@ class ExerciseAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    filter_horizontal = ["assignments", "members"]
+    filter_horizontal = ["members"]
     exclude = ("rendered_description", "slug")
 
 
@@ -33,7 +33,7 @@ class FigureAdmin(admin.ModelAdmin):
 
 @admin.register(Assignment)
 class AssignmentAdmin(admin.ModelAdmin):
-    filter_horizontal = ["exercises", "reading", "assigned_to"]
+    filter_horizontal = ["exercises", "reading", "assigned_students"]
 
 
 @admin.register(IndexText)
