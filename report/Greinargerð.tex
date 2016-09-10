@@ -284,14 +284,28 @@ Akademísku kerfin leggja öll áherslu á að greina fyrirspurnir, oft með afa
 
 Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar kennslu til stuðnings. Þau innihalda ekki allar upplýsingar sem nemandi þarf til að leysa verkefnin, ekkert kerfanna hefur það sem yfirlýst markmið að koma í stað fyrirlestra eða kennslubókar. 
 
-Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla.
+Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla. Lærdómurinn sem af þeim má draga er því einskorðaður við þá umfjöllun sem höfundar skilja eftir sig, ekki er hægt að læra af upplýsingunum sem felast í forritskóða kerfanna, uppsetningu þeirra eða gögnum.
 
 Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla. 
 \chapter{Hugmyndafræði}
 \section{Kennslufræði}
 \label{sec:kennslufraedilegar-hugmyndir}
 Texti frekar en vídeó af því texta er auðvelt að uppfæra.
-\section{Opinn hugbúnaður, opið efni og opin dreifing}
+\section{Endingargildi}
+Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
+
+Til að sporna við eðlilegri hnignun þessa kennsluvefs eftir að höfundur mun óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar. Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
+
+\section{Opinn kóði}
+Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins leyfis sem dreift er með kóðanum. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
+
+Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins - skóli með smáar þarfir getur notast við einfalda, ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
+
+Höfundur hyggst halda úti grunnútgáfu af vefnum sem verður aðgengilegur á léni í eigin eigu. En fari svo að höfundur hverfi frá verkefninu og sú útgáfa sem á því léni verði aftend er vefurinn sjálfur þar með ekki dauður og gleymdur - allar aðrar útgáfur munu áfram virka og grunnkóðinn verður enn til.
+\section{Opinn hugbúnaður í notkun}
+Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði vefsins sjálfs. Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum er því ekki takmörkuð við þá notendur sem hafa aðgang að sérstökum, lokuðum hugbúnaði.
+\section{Opið efni}
+Auk kóðans sem þarf til að keyra eintak af kennsluvefnum er allt efni vefsins breytanlegt af notendum hans. Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnisins og framkvæmt hverjar þær áherslu- og efnisbreytingar sem viðkomandi þóknast. Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
 \section{Viðfangsefni sem net/Topic Maps}
 \section{Myndræn framsetning}
 \section{Könnunarnám}
@@ -299,7 +313,7 @@ Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 \chapter{Útfærsla vefsins}
 Vefurinn er skrifaður í forritunarmálinu Python með notkun Django (sjá \ref{sec:django}). Efnið er skrifað með Markdown (sjá \ref{sec:markdown}).
 
-Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}, ásamt sjálfgefnu efni. Allar þriðju aðila tæknilausnir sem vefurinn notar eru sömuleiðis opnar. Niðurstaðan er að hægt er að setja upp keyrandi útgáfu af kennsluvefnum með því einu að sækja grunnkóðann og fylgja uppsetningarleiðbeiningum. % TODO skrifa þessar blessuðu uppsetningarleiðbeiningar.
+
 \section{Tæknilausnir frá þriðja aðila í notkun}
 \subsection{Django}
 \label{sec:django}
