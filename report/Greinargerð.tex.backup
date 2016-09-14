@@ -332,12 +332,12 @@ Kerfið er hlutbundið. Klasi sem táknar ``fyrirbrigði'' í Django erfir frá 
 Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \ref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} ($\rightarrow$ \ref{code:django-model-objects}).
 
 \begin{listing}
-\caption{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
+\caption{Vensl milli ``Section'' og ``Exercise'' skilgreind}
 \label{code:orm-example}
-\begin{minted}[frame=lines]{python}
+\begin{minted}{python}
 class Section(models.Model):
     """..."""
-    associated_exercises = models.ManyToManyField("Exercise")
+    associated_exercises = models.ManyToManyField("Exercise", blank=True)
     """..."""
 \end{minted}
 
@@ -444,7 +444,7 @@ Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gag
 
 Helsti kostur þessa fyrirkomulags er öryggi. Gagnagrunnurinn er tímabundinn og inniheldur engin gögn nema þau sem eru æfingunni viðkomandi. Tengingin hefur ekki heimildir til að tengjast skráarkerfinu né heldur til að framkvæma SQLite-stýriskipanir (``dot-commands'') sem gætu framkallað breytingar á kerfinu sjálfu eða lesið þaðan upplýsingar. Það er aldrei hættulaust að keyra kóða annars fólks með jafn litlu eftirliti og forritunarkennslukerfi krefst, en með þessum hætti er tekið fyrir algengustu gerðir skaðlegra villna og árása.
 
-Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Líklegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti, auk þess sem gagnasöfnin sem um ræðir eru af viðráðanlegri stærð, verandi af stærð sem nemendur geta meðtekið.
+Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Líklegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti. Auk þess eru 
 \subsubsection{Mat á skipunum öðrum en SELECT skipunum}
 Snúist æfingin ekki um \texttt{SELECT} skipun er strengjasamanburður notaður til að athuga hvort að skipunin sé sambærileg við þá sem herma skal eftir. Samanburðurinn felst í því að Levenshtein-fjarlægð er reiknuð á milli skipananna tveggja. 
 
@@ -504,15 +504,15 @@ Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt a�
 \caption{Möguleg dæmi um myndainnfellingar í Markdown}
 \label{fig:markdown-image-examples}
 Óbreytt Markdown:
-\begin{minted}[frame=lines]{markdown}
+\begin{verbatim}
 ![Alt text](/path/to/img.jpg "Optional title")
-\end{minted}
+\end{verbatim}
 Með viðbót:
-\begin{minted}[frame=lines]{markdown}
+\begin{verbatim}
 ![Alt text](identifier "Optional title")
 f![Alt text](identifier "Optional title")
 m![Alt text](identifier "Optional title")
-\end{minted}
+\end{verbatim}
 \end{listing}
 
 
