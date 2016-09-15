@@ -267,27 +267,54 @@ Kennslubókin var, með styrk frá Þróunarsjóði námsgagna, gefin út rafræ
 
 Bókinni var vel tekið af þeim kennurum Tækniskólans sem sáu um kennslu í notkun gagnasafna. Engu að síður varð fljótt ljóst að efninu mætti betur koma til skila með öðrum hætti - í gegnum vafrann.
 \section{Önnur kennslutól}
-% Hugmyndin um að nýta vefinn og tölvuforrit til kennslu í notkun gagnasafna er ekki ný af nálinni. 
-% 
-% Auðvelt er að finna umfjöllun um eldri tilraunir til að búa til kennsluforrit í akademísku umhverfi. SQL-Tutor \cite{mitrovic1998} er kerfi komið til ára sinna, en þróun á því hófst árið 1996. Kerfið er ``intelligent tutoring system'' (ITS), ætlað til að uppfylla hlutverk leiðbeinanda þegar nemandi vinnur að því að semja fyrirspurnir. Kerfið tekur við fyrirspurnum frá nemendum og metur hvort þær séu réttar, en í stað hefðbundinna villuskilaboða leggur SQL-Tutor áherslu á að veita nemandanum leiðsögn um hvað það er sem gæti hafa farið úrskeiðis. Acharya\cite{bhagat2002} er svipaðs eðlis, en það er ITS-kerfi sem líka leggur áherslu á greiningu nemendafyrirspurna. Acharya leyfir frjálsa könnun nemandans á efnisatriðum og sýnir honum ráðleggingar byggðar á þeim efnisatriðum sem hann hefur þegar skoðað, en aðferðunum sem notaðar eru til að framleiða ráðleggingarnar er einungis lýst stuttlega. AsseSQL \cite{prior2014assesql} er tól til að veita sjálfvirka endurgjöf og ákvarða einkunnir. SQLator \cite{sadiq2004sqlator} leyfir nemendum að kanna gagnagrunn fyrirspurna til að framkvæma og fá endurgjöf á æfingum.
-% 
-% Auk þeirra tóla sem fengið hafa akademíska umfjöllun er fjöldinn allur af námstækifærum til staðar á netinu.
-% 
-% Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda, þeir hlutar kerfisins sem snúa að kennurum eru seinni tíma viðbætur.
-% 
-% Kerfi sem hefur verið notað til stuðnings í Tækniskólanum er SQLZoo\footnote{\url{http://sqlzoo.net/}}. Um ``interactive tutorial'' er að ræða, þar sem nemandanum gefst kostur á að vinna sig í gegnum sífellt flóknari verkefni. Hægt er að framkvæma SQL-skipanir á vefsíðunni sjálfri, með tafarlausri endurgjöf. Síðan er byggð á MediaWiki og hún þar með opin fyrir breytingum utanaðkomandi aðila.
-% Líkt og í mörgum öðrum kennslukerfum samanstendur SQLZoo fyrst og fremst af æfingum í að framkvæma fyrirspurnir. Upplýsingum er ekki gefið samhengi, heldur er nemandanum strax beint að því að fara að skrifa SQL-skipanir. Framvindan í gegnum námsefnið er fyrst og fremst línuleg.
-% 
-% Schemaverse\footnote{\url{https://schemaverse.com/}} er leikur fremur en kennslutól, en leikurinn er spilaður með því að framkvæma SQL-skipanir til að stjórna ``geimskipum'' sem keppa við geimskip annarra. Möguleiki er á að nota leikinn til þjálfunar fyrir lengra komna nemendur og þá sem hvattir eru af samkeppni.
-\subsection{Greining á forverum}
-% Akademísku kerfin leggja öll áherslu á að greina fyrirspurnir, oft með afar úthugsuðum aðferðum. Acharya\cite{bhagat2002} notar sanntöflur, 
-% 
-% Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar kennslu til stuðnings. Þau innihalda ekki allar upplýsingar sem nemandi þarf til að leysa verkefnin, ekkert kerfanna hefur það sem yfirlýst markmið að koma í stað fyrirlestra eða kennslubókar. 
-% 
-% Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla. Lærdómurinn sem af þeim má draga er því einskorðaður við þá umfjöllun sem höfundar skilja eftir sig, ekki er hægt að læra af upplýsingunum sem felast í forritskóða kerfanna, uppsetningu þeirra eða gögnum.
-% 
-% Vegna skorts á umfjöllun er erfitt að draga umfjöllun um markmið þeirra kerfa sem ekki hafa verið búin til við háskóla. 
+Hugmyndin um að nýta vefinn og tölvuforrit til kennslu í notkun gagnasafna er ekki ný af nálinni. Auðvelt er að finna umfjöllun um eldri kennsluforrit sem upprunin eru í akademísku umhverfi. Auk þess hefur verið gríðarmikil gróska í gerð ýmissa veftóla til SQL-kennslu sem búin hafa verið til utan háskólaumhverfis. Verður nokkrum þeirra lýst hér að neðan.
+
+\subsection{Akademísk SQL-kennslutól}
+SQL-Tutor \cite{mitrovic1998} er kerfi komið til ára sinna, en þróun á því hófst árið 1996. Kerfið er, ætlað til að uppfylla hlutverk leiðbeinanda þegar nemandi vinnur að því að semja fyrirspurnir. Kerfið tekur við fyrirspurnum frá nemendum og metur hvort þær séu réttar, en í stað hefðbundinna villuskilaboða leggur SQL-Tutor áherslu á að veita nemandanum leiðsögn um hvað það er sem gæti hafa farið úrskeiðis. Á sínum tíma vakti það athygli fyrir notkun á ``Constraint Based Modelling'' (CBM) í stað þess að notast við villubanka. Nýrri útgáfur kerfisins eru enn að einhverju leyti virkir og notaðir til rannsókna. Sem elsta kerfið sem enn er í notkun hefur það fengið nokkra viðurkenningu sem brautryðjandi \cite{mitrovic2016implementing}.
+
+Acharya\cite{bhagat2002} er svipaðs eðlis, en það er ITS-kerfi sem líka leggur áherslu á greiningu nemendafyrirspurna. Acharya leyfir frjálsa könnun nemandans á efnisatriðum og sýnir honum ráðleggingar byggðar á þeim efnisatriðum sem hann hefur þegar skoðað, en aðferðunum sem notaðar eru til að framleiða ráðleggingarnar er einungis lýst stuttlega. Acharya er ekki 
+
+AsseSQL \cite{prior2014assesql} er tól til að veita sjálfvirka endurgjöf og ákvarða einkunnir. SQLator \cite{sadiq2004sqlator} leyfir nemendum að kanna gagnagrunn fyrirspurna til að framkvæma og fá endurgjöf á æfingum.
+
+\subsubsection{Greining}
+Akademísku kerfin bera þess merki að vera að mestu leyti unnin af einstaklingum. Kerfin eru skrifuð af akademískum starfsmönnum til eigin nota. Þau eru notuð við kennslu í námskeiðum sem höfundurinn kennir sjálfur og við kennslutengdar rannsóknir.
+
+Athygli vekur að öll kerfin leggja áherslu á að greina fyrirspurnir, sum með afar sérhæfðum aðferðum. SQL-Tutor notar áðurnefnt CBM, Acharya notar sanntöflur og leggur sérstaka áherslu á að greina \texttt{WHERE} klausur.
+
+Kerfin gera ráð fyrir að þau séu notuð sem æfingakerfi hefðbundinnar kennslu til stuðnings. Þau innihalda ekki allar upplýsingar sem nemandi þarf til að leysa verkefnin, ekkert kerfanna hefur það sem yfirlýst markmið að koma í stað fyrirlestra eða kennslubókar. 
+
+Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi ekki aðgengileg. Höfundur hefur ekki fengið tækifæri til að keyra eitt einasta þeirra á eigin vél. Vefútgáfa SQL-Tutor, SQLT-Web, var á tímabili aðgengileg og fjölsótt á mælikvarða þess tíma\cite{mitrovic2003intelligent}, en í dag er hún eingöngu aðgengileg í viðkomandi háskóla. Lærdómurinn sem af þeim má draga er því einskorðaður við þá umfjöllun sem höfundar skilja eftir sig, ekki er hægt að læra af upplýsingunum sem felast í forritskóða kerfanna, uppsetningu þeirra eða gögnum.
+
+\begin{figure}
+\caption{Vefútgáfa SQL-Tutor\cite{mitrovic2016sqltutorweb}}
+\label{fig:sqltutorweb}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{sqlt-web}
+\end{center}
+\end{figure}
+
+\subsection{Önnur SQL-kennslutól}
+Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda, þeir hlutar kerfisins sem snúa að kennurum og samskiptum þeirra við nemendur eru seinni tíma viðbætur.
+
+Kerfi sem hefur verið notað til stuðnings í Tækniskólanum er SQLZoo\footnote{\url{http://sqlzoo.net/}}. Um ``interactive tutorial'' er að ræða, þar sem nemandanum gefst kostur á að vinna sig í gegnum sífellt flóknari verkefni. Hægt er að framkvæma SQL-skipanir á vefsíðunni sjálfri, með tafarlausri endurgjöf. Síðan er byggð á MediaWiki og hún þar með opin fyrir breytingum utanaðkomandi aðila.
+Líkt og í mörgum öðrum kennslukerfum samanstendur SQLZoo fyrst og fremst af æfingum í að framkvæma fyrirspurnir. Upplýsingum er ekki gefið samhengi, heldur er nemandanum strax beint að því að fara að skrifa SQL-skipanir. Framvindan í gegnum námsefnið er fyrst og fremst línuleg.
+
+Schemaverse\footnote{\url{https://schemaverse.com/}} er leikur fremur en kennslutól, en leikurinn er spilaður með því að framkvæma SQL-skipanir til að stjórna ``geimskipum'' sem keppa við geimskip annarra. Möguleiki er á að nota leikinn til þjálfunar fyrir lengra komna nemendur og þá sem hvattir eru af samkeppni.
+
+Nemendur sem vilja sækja formlegra netnámskeið hafa úr mörgu að velja. Coursera\footnote{\url{https://www.coursera.org/}} og edX\footnote{\url{https://www.edx.org/}} bjóða bæði upp á fjölmörg námskeið sem tengjast gagnagrunnum.
+
+\subsubsection{Greining}
+Óakademísku tólin mynda fjölbreyttari hóp en þau akademísku. Sum eru hluti af breiðu námsúrvali ósérhæfðari menntastofnunar (Khan Academy), önnur bera þess merki að vera búin til af einstaklingum eða fámennum hópi í gróðaskyni (SQLZoo) og önnur jafnvel sem áhugamál (Schemaverse).
+
+Framsetning er í sumum tilfellum gríðarlega markviss, eins og við má búast af kerfum sem ekki geta gengið að nemendahóp vísum. Stærri síðurnar (Coursera, edX, Khan Academy) eru nútímalegar og vel hannaðar, SQLZoo er með áberandi stutta leið frá forsíðu að SQL-æfingum. Munurinn er sérlega sláandi þegar þau eru borin saman við akademísku tólin sem eru ekki einu sinni aðgengileg á netinu og bera þess vott að njóta ekki reglulegra viðmótsuppfærslna (sjá \ref{fig:sqltutorweb}).
+
+Endurgjöf er jákvæð - Khan Academy gefur stig, SQLZoo gefur glaðlega broskalla þegar æfingu er lokið. Verið er að búa til hvata fyrir nemendur til að halda áfram þegar ytri þrýstingur (á borð við hættuna á að falla í námskeiði) er ekki endilega til staðar.
+
+Opnu tólin þjást að mati höfundar helst af annars vegar stefnuleysi og hins vegar skorti á möguleikum til að þætta tólið saman við hefðbundna kennslu. Tólin þurfa að geta þjónað mjög breiðum hópi nemenda til að viðhalda vinsældum sínum, sem takmarkar þau í að bjóða upp á sérhæft efni. Tólin eru miðuð að nemendum sem stunda sjálfsnám, kennarar sem hyggjast nýta þau í kennslustofu þurfa að nota óbeinar aðferðir til að fylgjast með og taka þátt í framgangi nemenda.
+
+Af velgengni þeirra má læra, en kennsluvefur sem hefur það sérstaka hlutverk að styðja við kennslu í hefðbundnu námskeiði þarf að hafa aðrar áherslur.
 \chapter{Hugmyndafræði}
+Yfirlit þess sem ég ætla að gera betur/á annan hátt.
 \section{Kennslufræði}
 \label{sec:kennslufraedilegar-hugmyndir}
 % Texti frekar en vídeó af því texta er auðvelt að uppfæra.
