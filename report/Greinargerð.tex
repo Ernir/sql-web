@@ -26,13 +26,47 @@
 \usepackage{booktabs}
 \usepackage[newfloat]{minted}
 \usepackage[rounded]{syntax}
-
+\usepackage{auxhook}
 
 \SetupFloatingEnvironment{listing}{name=Kóðalistun}
 \SetupFloatingEnvironment{listing}{listname=Kóðalistunarskrá}
 
+% Custom references
+\newcounter{labelknownref}
+\renewcommand*{\thelabelknownref}{\the\value{labelknownref}}
+\makeatletter
+\AddLineBeginAux{%
+  \string\providecommand\string\LabelKnown[2]{}%
+}
+\newcommand*{\LabelKnown}[2]{%
+  \expandafter\xdef\csname lkr@#2\endcsname{%
+    \@ifundefined{r@#1}{0}{1}%
+  }%
+}
 
-% Mállýsingar
+\newcommand*{\myref}[1]{%
+  \begingroup
+    \stepcounter{labelknownref}%
+    \if@filesw
+      \protected@write\@auxout{}{%
+        \string\LabelKnown{#1}{\thelabelknownref}%
+      }%
+    \fi 
+    \if\csname lkr@\thelabelknownref\endcsname 1%
+      ($\leftarrow$\ref{#1})%
+    \else
+      \if\csname lkr@\thelabelknownref\endcsname 0%
+        (\ref{#1}$\rightarrow$)%
+      \else
+        (\ref{#1})%
+      \fi
+    \fi
+  \endgroup
+}
+\makeatother
+
+
+% Syntax diagrams
 \newenvironment{repnull}[0]{%
 \begin{stack}
 \\
@@ -222,30 +256,6 @@ Hér kemur útdráttur á íslensku sem er að hámarki 250 orð. Reynið að ko
 \listoftables
 \listoflistings
 
-% \chapter*{Íslenskur orðaforði}
-% 
-% Íslenska er, stærðar málsvæðisins vegna, ekki notuð jafn mikið og enska við skrif um tæknileg málefni. 
-% Því er líklegt að sá orðaforði sem notaður er í ritgerð á borð við þessa komi jafnvel vönustu lesendum spánskt fyrir sjónir. 
-% Til glöggvunar heldur tafla \ref{tab:translations} utan um helstu þýðingar sem notaðar eru.
-% 
-% \begin{table}
-% \caption{Upprunaleg merking ýmissa orða á Íslensku}
-% \label{tab:translations}
-% \begin{center}
-% \begin{tabular}{ll}
-% \toprule
-% Íslenska&Enska\\
-% \midrule
-% Hér á eftir að gera: &CTRL-F á (e. \\
-% Ívafsmál & Markup language\\
-% Málskipan & Syntax\\
-% Æfing & Exercise\\
-% \bottomrule
-% \end{tabular}
-% \end{center}
-% \end{table}
-
-
 % \chapter*{Acknowledgments}
 % \addcontentsline{toc}{chapter}{Acknowledgments}
 % 
@@ -306,7 +316,7 @@ Nemendur sem vilja sækja formlegra netnámskeið hafa úr mörgu að velja. Cou
 \subsubsection{Greining}
 Óakademísku tólin mynda fjölbreyttari hóp en þau akademísku. Sum eru hluti af breiðu námsúrvali ósérhæfðari menntastofnunar (Khan Academy), önnur bera þess merki að vera búin til af einstaklingum eða fámennum hópi í gróðaskyni (SQLZoo) og önnur jafnvel sem áhugamál (Schemaverse).
 
-Framsetning er í sumum tilfellum gríðarlega markviss, eins og við má búast af kerfum sem ekki geta gengið að nemendahóp vísum. Stærri síðurnar (Coursera, edX, Khan Academy) eru nútímalegar og vel hannaðar, SQLZoo er með áberandi stutta leið frá forsíðu að SQL-æfingum. Munurinn er sérlega sláandi þegar þau eru borin saman við akademísku tólin sem eru ekki einu sinni aðgengileg á netinu og bera þess vott að njóta ekki reglulegra viðmótsuppfærslna (sjá \ref{fig:sqltutorweb}).
+Framsetning er í sumum tilfellum gríðarlega markviss, eins og við má búast af kerfum sem ekki geta gengið að nemendahóp vísum. Stærri síðurnar (Coursera, edX, Khan Academy) eru nútímalegar og vel hannaðar, SQLZoo er með áberandi stutta leið frá forsíðu að SQL-æfingum. Munurinn er sérlega sláandi þegar þau eru borin saman við akademísku tólin sem eru ekki einu sinni aðgengileg á netinu og bera þess vott að njóta ekki reglulegra viðmótsuppfærslna, sjá \myref{fig:sqltutorweb}.
 
 Endurgjöf er jákvæð - Khan Academy gefur stig, SQLZoo gefur glaðlega broskalla þegar æfingu er lokið. Verið er að búa til hvata fyrir nemendur til að halda áfram þegar ytri þrýstingur (á borð við hættuna á að falla í námskeiði) er ekki endilega til staðar.
 
@@ -324,13 +334,13 @@ Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhald
 Til að sporna við eðlilegri hnignun þessa kennsluvefs eftir að höfundur mun óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
 \subsection{Opinn kóði}
 \label{sec:open-source}
-Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis (\ref{code:license}) sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
+Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{code:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
 
 Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins, skóli með smáar þarfir getur notast við einfalda, ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
 
 Höfundur hyggst halda úti grunnútgáfu af vefnum sem verður aðgengilegur á léni í eigin eigu. En fari svo að höfundur hverfi frá verkefninu og sú útgáfa sem á því léni verði aftend er vefurinn sjálfur þar með ekki dauður og gleymdur - allar aðrar útgáfur munu áfram virka og grunnkóðinn verður enn til.
 \subsection{Opinn hugbúnaður í notkun}
-Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði vefsins sjálfs. Um tæknilausnir má lesa nánar í \ref{sec:third-party-tech}.
+Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði vefsins sjálfs. Um tæknilausnir má lesa nánar í \myref{sec:third-party-tech}.
 
 Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum er því ekki takmörkuð við þá notendur sem hafa aðgang að sérstökum, lokuðum hugbúnaði.
 
@@ -338,7 +348,7 @@ Eitt og sér tryggir það að tæknilausnirnar séu opnar ekki langlífi þeirr
 En fyrirkomulagið gerir það að ein tiltekin lausn sem kennsluvefurinn reiðir sig á verði skyndilega óaðgengileg mun ólíklegri.
 \subsection{Opið efni}
 Kóðanum og efninu sem vefurinn inniheldur er dreift samhliða og með svipuðum aðferðum. 
-Meðal afleiðinga þess er að allt efni vefsins breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis (\ref{code:license}). Sérstakar viðbætur (\ref{sec:markdown-additions}) voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
+Meðal afleiðinga þess er að allt efni vefsins breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis \myref{code:license}. Sérstakar viðbætur \myref{sec:markdown-additions} voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
 
 Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnisins og framkvæmt hverjar þær áherslu- og efnisbreytingar sem viðkomandi þóknast.
 Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
@@ -349,7 +359,7 @@ Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna k�
 \section{Guided Discovery}
 \section{Efnisáherslur}
 \chapter{Útfærsla vefsins}
-% Vefurinn er skrifaður í forritunarmálinu Python með notkun Django (sjá \ref{sec:django}). Efnið er skrifað með Markdown (sjá \ref{sec:markdown}).
+% Vefurinn er skrifaður í forritunarmálinu Python með notkun Django \myref{sec:django}. Efnið er skrifað með Markdown \myref{sec:markdown}.
 
 
 \section{Tæknilausnir frá þriðja aðila í notkun}
@@ -358,16 +368,16 @@ Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna k�
 \label{sec:django}
 Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
 
-Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem tengjast Object-relational Mapping (ORM) kerfi grindarinnar ($\rightarrow$ \ref{sec:django-orm}).
+Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem tengjast Object-relational Mapping (ORM) kerfi grindarinnar \myref{sec:django-orm}.
 
-Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Sem dæmi má taka að stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í einni grunnskrá ($\rightarrow$ \ref{code:base-template}).
+Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Sem dæmi má taka að stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í einni grunnskrá \myref{code:base-template}.
 \subsubsection{Django ORM}
 \label{sec:django-orm}
 Object-relational Mapping kerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
 
 Kerfið er hlutbundið. Klasi sem táknar ``fyrirbrigði'' í Django erfir frá \texttt{model} klasa gefnum af burðargrindinni. Forritarinn bætir síðan við eigin eiginleikum og aðferðum sem viðkoma forritinu. Burðargrindin sér um að smíða gagnagrunnstöflur sem geymt geta þær upplýsingar sem þarf til að tákna tilvik af klasanum.
 
-Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \ref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} ($\rightarrow$ \ref{code:django-model-objects}).
+Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \myref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} \myref{code:django-model-objects}.
 
 \begin{listing}
 \caption{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
@@ -386,7 +396,7 @@ class Section(models.Model):
 \label{sec:markdown}
 Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða á spjallborði á netinu.
 
-Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur og auðskrifanlegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar til framsetningar. HTML inniheldur þess vegna töluverðar viðbótarupplýsingar um hvernig birta skal textann (sbr. mynd \ref{fig:markdown}) sem eru áskildar í Markdown.
+Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur og auðskrifanlegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar til framsetningar. HTML inniheldur þess vegna töluverðar viðbótarupplýsingar um hvernig birta skal textann, sbr. mynd \myref{fig:markdown} sem eru áskildar í Markdown.
 
 \begin{figure}
 \caption{Upprunalegur Markdown-kóði og HTML-ið sem hann skilgreinir}
@@ -403,7 +413,7 @@ $\downarrow$
 
 Markdown-sniðið er sem sagt sérstaklega hannað til að skrifa texta án truflana, sem svo er oft þýddur yfir í þyngri ívafsmál (venjulega HTML) með þar til gerðu forriti. Markdown-málið er upphaflega skilgreint óformlega með slíku forriti, Perl-forritinu \texttt{Markdown.pl}, skrifað af John Gruber árið 2004. Kennsluvefurinn notar Markdown á svipaðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
 
-Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennslufvefsins ($\rightarrow$ \ref{sec:markdown-additions}).
+Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennslufvefsins \myref{sec:markdown-additions}.
 \subsection{D3.js}
 \subsection{Tufte-css}
 \label{sec:tufte-css}
@@ -412,7 +422,7 @@ Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkr�
 \label{sec:command-analysis}
 Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld.
 
-Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django ($\leftarrow$ \ref{sec:django}) \texttt{model} hlut, sjá \texttt{Exercise} klasann ($\rightarrow$ \ref{code:django-model-objects}). Slíkur hlutur hefur nokkra eiginleika sem vert er að nefna:
+Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django \myref{sec:django} \texttt{model} hlut, sjá \texttt{Exercise} klasann \myref{code:django-model-objects}. Slíkur hlutur hefur nokkra eiginleika sem vert er að nefna:
 
 \begin{itemize}
  \item Nafn, auðkenni og lýsingu
@@ -424,7 +434,7 @@ Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (
 
 Þessir eiginleikar, að viðbættri SQL-skipun sem nemandinn skrifar inn, mynda eina keyrslu á æfingu. Keyrsla á æfingu skilar sanngildi sem tilgreinir hvort SQL-skipun nemandans hafi verið rétt miðað við gefnar forsendur, ásamt skilaboðum til nemandans.
 
-Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} ($\rightarrow$ \ref{code:example-runner}). Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
+Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:example-runner}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
 
 \subsubsection{Mat á SELECT skipunum}
 Þegar um \texttt{SELECT}-skipanir er að ræða er möguleiki á að sannreyna niðurstöðurnar á sveigjanlegri máta.
@@ -462,7 +472,7 @@ Samanburður á röðuðum mengjum& $O(n)$\\
 \end{table}
 Ítrunin yfir samanburðarmengið tekur línulegan tíma með tilliti til fjölda staka í menginu. Einföld samanburðarleit á borð við þá sem notuð er á nemendamengið er sömuleiðis með línulegan keyrslutíma. Gert er ráð fyrir því að samanburður tveggja lína taki fastan tíma.
 
-Áætlaðar tímaflækjur fyrir samanburði niðurstaðnanna má sjá á töflu \ref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. Tímaflækja samanburðanna er slæm þegar bera þarf saman tvö óröðuð, jafn stór mengi. Þetta hefur engu að síður ekki valdið vandræðum við raunverulegar aðstæður. Aðferðin hefur auk þess nokkra kosti sem gera hana áreiðanlegri en fyrirsjáanlegir möguleikar á að nota skilvirkari aðferðir.
+Áætlaðar tímaflækjur fyrir samanburði niðurstaðnanna má sjá á töflu \myref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. Tímaflækja samanburðanna er slæm þegar bera þarf saman tvö óröðuð, jafn stór mengi. Þetta hefur engu að síður ekki valdið vandræðum við raunverulegar aðstæður. Aðferðin hefur auk þess nokkra kosti sem gera hana áreiðanlegri en fyrirsjáanlegir möguleikar á að nota skilvirkari aðferðir.
 
 \paragraph{Aðrar leiðir til að framkvæma samanburði} Þekkt er að hægt sé að bera saman tvö mengi á línulegum tíma með tilliti til fjölda staka sé uppfletting möguleg á föstum tíma. Mengi í Python styðja uppflettingu á föstum tíma, að því gefnu að hægt sé að reikna tætivistföng (e. \emph{hash values}) fyrir stökin. Þar sem kennari getur útbúið æfingar með flestum gerðum gagna er óáreiðanlegt að gera ráð fyrir miklu um uppbyggingu hverrar línu.
 
@@ -470,7 +480,7 @@ Einnig er hægt að bera saman mengi á $O(n\log n)$ tíma séu stökin raðanle
 
 Báðar leiðinar eru skilvirkari en sú sem valin er, en fela í sér möguleikann á ólíklegum en torskildum villum fyrir notendur vefsins.
 \subsubsection{SQLite í minni}
-Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gagnagrunni sem einungis er til í minni kerfisins. Þegar meta skal skipun er tómur gagnagrunnur búinn til í minni, gerðarlýsingin sett upp, nemendafyrirspurnin og samanburðarfyrirspurnin keyrð og gagnagrunninum að lokum eytt. Sjá mynd \ref{fig:sql-evaluation-execution}.	
+Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gagnagrunni sem einungis er til í minni kerfisins. Þegar meta skal skipun er tómur gagnagrunnur búinn til í minni, gerðarlýsingin sett upp, nemendafyrirspurnin og samanburðarfyrirspurnin keyrð og gagnagrunninum að lokum eytt. Sjá mynd \myref{fig:sql-evaluation-execution}.	
 
 \begin{figure}
 \caption{Framkvæmd mats á nemendafyrirspurn}
@@ -496,7 +506,7 @@ Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleik
  
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar, sem lýst er hér að neðan.
 \subsubsection{Myndir}
-Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \ref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
+Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \myref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
 
 \begin{figure}
 \caption{Myndainnfellingar í Markdown}
@@ -533,9 +543,9 @@ Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notu�
 \end{subfigure}
 \end{figure}
 
-Sérsmíðaða viðbótin, sem vinnur samkvæmt mállýsingu á mynd \ref{fig:markdown-image-inclusion-enhanced}, býður upp á aukamöguleika sem sérstaklega tengjast kennsluvefnum og hans framsetningarmöguleikum.
+Sérsmíðaða viðbótin, sem vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-image-inclusion-enhanced}, býður upp á aukamöguleika sem sérstaklega tengjast kennsluvefnum og hans framsetningarmöguleikum.
 
-Athugum að texti kennsluvefsins er settur fram í tveimur dálkum, aðaldálki og spássíudálki (sjá undirkafla \ref{sec:tufte-css}). Fyrst er gefinn möguleiki á að skeyta stafnum \texttt{m} eða stafnum \texttt{f} framan við myndskilgreininguna. Sé stafnum sleppt fyllir myndin aðaldálkinn. Sé stafurinn \texttt{m} gefinn fyllir myndin spássíudálkinn. Sé stafurinn \texttt{f} gefinn fyllir myndin báða dálkana.
+Athugum að texti kennsluvefsins er settur fram í tveimur dálkum, aðaldálki og spássíudálki, sjá undirkafla \myref{sec:tufte-css}. Fyrst er gefinn möguleiki á að skeyta stafnum \texttt{m} eða stafnum \texttt{f} framan við myndskilgreininguna. Sé stafnum sleppt fyllir myndin aðaldálkinn. Sé stafurinn \texttt{m} gefinn fyllir myndin spássíudálkinn. Sé stafurinn \texttt{f} gefinn fyllir myndin báða dálkana.
 
 Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt að lesa \texttt{<image-identifier>} sem einkvæmt auðkenni Django-model hlutar sem skilgreinir mynd. Finnist engin mynd með viðkomandi auðkenni er leitað að kóðasýnidæmi með auðkennið \texttt{<image-identifier>}. Finnist ekkert kóðasýnidæmi heldur er \texttt{<image-identifier>} notað beint sem vefslóð og virknin þá sem fyrr.
 \begin{listing}
@@ -557,7 +567,7 @@ m![Alt text](identifier "Optional title")
 \subsubsection{Spássíugreinar}
 Framsetning efnisins gerir ráð fyrir notkun hliðarútskýringa í spássíum. Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}} gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum, frekar en spássíugreinum. Viðbótin var því endurskrifuð.
 
-Viðbótin vinnur samkvæmt mállýsingu á mynd \ref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown. Hvaða Markdown-texti sem er er sem sagt löglegur, en sterklega er mælt gegn því að setja hliðarútskýringu inn í hliðarútskýringu.
+Viðbótin vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown. Hvaða Markdown-texti sem er er sem sagt löglegur, en sterklega er mælt gegn því að setja hliðarútskýringu inn í hliðarútskýringu.
 
 \begin{figure}
 \caption{Spássíugreinar í Markdown}
@@ -571,11 +581,11 @@ Viðbótin vinnur samkvæmt mállýsingu á mynd \ref{fig:markdown-footnote}. \t
 Gert er ráð fyrir að tengingar á milli greina séu mikið notaðar innan texta kennsluvefsins. Óbreytt Markdown inniheldur almennar leiðir til að fella tengla inn í setningar, en slíkt hefur ókosti í för með sér:
 
 \begin{enumerate}
- \item Breytist vefslóð kennsluvefsins\footnote{Þetta er mjög líklegt að gerist oft, sjá \ref{sec:open-source}} þarf að gera breytingar á frumtextanum til að viðhalda tenglunum
+ \item Breytist vefslóð kennsluvefsins\footnote{Þetta er mjög líklegt að gerist oft, sjá \myref{sec:open-source}} þarf að gera breytingar á frumtextanum til að viðhalda tenglunum
  \item Vefslóðir innihalda mikið af upplýsingum sem eru textahöfundum óviðkomandi
 \end{enumerate}
 
-Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \ref{fig:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
+Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \myref{fig:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
 
 \begin{figure}
 \caption{Innri tenglar í Markdown}
