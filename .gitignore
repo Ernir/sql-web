@@ -19,4 +19,5 @@ report/*.lot
 report/*.out
 report/*.pdf
 report/*.toc
+report/*.backup
 report/_minted*
