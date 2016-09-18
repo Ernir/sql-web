@@ -304,6 +304,7 @@ Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi
 \end{figure}
 
 \subsection{Önnur SQL-kennslutól}
+\label{sec:other-sql-teaching-tools}
 Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda, þeir hlutar kerfisins sem snúa að kennurum og samskiptum þeirra við nemendur eru seinni tíma viðbætur.
 
 Kerfi sem hefur verið notað til stuðnings í Tækniskólanum er SQLZoo\footnote{\url{http://sqlzoo.net/}}. Um ``interactive tutorial'' er að ræða, þar sem nemandanum gefst kostur á að vinna sig í gegnum sífellt flóknari verkefni. Hægt er að framkvæma SQL-skipanir á vefsíðunni sjálfri, með tafarlausri endurgjöf. Síðan er byggð á MediaWiki og hún þar með opin fyrir breytingum utanaðkomandi aðila.
@@ -325,10 +326,30 @@ Opnu tólin þjást að mati höfundar helst af annars vegar stefnuleysi og hins
 Af velgengni þeirra má læra, en kennsluvefur sem hefur það sérstaka hlutverk að styðja við kennslu í hefðbundnu námskeiði þarf að hafa aðrar áherslur.
 \chapter{Hugmyndafræði}
 Yfirlit þess sem ég ætla að gera betur/á annan hátt.
-\section{Kennslufræði}
-\label{sec:kennslufraedilegar-hugmyndir}
+\section{Vefurinn sem bók}
+\label{sec:web-as-book}
+Forveri verkefnisins er kennslubók. Bókin var gefin út rafrænt, en nýtti sér þá kosti sem slíkt fyrirkomulag hefur í för með sér ekki nema að takmörkuðu leyti. Innri og ytri tenglar voru til staðar í bókinni, en að flestu öðru leyti var um nokkuð hefðbundið rafrænt skjal að ræða.
+
+Kennsluvefurinn er hugsaður sem ítrun, eða næsta útgáfa, á rafrænu kennslubókinni. Ekki er um að ræða endurskrift frá grunni, heldur er ætlunin að endurnýta það sem gefist hefur vel og bæta við virkni sem ekki var mögulegt að útfæra sem hluta af .pdf skjalinu. 
+
+Nálgunin er því með öðrum hætti en á öðrum SQL-kennslusíðum, t.d. SQLZoo eða Khan Academy \myref{sec:other-sql-teaching-tools}, þar sem nemandanum er annars vegar beint í átt að æfingaverkefnum og hins vegar í átt að kennslumyndböndum. Áhersla kennsluvefsins er sem sagt eftir sem áður á framsetningu á ``gamaldags'' efnistexta.
+
+Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi efst í huga eru þó umfram allt þrír:
+
+\begin{itemize}
+ \item Aukinn möguleiki á að nýta eldra efni, sjá vefinn sem ítrun á eldri útgáfu hér að ofan
+ \item Auðveldari uppfærslur, sjá endingargildi \myref{sec:durability}
+ \item Auðveldari samþætting efnis frá öðrum höfundum, sjá opið efni \myref{sec:open-material}
+\end{itemize}
+
+Þekktasta dæmið um síðu sem hefur verið unnin með þessum hætti er Wikipedia\footnote{\url{https://www.wikipedia.org/}}, sem vart þarfnast kynningar. Sú síða hóf göngu sína sem ítrun á hugmyndinni um alfræðiorðabók og ber hún þess merki. Aðalefni síðunnar er enn á textasniði með myndbönd og hljóðefni eru í aukahlutverki og framsetning efnisins er með aðskildum greinum sem vísa hver í aðra. 
+
+Þó að áhersla sé á að varðveita nokkur af betri einkennum kennslubóka eru tvö atriði sem sérstaklega var lagt upp með að bæta við. Þau eru gagnvirkar æfingar \myref{sec:exercise-explanation} og ólínuleg framvinda \myref{sec:nonlinearity}.
+
+
 % Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 \section{Endingargildi}
+\label{sec:durability}
 Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
 
 Til að sporna við eðlilegri hnignun þessa kennsluvefs eftir að höfundur mun óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
@@ -347,6 +368,7 @@ Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði ve
 Eitt og sér tryggir það að tæknilausnirnar séu opnar ekki langlífi þeirra, frekar en það að kóði kennsluvefsins sé opinn tryggir það fyrir vefinn sjálfan. 
 En fyrirkomulagið gerir það að ein tiltekin lausn sem kennsluvefurinn reiðir sig á verði skyndilega óaðgengileg mun ólíklegri.
 \subsection{Opið efni}
+\label{sec:open-material}
 Kóðanum og efninu sem vefurinn inniheldur er dreift samhliða og með svipuðum aðferðum. 
 Meðal afleiðinga þess er að allt efni vefsins breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis \myref{code:license}. Sérstakar viðbætur \myref{sec:markdown-additions} voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
 
@@ -356,8 +378,11 @@ Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnis
 Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs.
 \section{Viðfangsefni sem net/Topic Maps}
 \section{Myndræn framsetning}
-\section{Guided Discovery}
+\section{Ólínuleg framvinda}
+\label{sec:nonlinearity}
 \section{Efnisáherslur}
+\subsection{Æfingar}
+\label{sec:exercise-explanation}
 \chapter{Útfærsla vefsins}
 % Vefurinn er skrifaður í forritunarmálinu Python með notkun Django \myref{sec:django}. Efnið er skrifað með Markdown \myref{sec:markdown}.
 
