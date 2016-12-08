@@ -1,8 +1,9 @@
 beautifulsoup4==4.5.1
-Django==1.9.1
+Django==1.10.4
 django-ace==1.0.2
-django-admin-sortable2==0.6.4
-Markdown==2.6.6
-Pillow==3.3.0
+django-admin-sortable2==0.6.6
+Markdown==2.6.7
+Pillow==3.4.2
+pkg-resources==0.0.0
 psycopg2==2.6.2
-whitenoise==3.2
+whitenoise==3.2.2

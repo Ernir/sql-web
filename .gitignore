@@ -1,4 +1,5 @@
 venv
+sqlvenv
 *.pyc
 sql_web/static/d3/
 staticfiles
