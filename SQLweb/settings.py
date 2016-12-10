@@ -69,12 +69,8 @@ WSGI_APPLICATION = 'SQLweb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sqlweb',
-        'USER': 'sqlweb',
-        'PASSWORD': os.environ.get('SQLWEB_POSTGRES_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlweb.db'
     }
 }
 
