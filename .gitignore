@@ -8,7 +8,6 @@ mediafiles
 .directory
 *.csv
 *.sh
-*.json
 
 report/*.aux
 report/*.bbl
