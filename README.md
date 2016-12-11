@@ -1,4 +1,4 @@
-# SQLweb*
+# SQLweb
 
 **(Ísl)** Kennsluvefur í notkun gagnasafna. Hluti af meistaraverkefni Eiríks Ernis Þorsteinssonar við IVT-deild Háskóla Íslands. Uppsetningarleiðbeiningar má finna að neðan.
 
@@ -8,27 +8,30 @@
 
 Vefurinn er skrifaður í [Django](https://www.djangoproject.com/) og ætti að keyranlegur á flestum nútíma stýrikerfum. Þessar uppsetningarleiðbeiningar gera ráð fyrir [Ubuntu](https://www.ubuntu.com/) Linux 16.04 eða sambærilegu kerfi. Gert er ráð fyrir að lesandinn sé kunnugur skipanalínunotkun.
 
-### 0. Nauðsynlegir undanfarar
+### 0. Undanfarar
 
 Áður en hafist er handa er nauðsynlegt að eftirfarandi sé uppsett:
 
-  *  [git](https://git-scm.com/)
-  *  [python 3](https://www.python.org/downloads/) með þróunartólum, sýndarumhverfakerfi og pakkakerfi
-  *  gagnagrunnskerfi, hér gert ráð fyrir [SQLite](https://sqlite.org/).
+  *  [python 3](https://www.python.org/downloads/) með þróunartólum, sýndarumhverfakerfi og pakkakerfi (nauðsynlegt)
   *  þýðingartól sem tengjast C- og Postgresviðbótum
+  *  gagnagrunnskerfi, hér gert ráð fyrir [SQLite](https://sqlite.org/)
+  
+að auki er sterklega mælt með:
+  *  [git](https://git-scm.com/) til að sækja og viðhalda forritskóða
+  *  cURL og tar til að sækja myndir
 
-Á Ubuntu má setja þau upp með:
+Á Ubuntu má setja þetta allt saman upp með eftirfarandi skipunum:
 
 ```
 $ sudo apt-get update && sudo apt-get upgrade
-$ sudo apt-get install git python3-dev python3-pip python3-venv sqlite3 build-essential libpq-dev
+$ sudo apt-get install git python3-dev python3-pip python3-venv sqlite3 build-essential libpq-dev curl
 ```
 
 ### 1. Stilling á umhverfisbreytum
 
 Keyrsla vefsins krefst þess að tvær umhverfisbreytur (e. *environment variables*) séu stilltar. Þær eru `DEBUG_MODE`, sem við þróun ætti að vera `1` og `SECRET_KEY` sem er ekki-tómur strengur.
 
-Hægt er að afgreiða þær með því að setja línur á borð við eftirfarandi í `.bashrc` skrána og endurhlaða henni (t.d. með því að endurræsa skelina).
+Á staðaluppsettu Ubuntu er að afgreiða breyturnar með því að setja línur á borð við eftirfarandi í `.bashrc` skrána og endurhlaða svo breytunum (t.d. með því að endurræsa skelina).
 ```
 export SECRET_KEY="lykill"
 export DEBUG_MODE="1"
@@ -37,21 +40,23 @@ export DEBUG_MODE="1"
 
 ### 2. Forritskóði sóttur
 
-Til að ná í nýjustu útgáfu af forritskóða vefsins má nota git. Yfirmappa möppunnar sem vefurinn skal dvelja í er valin og eftirfarandi skipun keyrð:
+Til að ná í nýjustu útgáfu af forritskóða vefsins má nota git. Færum okkur í yfirmöppu þeirrar möppu sem vefurinn skal dvelja í og sækjum þvínæst forritskóðann með:
 
 ```
 $ git clone https://github.com/Ernir/sql-web.git
 ```
 
-en hún mun búa til möppu að nafni `sql-web`. Færum okkur til hennar og höldum okkur þar.
+en skipunin mun búa til möppu að nafni `sql-web`. Færum okkur til hennar og höldum okkur þar þangað til uppsetningu er lokið.
 
 ```
 $ cd sql-web/
 ```
 
+*Annar valmöguleiki*: Hægt er að sækja forritskóðann án þess að nota git með því að fara inn á [github-síðu verkefnisins](https://github.com/Ernir/sql-web) og sækja hana sem .zip skrá.
+
 ### 3. Uppsetning og virkjun sýndarumhverfis
 
-Ráðlagt er að keyra Python-forrit önnur en hin fánýtustu í sýndarumhverfi (e. *virtual environment) sem heldur utan um forritssöfn. Stofnum til nýs sýndarumhverfis að nafni `sqlvenv`.
+Ráðlagt er að keyra Python-forrit önnur en hin fánýtustu í sýndarumhverfi (e. *virtual environment*) sem heldur utan um forritssöfn. Stofnum til nýs sýndarumhverfis að nafni `sqlvenv`.
 ```
 $ python3 -m venv sqlvenv
 ```
@@ -61,7 +66,7 @@ $ source sqlvenv/bin/activate
 (sqlvenv) $ 
 ```
 
-Ekki er þörf á því núna, en til að slökkva á sýndarumhverfinu má gefa skipunina `deactivate`.
+*Athugasemd*: Ekki er þörf á því núna, en til að slökkva á sýndarumhverfinu má gefa skipunina `deactivate`.
 ```
 (sqlvenv) $ deactivate 
 $
@@ -77,7 +82,7 @@ $
 (sqlvenv) $ pip install -r requirements.txt
 ```
 
-### 5. Uppsetning gagna 
+### 5. Uppsetning gagna (valkvæmt)
 
 Með forritskóðanum fylgja sjálfgefin gögn - þ.e.a.s. innihald kennslubókarinnar sjálfrar ásamt sýnidæma um verkefni. Til að setja gögnin upp þarf að keyra tvær skipanir, sú fyrri til að setja upp gagnagrunn og þá seinni til að hlaða í hann gögnum.
 
@@ -86,7 +91,17 @@ Með forritskóðanum fylgja sjálfgefin gögn - þ.e.a.s. innihald kennslubóka
 (sqlvenv) $ python manage.py loaddata content.json
 ```
 
-að því loknu þarf að setja upp ofurnotanda fyrir vefinn. Það má gera með skipuninni
+Sjálfgefnu gögnin innihalda vísanir í myndir. Myndirnar eiga heima í skrá sem heitir `mediafiles` og er undirmappa `sql-web` möppunnar. Eftirfarandi skipun (sem krefst cURL og tar) sækir myndirnar og setur þær í viðeigandi möppu:
+
+```
+(sqlvenv) $ curl https://notendur.hi.is/~ernir/sql-web/mediafiles.tar.gz | tar -xz
+```
+
+*Annar valmöguleiki*: Hægt er að komast hjá því að nota cURL og/eða tar með því að búa til `mediafiles` möppuna handvirkt og sækja myndirnar sem [.zip skrá](https://notendur.hi.is/~ernir/sql-web/mediafiles.zip). Þetta gæti verið viðeigandi fyrir Microsoft Windows notendur.
+
+### 6. Uppsetning ofurnotandareiknings (valkvæmt)
+
+Setja þarf upp ofurnotanda fyrir vefinn ef gera á efnisbreytingar. Það má gera með skipuninni
 
 ```
 (sqlvenv) $ python manage.py createsuperuser
@@ -94,7 +109,7 @@ að því loknu þarf að setja upp ofurnotanda fyrir vefinn. Það má gera me�
 
 og fylgja leiðbeiningunum sem birtast á skjánum.
 
-### 6. Keyrsla þróunarvefþjóns
+### 7. Keyrsla þróunarvefþjóns
 
 Með Django fylgir vefþjónn sem er hentugur til keyrslu á þróunarvélum. Á honum má kveikja með skipuninni
 
@@ -111,4 +126,4 @@ Til að breyta eða bæta við námskeiðum, lesefni eða verkefnum má fara inn
 Uppsetning keyrsluútgáfu (til opinberrar birtingar) er í flestum atriðum eins og uppsetning þróunarútgáfu.
 Af öryggisástæðum þarf þó að gera breytingar á umhverfisbreytum, sjá skref 1 í uppsetningu þróunarútgáfu. 
 
-Auk þess þarf að setja upp afkastameiri vefþjón en þróunarvefþjóninn sem er innbyggður í Django. Nútíma vefþjónar duga flestir, en mælt er með [NGINX](https://www.nginx.com/).
+Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en þróunarvefþjóninn sem er innbyggður í Django. Nútíma vefþjónar duga flestir, en mælt er með [NGINX](https://www.nginx.com/).
