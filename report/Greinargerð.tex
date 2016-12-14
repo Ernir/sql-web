@@ -357,7 +357,7 @@ Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhald
 Til að sporna við eðlilegri hnignun þessa kennsluvefs eftir að höfundur mun óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
 \subsection{Opinn kóði}
 \label{sec:open-source}
-Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{code:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
+Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{sec:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
 
 Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins, skóli með smáar þarfir getur notast við einfalda, ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
 
@@ -372,7 +372,7 @@ En fyrirkomulagið gerir það að ein tiltekin lausn sem kennsluvefurinn reiði
 \subsection{Opið efni}
 \label{sec:open-material}
 Kóðanum og efninu sem vefurinn inniheldur er dreift samhliða og með svipuðum aðferðum. 
-Meðal afleiðinga þess er að allt efni vefsins breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis \myref{code:license}. Sérstakar viðbætur \myref{sec:markdown-additions} voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
+Meðal afleiðinga þess er að allt efni vefsins breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis \myref{sec:license}. Sérstakar viðbætur \myref{sec:markdown-additions} voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
 
 Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnisins og framkvæmt hverjar þær áherslu- og efnisbreytingar sem viðkomandi þóknast.
 Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
@@ -655,9 +655,43 @@ Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. A
 \section{Grunnskrá útlits}
 \label{code:base-template}
 \inputminted[fontsize=\scriptsize, frame=lines, linenos=true, label=base.html]{django}{../templates/base.html}
-\section{Leyfi}
-\label{code:license}
-\inputminted[fontsize=\scriptsize, frame=lines, linenos=true, label=LICENSE.md]{md}{../LICENSE.md}
+
+\chapter{Leyfi}
+\label{sec:license}
+Eftirfarandi opin leyfi eiga við forritskóða verkefnisins annars vegar og texta þess hins vegar.
+\section{Code}\label{code}
+
+This project's \emph{source code} is available under the MIT license, as
+follows:
+
+The MIT License (MIT)
+
+Copyright (c) 2015-2017 Eiríkur Ernir Þorsteinsson
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+``Software''), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED ``AS IS'', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+\section{Contents}\label{contents}
+
+This project's textual contents are modifiable under Creative Commons,
+\href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA
+4.0}.
 
 \chapter{Uppsetningarleiðbeiningar}
 \label{sec:installation}

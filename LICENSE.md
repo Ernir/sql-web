@@ -4,7 +4,7 @@ This project's *source code* is available under the MIT license, as follows:
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Eiríkur Ernir Þorsteinsson
+Copyright (c) 2015-2017 Eiríkur Ernir Þorsteinsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
