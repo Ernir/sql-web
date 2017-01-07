@@ -337,24 +337,31 @@ Nálgunin er því með öðrum hætti en á öðrum SQL-kennslusíðum, t.d. SQ
 Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi efst í huga eru þó umfram allt þrír:
 
 \begin{itemize}
- \item Aukinn möguleiki á að nýta eldra efni, sjá vefinn sem ítrun á eldri útgáfu hér að ofan
+ \item Aukinn möguleiki á að nýta eldra efni
  \item Auðveldari uppfærslur, sjá endingargildi \myref{sec:durability}
  \item Auðveldari samþætting efnis frá öðrum höfundum, sjá opið efni \myref{sec:open-material}
 \end{itemize}
 
-Þekktasta dæmið um síðu sem hefur verið unnin með þessum hætti er Wikipedia\footnote{\url{https://www.wikipedia.org/}}, sem vart þarfnast kynningar. Sú síða hóf göngu sína sem ítrun á hugmyndinni um alfræðiorðabók og ber hún þess merki. Aðalefni síðunnar er enn á textasniði. Myndbönd og hljóðefni eru í aukahlutverki og framsetning efnisins er með aðskildum greinum sem vísa hver í aðra. 
+Þekktasta dæmið um síðu sem hefur verið unnin með þessum hætti er Wikipedia\footnote{\url{https://www.wikipedia.org/}}, sem ekki þarfnast kynningar. Sú síða hóf göngu sína sem ítrun á hugmyndinni um alfræðiorðabók og ber hún þess merki. Aðalefni síðunnar er enn á textasniði. Myndbönd og hljóðefni eru í aukahlutverki og framsetning efnisins er með aðskildum greinum sem vísa hver í aðra. 
 
 Þó að áhersla sé á að varðveita nokkur af betri einkennum kennslubóka eru tvö atriði sem sérstaklega var lagt upp með að bæta við. Þau eru gagnvirkar æfingar \myref{sec:exercise-explanation} og ólínuleg framvinda \myref{sec:nonlinearity}.
 
-% Texti frekar en vídeó af því texta er auðvelt að uppfæra.
 \section{Æfingar}
 \label{sec:exercise-explanation}
+Viðfangsefni þessa tiltekna kennsluvefs er kennsla í notkun SQL, sem er í eðli sínu verkleg. Æfingar eru því mikilvægur og sjálfsagður þáttur námsefnisins.
 
+Vefbók hefur þann kost að hægt er að sameina texta og forritunaræfingaumhverfi á mun nánari hátt en í venjulegum rafbókum. Venjuleg rafbók er fyrst og fremst skjal sem hægt er að lesa, vefur er forrit sem getur boðið upp á gagnvirkni.
+
+Kennsluvefurinn hefur innbyggt æfingasvæði þar sem nemandinn getur leyst fyrirfram skilgreindar SQL-æfingar. Nemandinn getur framkvæmt ýmsar gerðir SQL-skipana, sem eru metnar sjálfkrafa.
+
+Áhersla var lögð á að æfingar falli mjúklega inn í efnisumfjöllunina. Hægt er að tengja hverja grein vefsins við æfingu eða æfingar, auk þess sem vísa má til þeirra inni í textanum með venjulegum veftenglum. Viðmót æfingaumhverfisins er gert sem líkast viðmóti vefsins sjálfs til að lágmarka truflandi áhrif þess að ``skipta um umhverfi''. Hugmyndin er sú að upplifun nemandans sé ekki að fyrst þurfi að lesa upplýsingatexta og svo leysa æfingar, heldur myndi textinn og æfingarnar samstæða heild.
+
+Sjá má meira um æfingaumhverfið og útfærslu þess undir \myref{sec:command-analysis}.
 \section{Endingargildi}
 \label{sec:durability}
 Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
 
-Til að sporna við eðlilegri hnignun þessa kennsluvefs eftir að höfundur mun óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
+Til að sporna við hnignun þessa kennsluvefs eftir að höfundur mun eðlilega og óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
 \subsection{Opinn kóði}
 \label{sec:open-source}
 Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{sec:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
@@ -383,7 +390,7 @@ Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna k�
 Hefðbundin kennslubók, hvort sem hún er sett fram á pappírsformi eða rafrænu, birtir lesandanum efnistexta sinn í fastri röð. Þetta er eðlileg skorða sem fylgir pappírsbókum - þegar geyma á texta á pappír er hann geymdur á aðskildum blaðsíðum. Sumar bækur innihalda fram- og bakvísanir með blaðsíðunúmerum, en vegna þess hve erfitt er að finna nákvæma blaðsíðu eftir blaðsíðutali eru flestar bækur þannig upp byggðar að blaðsíðunum er gert að lesa þær í vaxandi röð eftir blaðsíðutali. Við gerð námsbóka hefur þessi ``línulega'' tilhögun mikilvægan kost, nefnilega þann að á hverri blaðsíðu er hægt að gera ráð fyrir að lesandinn hafi lesið allar blaðsíður sem á undan koma. Þessi skilyrði hljóma sjálfsögð, en koma greinilega fram þegar efnisframsetning í kennslubókum er bornar saman við þá sem finna má í sjálfstæðum greinum.
 
 \begin{figure}
-\caption[Samanburður á línulegri og ólínulegri framvindu]{Samanburður á línulegri og ólínulegri framvindu. Til vinstri: Efnisatriði um netafræði í kennslubók (Discrete Mathematics and its Applications, Rosen 2011), sett fram í röð. Til hægri: Efnisatriði um netafræði sett fram í merkingarlausri röð á upplýsingasíðu um stærðfræði\footnotemark .}
+\caption[Samanburður á línulegri og ólínulegri framvindu]{Samanburður á línulegri og ólínulegri framvindu. Til vinstri: Efnisatriði um netafræði í kennslubók (Discrete Mathematics and its Applications, Rosen 2011), sett fram í röð. Til hægri: Efnisatriði um netafræði sett fram í merkingarlausri röð á upplýsingasíðu um stærðfræði (ProofWiki\footnotemark).}
 \begin{center}
 \includegraphics[height=5cm]{ordered-progression}
 \hspace{1cm}
@@ -406,7 +413,7 @@ Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengin
 \begin{figure}
 \caption{Tengsl greina á kennsluvefnum}
 \begin{center}
-\includegraphics[width=\linewidth]{Undanfarar}
+\includegraphics[width=0.6\linewidth]{Undanfarar}
 \end{center}
 \end{figure}
 Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, án þess að eiga það á hættu að villast af leið yfir í óskylt efni.
