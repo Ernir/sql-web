@@ -325,7 +325,13 @@ Opnu tólin þjást að mati höfundar helst af annars vegar stefnuleysi og hins
 
 Af velgengni þeirra má læra, en kennsluvefur sem hefur það sérstaka hlutverk að styðja við kennslu í hefðbundnu námskeiði þarf að hafa aðrar áherslur.
 \chapter{Hugmyndafræði}
-Yfirlit þess sem ég ætla að gera betur/á annan hátt.
+Mýmargar leiðir eru til að læra SQL á netinu í dag. Eigi að vera gagn af því að búa til einn vefinn enn þarf því að velja áhersluatriði til að mynda sérstöðu. Þau sem valin voru við smíði þessa kennsluvefs eru: 
+\begin{itemize}
+ \item Notkun á vefnum til framsetningar á bókartexta \myref{sec:web-as-book}
+ \item Samtvinnun texta og æfinga \myref{sec:exercise-explanation}
+ \item Opin hugmyndafræði sem vörn gegn úreldingu \myref{sec:durability}
+\end{itemize}
+
 \section{Vefurinn sem bók}
 \label{sec:web-as-book}
 Forveri verkefnisins er kennslubók. Bókin var gefin út rafrænt, en nýtti sér þá kosti sem slíkt fyrirkomulag hefur í för með sér ekki nema að takmörkuðu leyti. Innri og ytri tenglar voru til staðar í bókinni, en að flestu öðru leyti var um nokkuð hefðbundið rafrænt skjal að ræða.
@@ -346,6 +352,43 @@ Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi ef
 
 Þó að áhersla sé á að varðveita nokkur af betri einkennum kennslubóka eru tvö atriði sem sérstaklega var lagt upp með að bæta við. Þau eru gagnvirkar æfingar \myref{sec:exercise-explanation} og ólínuleg framvinda \myref{sec:nonlinearity}.
 
+\subsection{Ólínuleg framvinda}
+\label{sec:nonlinearity}
+Hefðbundin kennslubók, hvort sem hún er sett fram á pappírsformi eða rafrænu, birtir lesandanum efnistexta sinn í fastri röð. Þetta er eðlileg skorða sem fylgir pappírsbókum - þegar geyma á texta á pappír er hann geymdur á aðskildum blaðsíðum. Sumar bækur innihalda fram- og bakvísanir með blaðsíðunúmerum, en vegna þess hve erfitt er að finna nákvæma blaðsíðu eftir blaðsíðutali eru flestar bækur þannig upp byggðar að blaðsíðunum er gert að lesa þær í vaxandi röð eftir blaðsíðutali. Við gerð námsbóka hefur þessi ``línulega'' tilhögun mikilvægan kost, nefnilega þann að á hverri blaðsíðu er hægt að gera ráð fyrir að lesandinn hafi lesið allar blaðsíður sem á undan koma. Þessi skilyrði hljóma sjálfsögð, en koma greinilega fram þegar efnisframsetning í kennslubókum er bornar saman við þá sem finna má í sjálfstæðum greinum.
+
+\begin{figure}
+\caption[Samanburður á línulegri og ólínulegri framvindu]{Samanburður á línulegri og ólínulegri framvindu. Til vinstri: Efnisatriði um netafræði í kennslubók (Discrete Mathematics and its Applications, Rosen 2011), sett fram í röð. Til hægri: Efnisatriði um netafræði sett fram í merkingarlausri röð á upplýsingasíðu um stærðfræði (ProofWiki\footnotemark).}
+\begin{center}
+\includegraphics[height=5cm]{ordered-progression}
+\hspace{1cm}
+\includegraphics[height=5cm]{unordered-progression}
+\end{center}
+\end{figure}
+\footnotetext{\url{https://proofwiki.org/wiki/Category:Graph_Theory}}
+
+Greinar á vefnum eru annars eðlis. Hægt er að komast að grein á vefnum með því að fylgja einkvæmri vefslóð. Tengill á þá vefslóð gæti verið hvar sem sem á vefnum, greinarhöfundur getur ekki gert ráð fyrir neinu um hvaða texta lesandinn las síðast né heldur hvaða samhegi upplýsingarnar sem í greininni eru eru settar. Þessi tilhögun auðveldar leit og uppflettingu til muna. Mjög auðvelt er að vísa í grein með slóð og auðvelt er að leita að grein eftir efnisorðum. Þessir eiginleikar eru góðir fyrir uppflettirit, en þessi eðlislægi skortur á línulegri framvindu getur valdið vandræðum þegar nota á sjálfstæðar greinar við kennslu.
+ 
+Sjálfstæðar greinar sem eiga að geta tekið við lesendum hvaðan sem er af vefnum þurfa að útskýra þau grundvallaratriði sem nauðsynlegt er að lesandinn þekki áður en komið er að viðfangsefninu sjálfu. Slíkt þarf ekki að vera vandamál þegar sjálfstæða greinin hefur vel skilgreindan lesendahóp, en gæti fljótlega leitt til vandræða í venjulegu námskeiði. Fyrir utan það að nemendahópar eru sjaldnast sérstaklega einsleitir, þá er kennsla er á Íslandi skipulögð svo að hún fari fram í lotum eða misserum þar sem eðlilegt er að gera ráð fyrir að nemendur hafi náð tökum á fyrstu efnisatriðum sem farið er yfir þegar komið er að þeim seinni. Til að taka dæmi úr kennslu í notkun gagnasafna, þá er eðlilegt að gera ráð fyrir að nemandi skilji hvernig velja má gögn úr einni töflu áður en farið er út í hvernig velja má gögn úr mörgum töflum.
+Í pappírskennslubók væri gert ráð fyrir þessu með því að setja um grundvallaratriðin á undan þeim sem síðar eiga að koma fram, en það stendur ekki til boða í vefkennslubók.
+
+Vefkennslubók þarf að kljást við þessa ólínulegu eiginleika vefsins. Leiðin sem valin var er að skilgreina vensl á viðfangsefni vefsins til að gera allar forkröfur greinilegar.
+% TODO útskýra hversu pirrandi það er að lesa greinar sem í sífellu útskýra grunnatriði sem maður gæti eða gæti hafa ekki lesið
+\subsubsection{Venslaðar greinar}
+Á kennsluvefnum er námsefninu raðað niður á ``greinar'' frekar en blaðsíður. Greinar geta verið mislangar, en hver þeirra ætti að innihalda útskýringu á efnisatriði sem myndar eina heild - safn af texta sem á heima undir sameiginlegri fyrirsögn. Hugmyndinni um ``kafla'' er haldið nokkuð óbreyttri, greinum sem fjalla um sama efni er ennþá safnað saman þó röðin á milli þeirra sé skilgreind með öðrum hætti.
+
+Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengingar. Hver grein hefur þannig skilgreindar ráðleggingar um hvað skuli lesa næst eftir að lestri greinarinnar er lokið. Þetta gæti verið ein grein (sem er fyrirkomulagið sem gefið er í skyn í pappírsbók), margar greinar eða engin.
+\begin{figure}
+\caption{Tengsl greina á kennsluvefnum}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{Undanfarar}
+\end{center}
+\end{figure}
+Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, án þess að eiga það á hættu að villast af leið yfir í óskylt efni.
+
+Efnishöfundurinn hefur áfram mikið vald til að ákvarða ráðlagða lesröð á greinum. Í útfærslunni ákveður efnishöfundur eina grein í hverjum kafla sem lesandanum er ráðlagt að lesa fyrst, ásamt því að ákveða tengingarnar á milli greinanna. Þar sem tengingarnar eru aðalleiðin til að ráfa um kennsluefnið getur höfundurinn haft nokkra hugmynd um hvaða greinar hafa verið lesnar áður en að hverri grein er komið - sem auðveldar umfjöllun til muna.
+
+Fyrirkomulagið er ekki gallalaust. Hönnun samkvæmt er erfitt að fletta upp í vef sem virkar með þessum hætti. %TODO útskýra
+
 \section{Æfingar}
 \label{sec:exercise-explanation}
 Viðfangsefni þessa tiltekna kennsluvefs er kennsla í notkun SQL, sem er í eðli sínu verkleg. Æfingar eru því mikilvægur og sjálfsagður þáttur námsefnisins.
@@ -357,6 +400,7 @@ Kennsluvefurinn hefur innbyggt æfingasvæði þar sem nemandinn getur leyst fyr
 Áhersla var lögð á að æfingar falli mjúklega inn í efnisumfjöllunina. Hægt er að tengja hverja grein vefsins við æfingu eða æfingar, auk þess sem vísa má til þeirra inni í textanum með venjulegum veftenglum. Viðmót æfingaumhverfisins er gert sem líkast viðmóti vefsins sjálfs til að lágmarka truflandi áhrif þess að ``skipta um umhverfi''. Hugmyndin er sú að upplifun nemandans sé ekki að fyrst þurfi að lesa upplýsingatexta og svo leysa æfingar, heldur myndi textinn og æfingarnar samstæða heild.
 
 Sjá má meira um æfingaumhverfið og útfærslu þess undir \myref{sec:command-analysis}.
+
 \section{Endingargildi}
 \label{sec:durability}
 Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
@@ -385,46 +429,7 @@ Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnis
 Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
 
 Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs.
-\section{Ólínuleg framvinda}
-\label{sec:nonlinearity}
-Hefðbundin kennslubók, hvort sem hún er sett fram á pappírsformi eða rafrænu, birtir lesandanum efnistexta sinn í fastri röð. Þetta er eðlileg skorða sem fylgir pappírsbókum - þegar geyma á texta á pappír er hann geymdur á aðskildum blaðsíðum. Sumar bækur innihalda fram- og bakvísanir með blaðsíðunúmerum, en vegna þess hve erfitt er að finna nákvæma blaðsíðu eftir blaðsíðutali eru flestar bækur þannig upp byggðar að blaðsíðunum er gert að lesa þær í vaxandi röð eftir blaðsíðutali. Við gerð námsbóka hefur þessi ``línulega'' tilhögun mikilvægan kost, nefnilega þann að á hverri blaðsíðu er hægt að gera ráð fyrir að lesandinn hafi lesið allar blaðsíður sem á undan koma. Þessi skilyrði hljóma sjálfsögð, en koma greinilega fram þegar efnisframsetning í kennslubókum er bornar saman við þá sem finna má í sjálfstæðum greinum.
 
-\begin{figure}
-\caption[Samanburður á línulegri og ólínulegri framvindu]{Samanburður á línulegri og ólínulegri framvindu. Til vinstri: Efnisatriði um netafræði í kennslubók (Discrete Mathematics and its Applications, Rosen 2011), sett fram í röð. Til hægri: Efnisatriði um netafræði sett fram í merkingarlausri röð á upplýsingasíðu um stærðfræði (ProofWiki\footnotemark).}
-\begin{center}
-\includegraphics[height=5cm]{ordered-progression}
-\hspace{1cm}
-\includegraphics[height=5cm]{unordered-progression}
-\end{center}
-\end{figure}
-\footnotetext{\url{https://proofwiki.org/wiki/Category:Graph_Theory}}
-
-Greinar á vefnum eru annars eðlis. Hægt er að komast að grein á vefnum með því að fylgja einkvæmri vefslóð. Tengill á þá vefslóð gæti verið hvar sem sem á vefnum, greinarhöfundur getur ekki gert ráð fyrir neinu um hvaða texta lesandinn las síðast né heldur hvaða samhegi upplýsingarnar sem í greininni eru eru settar. Þessi tilhögun auðveldar leit og uppflettingu til muna. Mjög auðvelt er að vísa í grein með slóð og auðvelt er að leita að grein eftir efnisorðum. Þessir eiginleikar eru góðir fyrir uppflettirit, en þessi eðlislægi skortur á línulegri framvindu getur valdið vandræðum þegar nota á sjálfstæðar greinar við kennslu.
- 
-Sjálfstæðar greinar sem eiga að geta tekið við lesendum hvaðan sem er af vefnum þurfa að útskýra þau grundvallaratriði sem nauðsynlegt er að lesandinn þekki áður en komið er að viðfangsefninu sjálfu. Slíkt þarf ekki að vera vandamál þegar sjálfstæða greinin hefur vel skilgreindan lesendahóp, en gæti fljótlega leitt til vandræða í venjulegu námskeiði. Fyrir utan það að nemendahópar eru sjaldnast sérstaklega einsleitir, þá er kennsla er á Íslandi skipulögð svo að hún fari fram í lotum eða misserum þar sem eðlilegt er að gera ráð fyrir að nemendur hafi náð tökum á fyrstu efnisatriðum sem farið er yfir þegar komið er að þeim seinni. Til að taka dæmi úr kennslu í notkun gagnasafna, þá er eðlilegt að gera ráð fyrir að nemandi skilji hvernig velja má gögn úr einni töflu áður en farið er út í hvernig velja má gögn úr mörgum töflum.
-Í pappírskennslubók væri gert ráð fyrir þessu með því að setja um grundvallaratriðin á undan þeim sem síðar eiga að koma fram, en það stendur ekki til boða í vefkennslubók.
-
-Vefkennslubók þarf að kljást við þessa ólínulegu eiginleika vefsins. Leiðin sem valin var er að skilgreina vensl á viðfangsefni vefsins til að gera allar forkröfur greinilegar.
-% TODO útskýra hversu pirrandi það er að lesa greinar sem í sífellu útskýra grunnatriði sem maður gæti eða gæti hafa ekki lesið
-\subsection{Venslaðar greinar}
-Á kennsluvefnum er námsefninu raðað niður á ``greinar'' frekar en blaðsíður. Greinar geta verið mislangar, en hver þeirra ætti að innihalda útskýringu á efnisatriði sem myndar eina heild - safn af texta sem á heima undir sameiginlegri fyrirsögn. Hugmyndinni um ``kafla'' er haldið nokkuð óbreyttri, greinum sem fjalla um sama efni er ennþá safnað saman þó röðin á milli þeirra sé skilgreind með öðrum hætti.
-
-Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengingar. Hver grein hefur þannig skilgreindar ráðleggingar um hvað skuli lesa næst eftir að lestri greinarinnar er lokið. Þetta gæti verið ein grein (sem er fyrirkomulagið sem gefið er í skyn í pappírsbók), margar greinar eða engin.
-\begin{figure}
-\caption{Tengsl greina á kennsluvefnum}
-\begin{center}
-\includegraphics[width=0.6\linewidth]{Undanfarar}
-\end{center}
-\end{figure}
-Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, án þess að eiga það á hættu að villast af leið yfir í óskylt efni.
-
-Efnishöfundurinn hefur áfram mikið vald til að ákvarða ráðlagða lesröð á greinum. Í útfærslunni ákveður efnishöfundur eina grein í hverjum kafla sem lesandanum er ráðlagt að lesa fyrst, ásamt því að ákveða tengingarnar á milli greinanna. Þar sem tengingarnar eru aðalleiðin til að ráfa um kennsluefnið getur höfundurinn haft nokkra hugmynd um hvaða greinar hafa verið lesnar áður en að hverri grein er komið - sem auðveldar umfjöllun til muna.
-
-Fyrirkomulagið er ekki gallalaust. Hönnun samkvæmt er erfitt að fletta upp í vef sem virkar með þessum hætti. %TODO útskýra
-\subsection{Viðfangsefni sem net}
-\label{sec:topic-map}
-\section{Textaframsetning}
-\section{Efnisáherslur}
 \chapter{Útfærsla vefsins}
 % Vefurinn er skrifaður í forritunarmálinu Python með notkun Django \myref{sec:django}. Efnið er skrifað með Markdown \myref{sec:markdown}.
 
