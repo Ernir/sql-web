@@ -1,0 +1,197 @@
+\section*{SQLweb}\label{sqlweb}
+
+\textbf{(Ísl)} Kennsluvefur í notkun gagnasafna. Hluti af
+meistaraverkefni Eiríks Ernis Þorsteinssonar við IVT-deild Háskóla
+Íslands. Uppsetningarleiðbeiningar má finna að neðan.
+
+\textbf{(En)} A teaching website for introductory database usage.
+Written as a part of Eiríkur Ernir Þorsteinsson's master's project,
+Faculty of Industrial Engineering, Mechanical Engineering, and Computer
+Science at the University of Iceland. Installation instructions are
+currently in Icelandic only, but can be found below.
+
+\subsection*{Uppsetning
+þróunarútgáfu}\label{uppsetning-uxferuxf3unaruxfatguxe1fu}
+
+Vefurinn er skrifaður í \href{https://www.djangoproject.com/}{Django} og
+ætti að keyranlegur á flestum nútíma stýrikerfum. Þessar
+uppsetningarleiðbeiningar gera ráð fyrir
+\href{https://www.ubuntu.com/}{Ubuntu} Linux 16.04 eða sambærilegu
+kerfi. Gert er ráð fyrir að lesandinn sé kunnugur skipanalínunotkun.
+
+\subsubsection{0. Undanfarar}\label{undanfarar}
+
+Áður en hafist er handa er nauðsynlegt að eftirfarandi sé uppsett:
+
+\begin{itemize}
+\item
+  \href{https://www.python.org/downloads/}{python 3} með þróunartólum,
+  sýndarumhverfakerfi og pakkakerfi (nauðsynlegt)
+\item
+  þýðingartól sem tengjast C- og Postgresviðbótum
+\item
+  gagnagrunnskerfi, hér gert ráð fyrir
+  \href{https://sqlite.org/}{SQLite}
+\end{itemize}
+
+að auki er sterklega mælt með: * \href{https://git-scm.com/}{git} til að
+sækja og viðhalda forritskóða * cURL og tar til að sækja myndir
+
+Á Ubuntu má setja þetta allt saman upp með eftirfarandi skipunum:
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+$ sudo apt-get update && sudo apt-get upgrade
+$ sudo apt-get install git python3-dev python3-pip 
+    python3-venv sqlite3 build-essential libpq-dev curl
+\end{minted}
+
+\subsubsection{1. Stilling á
+umhverfisbreytum}\label{stilling-uxe1-umhverfisbreytum}
+
+Keyrsla vefsins krefst þess að tvær umhverfisbreytur (e.
+\emph{environment variables}) séu stilltar. Þær eru
+\texttt{DEBUG\_MODE}, sem við þróun ætti að vera \texttt{1} og
+\texttt{SECRET\_KEY} sem er ekki-tómur strengur.
+
+Á staðaluppsettu Ubuntu er að afgreiða breyturnar með því að setja línur
+á borð við eftirfarandi í \texttt{.bashrc} skrána og endurhlaða svo
+breytunum (t.d. með því að endurræsa skelina).
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+export SECRET_KEY="lykill"
+export DEBUG_MODE="1"
+\end{minted}
+
+Í raunverulegu keyrsluumhverfi ætti \texttt{SECRET\_KEY} að vera langur
+strengur sem erfitt er að giska á og \texttt{DEBUG\_MODE} að vera 0.
+
+\subsubsection{2. Forritskóði sóttur}\label{forritskuxf3uxf0i-suxf3ttur}
+
+Til að ná í nýjustu útgáfu af forritskóða vefsins má nota git. Færum
+okkur í yfirmöppu þeirrar möppu sem vefurinn skal dvelja í og sækjum
+þvínæst forritskóðann með:
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+$ git clone https://github.com/Ernir/sql-web.git
+\end{minted}
+
+en skipunin mun búa til möppu að nafni \texttt{sql-web}. Færum okkur til
+hennar og höldum okkur þar þangað til uppsetningu er lokið.
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+$ cd sql-web/
+\end{minted}
+
+\emph{Annar valmöguleiki}: Hægt er að sækja forritskóðann án þess að
+nota git með því að fara inn á
+\href{https://github.com/Ernir/sql-web}{github-síðu verkefnisins} og
+sækja hana sem .zip skrá.
+
+\subsubsection{3. Uppsetning og virkjun
+sýndarumhverfis}\label{uppsetning-og-virkjun-suxfdndarumhverfis}
+
+Ráðlagt er að keyra Python-forrit önnur en hin fánýtustu í
+sýndarumhverfi (e. \emph{virtual environment}) sem heldur utan um
+forritssöfn. Stofnum til nýs sýndarumhverfis að nafni \texttt{sqlvenv}.
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+$ python3 -m venv sqlvenv
+\end{minted}
+
+Áður en umhverfið má nota þarf að virkja það. Að óbreyttu mun nafn
+sýndarumhverfisins birtast fremst á skipanalínunni meðan það er virkt.
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+$ source sqlvenv/bin/activate
+(sqlvenv) $ 
+\end{minted}
+
+\emph{Athugasemd}: Ekki er þörf á því núna, en til að slökkva á
+sýndarumhverfinu má gefa skipunina \texttt{deactivate}.
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ deactivate 
+$
+\end{minted}
+
+\subsubsection{4. Uppsetning pakka sem vefurinn
+krefst}\label{uppsetning-pakka-sem-vefurinn-krefst}
+
+Í möppunni \texttt{sql-web} má finna skrá sem heitir
+\texttt{requirements.txt}, sem inniheldur upplýsingar um forritssöfn sem
+vefnum eru nauðsynleg. Setjum söfnin upp með \texttt{pip}
+pakkastjórnunarkerfinu.
+
+Í þessu skrefi er mikilvægt að sýndarumhverfið sé virkt!
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ pip install -r requirements.txt
+\end{minted}
+
+\subsubsection{5. Uppsetning gagna
+(valkvæmt)}\label{uppsetning-gagna-valkvuxe6mt}
+
+Með forritskóðanum fylgja sjálfgefin gögn - þ.e.a.s. innihald
+kennslubókarinnar sjálfrar ásamt sýnidæma um verkefni. Til að setja
+gögnin upp þarf að keyra tvær skipanir, sú fyrri til að setja upp
+gagnagrunn og þá seinni til að hlaða í hann gögnum.
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ python manage.py migrate
+(sqlvenv) $ python manage.py loaddata content.json
+\end{minted}
+
+Sjálfgefnu gögnin innihalda vísanir í myndir. Myndirnar eiga heima í
+skrá sem heitir \texttt{mediafiles} og er undirmappa \texttt{sql-web}
+möppunnar. Eftirfarandi skipun (sem krefst cURL og tar) sækir myndirnar
+og setur þær í viðeigandi möppu:
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ curl https://notendur.hi.is/~ernir/sql-web/mediafiles.tar.gz | tar -xz
+\end{minted}
+
+\emph{Annar valmöguleiki}: Hægt er að komast hjá því að nota cURL og/eða
+tar með því að búa til \texttt{mediafiles} möppuna handvirkt og sækja
+myndirnar sem
+\href{https://notendur.hi.is/~ernir/sql-web/mediafiles.zip}{.zip skrá}.
+Þetta gæti verið viðeigandi fyrir Microsoft Windows notendur.
+
+\subsubsection{6. Uppsetning ofurnotandareiknings
+(valkvæmt)}\label{uppsetning-ofurnotandareiknings-valkvuxe6mt}
+
+Setja þarf upp ofurnotanda fyrir vefinn ef gera á efnisbreytingar. Það
+má gera með skipuninni
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ python manage.py createsuperuser
+\end{minted}
+
+og fylgja leiðbeiningunum sem birtast á skjánum.
+
+\subsubsection{7. Keyrsla
+þróunarvefþjóns}\label{keyrsla-uxferuxf3unarvefuxfejuxf3ns}
+
+Með Django fylgir vefþjónn sem er hentugur til keyrslu á þróunarvélum. Á
+honum má kveikja með skipuninni
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ python manage.py runserver
+\end{minted}
+
+og heimsækja svo síðuna með því að fara á slóðina
+\texttt{http://127.0.0.1:8000/} í vafra.
+
+Til að breyta eða bæta við námskeiðum, lesefni eða verkefnum má fara inn
+á slóðina \texttt{http://127.0.0.1:8000/admin} og skrá sig inn með
+ofurnotendaaðganginum sem búinn var til í skrefi 5.
+
+\subsection*{Uppsetning
+keyrsluútgáfu}\label{uppsetning-keyrsluuxfatguxe1fu}
+
+Uppsetning keyrsluútgáfu (til opinberrar birtingar) er í flestum atriðum
+eins og uppsetning þróunarútgáfu. Af öryggisástæðum þarf þó að gera
+breytingar á umhverfisbreytum, sjá skref 1 í uppsetningu þróunarútgáfu.
+
+Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en
+þróunarvefþjóninn sem er innbyggður í Django. Nútíma vefþjónar duga
+flestir, en mælt er með \href{https://www.nginx.com/}{NGINX}.
