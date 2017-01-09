@@ -340,7 +340,7 @@ Kennsluvefurinn er hugsaður sem ítrun, eða næsta útgáfa, á rafrænu kenns
 
 Nálgunin er því með öðrum hætti en á öðrum SQL-kennslusíðum, t.d. SQLZoo eða Khan Academy \myref{sec:other-sql-teaching-tools}, þar sem nemandanum er annars vegar beint í átt að æfingaverkefnum og hins vegar í átt að kennslumyndböndum. Áhersla kennsluvefsins er sem sagt eftir sem áður á framsetningu á ``gamaldags'' efnistexta.
 
-Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi efst í huga eru þó umfram allt þrír:
+Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi efst í huga eru þó helst eftirfarandi:
 
 \begin{itemize}
  \item Aukinn möguleiki á að nýta eldra efni
@@ -398,6 +398,8 @@ Fyrirkomulagið er ekki gallalaust. Hönnun samkvæmt er erfitt að fletta upp �
 \includegraphics[width=0.8\textwidth]{relational-sections}
 \end{center}
 \end{figure}
+
+Auk þess sem hverja grein má tengja við aðrar greinar má líka vísa í æfingar út frá greinum.
 \section{Æfingar}
 \label{sec:exercise-explanation}
 Viðfangsefni þessa tiltekna kennsluvefs er kennsla í notkun SQL, sem er í eðli sínu verkleg. Æfingar eru því mikilvægur og sjálfsagður þáttur námsefnisins.
@@ -422,13 +424,6 @@ Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\f
 Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins, skóli með smáar þarfir getur notast við einfalda, ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
 
 Höfundur hyggst halda úti grunnútgáfu af vefnum sem verður aðgengilegur á léni í eigin eigu. En fari svo að höfundur hverfi frá verkefninu og sú útgáfa sem á því léni verði aftend er vefurinn sjálfur þar með ekki dauður og gleymdur - allar aðrar útgáfur munu áfram virka og grunnkóðinn verður enn til.
-\subsection{Opinn hugbúnaður í notkun}
-Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði vefsins sjálfs. Um tæknilausnir má lesa nánar í \myref{sec:third-party-tech}.
-
-Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum er því ekki takmörkuð við þá notendur sem hafa aðgang að sérstökum, lokuðum hugbúnaði.
-
-Eitt og sér tryggir það að tæknilausnirnar séu opnar ekki langlífi þeirra, frekar en það að kóði kennsluvefsins sé opinn tryggir það fyrir vefinn sjálfan. 
-En fyrirkomulagið gerir það að ein tiltekin lausn sem kennsluvefurinn reiðir sig á verði skyndilega óaðgengileg mun ólíklegri.
 \subsection{Opið efni}
 \label{sec:open-material}
 Kóðanum og efninu sem vefurinn inniheldur er dreift samhliða og með svipuðum aðferðum. 
@@ -439,10 +434,17 @@ Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnis
 
 Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs.
 
+\subsection{Opinn hugbúnaður í notkun}
+Allar tæknilausnir sem vefurinn notar eru opnar og ókeypis, líkt og kóði vefsins sjálfs. Um tæknilausnir má lesa nánar í \myref{sec:third-party-tech}.
+
+Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum er því ekki takmörkuð við þá notendur sem hafa aðgang að sérstökum, lokuðum hugbúnaði.
+
+Eitt og sér tryggir það að tæknilausnirnar séu opnar ekki langlífi þeirra, frekar en það að kóði kennsluvefsins sé opinn tryggir það fyrir vefinn sjálfan. 
+En fyrirkomulagið gerir það að ein tiltekin lausn sem kennsluvefurinn reiðir sig á verði skyndilega óaðgengileg mun ólíklegri.
+
+Helstu opnu lausnirnar sem eru í notkun eru útskýrðar undir \ref{sec:third-party-tech}
 \chapter{Útfærsla vefsins}
 % Vefurinn er skrifaður í forritunarmálinu Python með notkun Django \myref{sec:django}. Efnið er skrifað með Markdown \myref{sec:markdown}.
-
-
 \section{Tæknilausnir frá þriðja aðila í notkun}
 \label{sec:third-party-tech}
 \subsection{Django}
@@ -497,8 +499,20 @@ Markdown-sniðið er sem sagt sérstaklega hannað til að skrifa texta án truf
 Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennslufvefsins \myref{sec:markdown-additions}.
 \subsection{D3.js}
 \label{sec:d3js}
-\subsection{Tufte-css}
+\subsection{Tufte CSS}
 \label{sec:tufte-css}
+Þar sem kennsluvefurinn skal virka sem vefútgáfa af bók er mikilvægt að huga að framsetningu textans.
+
+Það sem helst einkennir útlit vefsins er notkun á css-pakkanum Tufte CSS\footnote{\url{https://github.com/edwardtufte/tufte-css}}. Pakkinn er hannaður út frá hugmyndum fræðimannsins Edward Tufte um framsetningu texta.
+
+Meðal einkennandi atriða fyrir stíl Tufte er áberandi notkun hliðarmálsgreina og mikil samþjöppun texta og mynda, sjá mynd \ref{fig:tufte-example}. Þær viðbætur sem gerðar eru við Markdown-pakkann (\myref{sec:markdown-additions}) eru einkum til að styðja við þessi sérstöku textaatriði.
+
+\begin{figure}
+\caption{Hliðarmálsgreinar og myndir í stíl Tufte.}
+\label{fig:tufte-example}
+\includegraphics{tufte-example}
+\end{figure}
+
 \section{Sérsmíðaðar tæknilausnir}
 \subsection{Greining á SQL-skipunum nemenda}
 \label{sec:command-analysis}
