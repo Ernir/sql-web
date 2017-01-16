@@ -440,7 +440,7 @@ Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna k�
 Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Sumum forritum má einfaldlega byggja ofan á, öðrum má breyta og bæta svo hægt sé að innlima þau í forrit sem ný eru af nálinni. Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
 \section{Aðfengnar tæknilausnir í notkun}
 \label{sec:third-party-tech}
-Vefurinn er skrifaður í Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir \myref{sec:tufte-css} og \myref{sec:d3js} notaðir til að stýra útliti vefsins.
+Vefurinn er skrifaður með Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir \myref{sec:tufte-css} og \myref{sec:d3js} notaðir til að stýra útliti vefsins.
 \subsection{Django}
 \label{sec:django}
 Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
@@ -488,9 +488,9 @@ $\downarrow$
 \end{center}
 \end{figure}
 
-Markdown-sniðið er sem sagt sérstaklega hannað til að skrifa texta án truflana, sem svo er oft þýddur yfir í þyngri ívafsmál (venjulega HTML) með þar til gerðu forriti. Markdown-málið er upphaflega skilgreint óformlega með slíku forriti, Perl-forritinu \texttt{Markdown.pl}, skrifað af John Gruber árið 2004. Kennsluvefurinn notar Markdown á svipaðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
+Markdown-sniðið er sem sagt sérstaklega hannað til að skrifa texta án truflana, sem svo er oft þýddur yfir í þyngri ívafsmál með þar til gerðu forriti. Markdown-málið er upphaflega skilgreint óformlega með slíku forriti, Perl-forritinu \texttt{Markdown.pl} sem þýðir markdown yfir í HTML, skrifað af John Gruber árið 2004. Kennsluvefurinn notar Markdown á hliðstæðan hátt, tekið er við Markdown-texta frá efnishöfundi og hann þýddur yfir á HTML með Markdown-túlki. Markdown-útfærslan sem kennsluvefurinn notar er Markdown-pakki Python forritunarmálsins\footnote{\url{https://pypi.python.org/pypi/Markdown}}.
 
-Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennslufvefsins \myref{sec:markdown-additions}.
+Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennsluvefsins \myref{sec:markdown-additions}.
 \subsection{D3.js}
 \label{sec:d3js}
 Til að sýna vensl á milli greina er gagnaframsetningarforritunarsafnið D3.js\footnote{\url{https://d3js.org/}} notað. Um er að ræða Javascript-safn.
