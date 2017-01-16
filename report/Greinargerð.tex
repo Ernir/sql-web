@@ -383,6 +383,7 @@ Sú leið sem farin er á þessum kennsluvef til að tengja greinarnar saman er 
 Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengingar. Hver grein hefur þannig skilgreindar ráðleggingar um hvað skuli lesa næst eftir að lestri greinarinnar er lokið. Þetta gæti verið ein grein sem er fyrirkomulagið sem hefðbundið er í pappírsbók, margar greinar eða engin.
 \begin{figure}
 \caption{Tengsl greina á kennsluvefnum}
+\label{fig:force-direction}
 \begin{center}
 \includegraphics[width=0.6\linewidth]{Undanfarar}
 \end{center}
@@ -434,11 +435,12 @@ Meðal afleiðinga þess er að allt efni vefsins er breytanlegt af notendum han
 Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnisins og framkvæmt hverjar þær áherslu- og efnisbreytingar sem viðkomandi þóknast.
 Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
 
-Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs.
+Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs. Efnið mun halda áfram að þróast svo lengi sem áhuginn á því lifir.
 \chapter{Útfærsla vefsins}
-% Vefurinn er skrifaður í forritunarmálinu Python með notkun Django \myref{sec:django}. Efnið er skrifað með Markdown \myref{sec:markdown}.
-\section{Tæknilausnir frá þriðja aðila í notkun}
+Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Sumum forritum má einfaldlega byggja ofan á, öðrum má breyta og bæta svo hægt sé að innlima þau í forrit sem ný eru af nálinni. Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
+\section{Aðfengnar tæknilausnir í notkun}
 \label{sec:third-party-tech}
+Vefurinn er skrifaður í Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir \myref{sec:tufte-css} og \myref{sec:d3js} notaðir til að stýra útliti vefsins.
 \subsection{Django}
 \label{sec:django}
 Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
@@ -455,7 +457,7 @@ Kerfið er hlutbundið. Klasi sem táknar ``fyrirbrigði'' í Django erfir frá 
 Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \myref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} \myref{code:django-model-objects}.
 
 \begin{listing}
-\caption{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
+\caption[Vensl skilgreind með Django ORM]{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
 \label{code:orm-example}
 \begin{minted}[frame=lines]{python}
 class Section(models.Model):
@@ -491,25 +493,49 @@ Markdown-sniðið er sem sagt sérstaklega hannað til að skrifa texta án truf
 Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkröfur kennslufvefsins \myref{sec:markdown-additions}.
 \subsection{D3.js}
 \label{sec:d3js}
-Til að sýna vensl á milli greina er gagnaframsetningarforritunarsafnið D3.js\footnote{\url{https://d3js.org/}} notað.
+Til að sýna vensl á milli greina er gagnaframsetningarforritunarsafnið D3.js\footnote{\url{https://d3js.org/}} notað. Um er að ræða Javascript-safn.
+
+Safnið er stórt og almennt, hægt er að nota það við vinnslu og sýninga á alls kyns gögnum. Hér er það notað til að sækja upplýsingar um vensl greina frá bakenda (með AJAX) og til að birta yfirlitsmyndir fyrir upplýsingarnar.
+
+Yfirlitsmyndirnar eru búnar til með því að skilgreina hverja grein sem hnút í neti, vensl þeirra á milli með örvalegg, og framkvæma síðan tvívíða eindahermun. Hver hnútur er meðhöndlaður sem neikvætt hlaðin eind, hverjum legg úthlutað lengd og teygjanleika og eindasafnið látið dreifa úr sér í tvívíðri sléttu. Þessi hegðun fæst fyrirhafnarlítið frá D3.js, en hjartað í hermuninni má sjá á kóðalistun \myref{code:force-direction}. Niðurstöðurnar eru á mynd \myref{fig:force-direction}.
+
+\begin{listing}
+\caption[Eindahermun með D3.js]{Hluti eindahermunarinnar sem framkvæmd er með D3.js. Hnútar með neikvæða hleðslu og leggir með lengd eru skilgreindir. Hermunin er uppfærð við hvern ``tick'' viðburð og hún sett í gang.}
+\label{code:force-direction}
+\begin{minted}[frame=lines]{js}
+var force = d3.layout.force()
+    .nodes(d3.values(nodes))
+    .links(links)
+    .size([width, height])
+    .linkDistance(80)
+    .charge(-300)
+    .on("tick", tick)
+    .start();
+\end{minted}
+
+\end{listing}
+
+
 \subsection{Tufte CSS}
 \label{sec:tufte-css}
 Þar sem kennsluvefurinn skal virka sem vefútgáfa af bók er mikilvægt að huga að framsetningu textans.
 
-Það sem helst einkennir útlit vefsins er notkun á css-pakkanum Tufte CSS\footnote{\url{https://github.com/edwardtufte/tufte-css}}. Pakkinn er hannaður út frá hugmyndum fræðimannsins Edward Tufte um framsetningu texta.
+Það sem helst einkennir útlit vefsins er notkun á css-safninu Tufte CSS\footnote{\url{https://github.com/edwardtufte/tufte-css}}. Safnið er hannað út frá hugmyndum fræðimannsins Edward Tufte um framsetningu texta.
 
-Meðal einkennandi atriða fyrir stíl Tufte er áberandi notkun hliðarmálsgreina og mikil samþjöppun texta og mynda, sjá mynd \ref{fig:tufte-example}. Þær viðbætur sem gerðar eru við Markdown-pakkann (\myref{sec:markdown-additions}) eru einkum til að styðja við þessi sérstöku textaatriði.
+Meðal einkennandi atriða fyrir stíl Tufte er áberandi notkun spássíugreina og mikil samþjöppun texta og mynda, sjá mynd \ref{fig:tufte-example}. Þær viðbætur sem gerðar eru við Markdown-pakkann \myref{sec:markdown-additions} eru einkum til að styðja við þessi sérstöku textaatriði.
 
 \begin{figure}
-\caption{Hliðarmálsgreinar og myndir í stíl Tufte.}
+\caption{Spássíugreinar og myndir í stíl Tufte.}
 \label{fig:tufte-example}
 \includegraphics[width=\textwidth]{tufte-example}
 \end{figure}
 
 \section{Sérsmíðaðar tæknilausnir}
+\label{sec:homemade-tech}
+Töluverð forritun liggur að baki sérhæfðum vef. Mikið af forrituninni er handavinna sem liggur að baki flestum nútímavefsíðum, en á þessum vef eru líka atriði sem skoða má sérstaklega. Hér eru það annars vegar forritseiningar sem greina SQL-fyrirspurnir \myref{sec:command-analysis} og hins vegar Markdown-viðbætur \myref{sec:markdown-additions}.
 \subsection{Greining á SQL-skipunum nemenda}
 \label{sec:command-analysis}
-Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld.
+Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld í samanburði.
 
 Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django \myref{sec:django} \texttt{model} hlut, sjá \texttt{Exercise} klasann \myref{code:django-model-objects}. Slíkur hlutur hefur nokkra eiginleika sem vert er að nefna:
 
@@ -651,7 +677,6 @@ f![Alt text](identifier "Optional title")
 m![Alt text](identifier "Optional title")
 \end{minted}
 \end{listing}
-
 
 \subsubsection{Spássíugreinar}
 Framsetning efnisins gerir ráð fyrir notkun hliðarútskýringa í spássíum. Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}} gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum, frekar en spássíugreinum. Viðbótin var því endurskrifuð.
