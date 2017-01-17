@@ -552,6 +552,7 @@ Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (
 Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:example-runner}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
 
 \subsubsection{Mat á SELECT skipunum}
+\label{sec:select-analysis}
 Þegar um \texttt{SELECT}-skipanir er að ræða er möguleiki á að sannreyna niðurstöðurnar á sveigjanlegri máta.
 
 Í slíkum æfingum er gerðarlýsingin sett upp og fyrirspurnirnar, bæði fyrirspurn nemandans og samanburðarfyrirspurnin, keyrðar á henni. Út úr þeim keyrslum koma tvö mengi niðurstaðna sem hægt er að bera saman, annars vegar ``nemendamengi'' og hins vegar ``samanburðarmengi''. Séu mengin eins er nemendaskipunin talin rétt.
@@ -609,6 +610,7 @@ Helsti kostur þessa fyrirkomulags er öryggi. Gagnagrunnurinn er tímabundinn o
 
 Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Líklegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti, auk þess sem gagnasöfnin sem um ræðir eru af viðráðanlegri stærð, verandi af stærð sem nemendur geta meðtekið.
 \subsubsection{Mat á skipunum öðrum en SELECT skipunum}
+\label{sec:other-command-analysis}
 Snúist æfingin ekki um \texttt{SELECT} skipun er strengjasamanburður notaður til að athuga hvort að skipunin sé sambærileg við þá sem herma skal eftir. Samanburðurinn felst í því að Levenshtein-fjarlægð er reiknuð á milli skipananna tveggja. 
 
 Levenshtein-fjarlægð er mælikvarði á hversu líkar tvær runur eru. Í þessu tilviki er um að ræða talningu á því hversu margar eins stafs breytingar þyrfti að gera á streng sem inniheldur fyrirspurn nemandans til að breyta henni í fyrirspurn kennarans.
@@ -714,12 +716,27 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
 \end{figure}
 
 \chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
+Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \ref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar, og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
+
+En að sjálfsögðu eru nokkur atriði þegar þekkt sem betur mættu fara \myref{sec:current-limitations} og önnur sem bæta má við\myref{sec:future-work}.
 \section{Takmarkanir á núverandi útgáfu}
+\label{sec:current-limitations}
 \subsection{Greining á INSERT, UPDATE og DELETE skipunum}
+Sem stendur eru \texttt{INSERT}, \texttt{UPDATE} og \texttt{DELETE} skipanir greindar með einföldum textasamanburði líkt og DDL-skipanir, sjá \myref{sec:other-command-analysis}.
+
+Hægt væri að greina skipanirnar á hátt sem tekur tillit til virkni þeirra. Í öllum tilvikum væri um að ræða samanburð á mengi þeirra upplýsinga sem SQL-skipun nemandans skilur eftir sig og fyrirfram skilgreindu mengi.
+
+Hins vegar er ekki sjálfgefið hvernig slíkur samanburður ætti að fara fram. Sérstaklega þyrfti að taka ákvörðun um hvaða hlutverk röðun gagnanna á að spila í samanburðinum. Þar til ástæða hefur fundist til að framkvæma samanburðinn á einn hátt frekar en annan er útfærsla á betri greiningu á þessum gerðum skipana í biðstöðu.
+\subsection{Skrásetning}
+\label{sec:logging}
+Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}.
+\subsection{Framsetning upplýsinga um námskeiðið}
 \section{Fyrirliggjandi verk}
+\label{sec:future-work}
 \subsection{Leikjun}
 \subsection{Flæðigreining}
-% Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli.
+\label{sec:flow}
+Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli. Hægt væri að athuga algengustu vegi í gegnum netin, hvaða hnútar fá litla athygli og hvaða hnútar eru þess valdandi að fólk hætti að lesa.
 \subsection{Hreyfing á myndum}
 Blankenship og Dansereau\cite{blankenship2000effect} sýna að hreyfimyndir af netum geti haft kosti umfram kyrrstæðar myndir þegar kemur að getu nemenda til að muna upplýsingarnar sem í netinu fólust.
 
