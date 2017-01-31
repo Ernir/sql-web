@@ -417,7 +417,7 @@ Sjá má meira um æfingaumhverfið og útfærslu þess undir \myref{sec:command
 \label{sec:durability}
 Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
 
-Til að sporna við hnignun þessa kennsluvefs eftir að höfundur mun eðlilega og óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e. \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
+Til að sporna við hnignun þessa kennsluvefs eftir að höfundur mun eðlilega og óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e.\ \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
 \subsection{Opinn kóði}
 \label{sec:open-source}
 Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{sec:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
@@ -437,27 +437,29 @@ Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnis
 
 Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs. Efnið mun halda áfram að þróast svo lengi sem áhuginn á því lifir.
 \chapter{Útfærsla vefsins}
-Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Sumum forritum má einfaldlega byggja ofan á, öðrum má breyta og bæta svo hægt sé að innlima þau í forrit sem ný eru af nálinni. Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
+Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Byggja ofan á sum forrit, öðrum forritum má breyta og bæta svo hægt sé að innlima þau í ný forrit. 
+
+Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
 \section{Aðfengnar tæknilausnir í notkun}
 \label{sec:third-party-tech}
 Vefurinn er skrifaður með Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir \myref{sec:tufte-css} og \myref{sec:d3js} notaðir til að stýra útliti vefsins.
 \subsection{Django}
 \label{sec:django}
-Django er vefburðargrind (e. \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
+Django er vefburðargrind (e.\ \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
 
-Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem tengjast Object-relational Mapping (ORM) kerfi grindarinnar \myref{sec:django-orm}.
+Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem tengjast hlutvenslakerfi (e.\ \emph{object-relational mapping, ORM}) grindarinnar \myref{sec:django-orm}.
 
 Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Sem dæmi má taka að stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í einni grunnskrá \myref{code:base-template}.
 \subsubsection{Django ORM}
 \label{sec:django-orm}
-Object-relational Mapping kerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
+Hlutvenslakerfi kerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
 
 Kerfið er hlutbundið. Klasi sem táknar ``fyrirbrigði'' í Django erfir frá \texttt{model} klasa gefnum af burðargrindinni. Forritarinn bætir síðan við eigin eiginleikum og aðferðum sem viðkoma forritinu. Burðargrindin sér um að smíða gagnagrunnstöflur sem geymt geta þær upplýsingar sem þarf til að tákna tilvik af klasanum.
 
-Vensl á milli fyrirbrigða skilgreinast líka af ORM-kerfinu. Þannig er hugtakið \texttt{Section} t.d. tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \myref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} \myref{code:django-model-objects}.
+Vensl á milli fyrirbrigða skilgreinast líka af hlutvenslakerfinu. Þannig er hugtakið \texttt{Section} til dæmis tengt við hugtakið \texttt{Excercise} með eiginleikanum \texttt{associated_exercises} sem skilgreindur er í \texttt{Section} klasanum og vísar á \texttt{Exercise} klasann með nafni, sjá kóðalistun \myref{code:orm-example}. Allir \texttt{model} klasar sem viðkoma kennsluvefnum eru skilgreindir í skránni \texttt{sql\_web/models.py} \myref{code:django-model-objects}.
 
 \begin{listing}
-\caption[Vensl skilgreind með Django ORM]{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
+\caption[Tengsl skilgreind með Django hlutvenslakerfinu]{Hluti Section klasans, vensl milli ``Section'' og ``Exercise'' skilgreind}
 \label{code:orm-example}
 \begin{minted}[frame=lines]{python}
 class Section(models.Model):
@@ -471,9 +473,9 @@ class Section(models.Model):
 
 \subsection{Markdown}
 \label{sec:markdown}
-Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e. \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða á spjallborði á netinu.
+Greinar kennsluvefsins eru skrifaðar í ívafsmálinu (e.\ \emph{markup language}) Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}. Markdown er mikið notað, líklegt er að kennarar í tölvugreinum hafi rekist á afbrigði af Markdown á síðunum Github\footnote{\url{https://github.com/}}, Stack Overflow\footnote{\url{http://stackoverflow.com/}} eða á spjallborði á netinu.
 
-Aðaláhersluatriði Markdown er að frumkóði (e. \emph{source code}) textaskjalsins sé læsilegur og auðskrifanlegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar til framsetningar. HTML inniheldur þess vegna töluverðar viðbótarupplýsingar um hvernig birta skal textann, sbr. mynd \myref{fig:markdown} sem eru áskildar í Markdown.
+Aðaláhersluatriði Markdown er að frumkóði (e.\ \emph{source code}) textaskjalsins sé læsilegur og auðskrifanlegur. Þetta er ólíkt þekktasta ívafsmálinu, HTML, þar sem markmiðið er að skilgreina einingar til framsetningar. HTML inniheldur þess vegna töluverðar viðbótarupplýsingar um hvernig birta skal textann, sbr. mynd \myref{fig:markdown} sem eru áskildar í Markdown.
 
 \begin{figure}
 \caption{Upprunalegur Markdown-kóði og HTML-ið sem hann skilgreinir}
@@ -495,7 +497,7 @@ Sérstakar viðbætur voru gerðar við Markdown-pakkann til að styðja sérkr�
 \label{sec:d3js}
 Til að sýna vensl á milli greina er gagnaframsetningarforritunarsafnið D3.js\footnote{\url{https://d3js.org/}} notað. Um er að ræða Javascript-safn.
 
-Safnið er stórt og almennt, hægt er að nota það við vinnslu og sýninga á alls kyns gögnum. Hér er það notað til að sækja upplýsingar um vensl greina frá bakenda (með AJAX) og til að birta yfirlitsmyndir fyrir upplýsingarnar.
+Safnið er stórt og almennt, hægt er að nota það við vinnslu og til birtingar á alls kyns gögnum. Hér er það notað til að sækja upplýsingar um vensl greina frá bakenda (með AJAX) og til að birta yfirlitsmyndir fyrir upplýsingarnar.
 
 Yfirlitsmyndirnar eru búnar til með því að skilgreina hverja grein sem hnút í neti, vensl þeirra á milli með örvalegg, og framkvæma síðan tvívíða eindahermun. Hver hnútur er meðhöndlaður sem neikvætt hlaðin eind, hverjum legg úthlutað lengd og teygjanleika og eindasafnið látið dreifa úr sér í tvívíðri sléttu. Þessi hegðun fæst fyrirhafnarlítið frá D3.js, en hjartað í hermuninni má sjá á kóðalistun \myref{code:force-direction}. Niðurstöðurnar eru á mynd \myref{fig:force-direction}.
 
@@ -537,11 +539,11 @@ Töluverð forritun liggur að baki sérhæfðum vef. Mikið af forrituninni er 
 \label{sec:command-analysis}
 Ólíkt fyrri kennslutólum sem leggja mikla áherslu á að greina nemendafyrirspurnir\cite{mitrovic1998, bhagat2002} leggur kennsluvefurinn áherslu á framsetningu efnisins. Í samræmi við þá áherslu eru þau tól sem vefurinn notar til að greina fyrirspurnirnar einföld í samanburði.
 
-Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e. \emph{exercise}) í kennsluvefnum er skilgreind af Django \myref{sec:django} \texttt{model} hlut, sjá \texttt{Exercise} klasann \myref{code:django-model-objects}. Slíkur hlutur hefur nokkra eiginleika sem vert er að nefna:
+Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (e.\ \emph{exercise}) í kennsluvefnum er skilgreind af Django \myref{sec:django} \texttt{model} hlut, sjá \texttt{Exercise} klasann \myref{code:django-model-objects}. Slíkur hlutur hefur nokkra eiginleika sem vert er að nefna:
 
 \begin{itemize}
  \item Nafn, auðkenni og lýsingu
- \item Gerðarlýsingu (e. \emph{schema}) ásamt gögnum, sem sett er upp áður en skipanir eru keyrðar
+ \item Gerðarlýsingu (e.\ \emph{schema}) ásamt gögnum, sem sett er upp áður en skipanir eru keyrðar
  \item SQL-skipun sem ætlunin er að láta nemandann líkja eftir
  \item Sjálfgefna skipun, sem nemandinn skal breyta
  \item Tilgreiningu á ``gerð'' æfingarinnar - \texttt{SELECT} æfing eða annars konar æfing
@@ -549,7 +551,7 @@ Til að keyra SQL-skipun þarf nemandinn að leysa svokallaða æfingu. Æfing (
 
 Þessir eiginleikar, að viðbættri SQL-skipun sem nemandinn skrifar inn, mynda eina keyrslu á æfingu. Keyrsla á æfingu skilar sanngildi sem tilgreinir hvort SQL-skipun nemandans hafi verið rétt miðað við gefnar forsendur, ásamt skilaboðum til nemandans.
 
-Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:example-runner}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallar-athuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
+Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:example-runner}. Hún fer fram í nokkrum skrefum. Ávallt eru grundvallarathuganir gerðar á inntaki notandans, athugað er hvort að breytingar hafi verið gerðar á sjálfgefnu skipuninni og hvort einhver skipun hafi verið slegin inn yfir höfuð. Önnur skref eru mismunandi eftir því hvort að um \texttt{SELECT}-skipun sé að ræða eða ekki.
 
 \subsubsection{Mat á SELECT skipunum}
 \label{sec:select-analysis}
@@ -557,7 +559,7 @@ Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:e
 
 Í slíkum æfingum er gerðarlýsingin sett upp og fyrirspurnirnar, bæði fyrirspurn nemandans og samanburðarfyrirspurnin, keyrðar á henni. Út úr þeim keyrslum koma tvö mengi niðurstaðna sem hægt er að bera saman, annars vegar ``nemendamengi'' og hins vegar ``samanburðarmengi''. Séu mengin eins er nemendaskipunin talin rétt.
 
-Gagnagrunnsviðmótið skilar niðurstöðumengjunum sem listum (e. \emph{lists}) af línum (e. \emph{tuples}). Þessar gagnagrindur (e. \emph{data structures}) eru almenns eðlis, sem setja möguleikum á samanburðum nokkrar skorður.
+Gagnagrunnsviðmótið skilar niðurstöðumengjunum sem listum (e.\ \emph{lists}) af línum (e.\ \emph{tuples}). Þessar gagnagrindur (e.\ \emph{data structures}) eru almenns eðlis, sem setja möguleikum á samanburðum nokkrar skorður.
 
 Samanburðurinn fer fram með eftirfarandi hætti:
 \begin{itemize}
@@ -575,7 +577,7 @@ Samanburðurinn fer fram með eftirfarandi hætti:
 \caption[Tímaflækja samanburða]{Tímaflækja samanburða á fyrirspurnamengjum í æfingum kennsluvefsins}
 \label{tab:comparison-complexity}
 \begin{center}
-\begin{tabular}{ll}
+\begin{tabular}{lc}
 \toprule
 Aðgerð&Tímaflækja í versta tilfelli\\
 \midrule
@@ -588,9 +590,13 @@ Samanburður á röðuðum mengjum& $O(n)$\\
 \end{table}
 Ítrunin yfir samanburðarmengið tekur línulegan tíma með tilliti til fjölda staka í menginu. Einföld samanburðarleit á borð við þá sem notuð er á nemendamengið er sömuleiðis með línulegan keyrslutíma. Gert er ráð fyrir því að samanburður tveggja lína taki fastan tíma.
 
-Áætlaðar tímaflækjur fyrir samanburði niðurstaðnanna má sjá á töflu \myref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. Tímaflækja samanburðanna er slæm þegar bera þarf saman tvö óröðuð, jafn stór mengi. Þetta hefur engu að síður ekki valdið vandræðum við raunverulegar aðstæður. Aðferðin hefur auk þess nokkra kosti sem gera hana áreiðanlegri en fyrirsjáanlegir möguleikar á að nota skilvirkari aðferðir.
+Áætlaðar tímaflækjur fyrir samanburði niðurstaðanna má sjá á töflu \myref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. 
 
-\paragraph{Aðrar leiðir til að framkvæma samanburði} Þekkt er að hægt sé að bera saman tvö mengi á línulegum tíma með tilliti til fjölda staka sé uppfletting möguleg á föstum tíma. Mengi í Python styðja uppflettingu á föstum tíma, að því gefnu að hægt sé að reikna tætivistföng (e. \emph{hash values}) fyrir stökin. Þar sem kennari getur útbúið æfingar með flestum gerðum gagna er óáreiðanlegt að gera ráð fyrir miklu um uppbyggingu hverrar línu.
+Tímaflækja samanburðanna er slæm þegar bera þarf saman tvö óröðuð, jafn stór mengi. Þetta olli áhyggjum vegna þess að samanburðarreikniritið er keyrt að beiðni notenda, sem þarf að bíða eftir niðurstöðunni. Niðurstöðurnar þurfa því að berast mjög hratt, útreikningarnir mega ekki bæta verulega við venjulegan hleðslutíma vefsíðunnar. Prófanir á sýnidæmum hafa ekki bent til slíkra vandræða við raunverulegar aðstæður, þar sem stærð gagnasettanna takmarkast af því að nemendur þurfa að geta meðtekið þau.
+
+Aðferðin hefur auk þess nokkra kosti sem gera hana áreiðanlegri en fyrirsjáanlegir möguleikar á að nota skilvirkari aðferðir.
+
+\paragraph{Aðrar leiðir til að framkvæma samanburði} Þekkt er að hægt sé að bera saman tvö mengi á línulegum tíma með tilliti til fjölda staka sé uppfletting möguleg á föstum tíma. Mengi í Python styðja uppflettingu á föstum tíma, að því gefnu að hægt sé að reikna tætivistföng (e.\ \emph{hash values}) fyrir stökin. Þar sem kennari getur útbúið æfingar með flestum gerðum gagna er óáreiðanlegt að gera ráð fyrir miklu um uppbyggingu hverrar línu.
 
 Einnig er hægt að bera saman mengi á $O(n\log n)$ tíma séu stökin raðanleg. Hvoru mengi um sig er þá raðað með samanburðarröðunarreikniriti og stök mengjanna þvínæst pöruð saman í röð. Þessi leið er einnig illfær. Þó að gögn í gagnagrunnum séu jafnan þess eðlis að hægt sé að raða þeim, þá er röðun ekki áreiðanleg nema á þau sé skilgreindur lykil. Ekki er hægt að stjórna sniði nemendafyrirspurnarinnar, svo ákvörðun á lykli fyrir þær fyrirspurnir væri líka óáreiðanleg.
 
@@ -608,20 +614,22 @@ Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gag
 
 Helsti kostur þessa fyrirkomulags er öryggi. Gagnagrunnurinn er tímabundinn og inniheldur engin gögn nema þau sem eru æfingunni viðkomandi. Tengingin hefur ekki heimildir til að tengjast skráarkerfinu né heldur til að framkvæma SQLite-stýriskipanir (``dot-commands'') sem gætu framkallað breytingar á kerfinu sjálfu eða lesið þaðan upplýsingar. Það er aldrei hættulaust að keyra kóða annars fólks með jafn litlu eftirliti og forritunarkennslukerfi krefst, en með þessum hætti er tekið fyrir algengustu gerðir skaðlegra villna og árása.
 
-Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Líklegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti, auk þess sem gagnasöfnin sem um ræðir eru af viðráðanlegri stærð, verandi af stærð sem nemendur geta meðtekið.
+Skortur á keyrsluhraða hefur ekki valdið vandræðum með þessu fyrirkomulagi. Þó að það að stofna til nýs gagnagrunns í hvert skipti sem nemandi framkvæmir fyrirspurn feli í sér tímakostnað hefur hann ekki verið greinanlegur. Líklegt er að það að gagnagrunnur í minni krefjist ekki diskaðgangs vegi á móti.
 \subsubsection{Mat á skipunum öðrum en SELECT skipunum}
 \label{sec:other-command-analysis}
 Snúist æfingin ekki um \texttt{SELECT} skipun er strengjasamanburður notaður til að athuga hvort að skipunin sé sambærileg við þá sem herma skal eftir. Samanburðurinn felst í því að Levenshtein-fjarlægð er reiknuð á milli skipananna tveggja. 
 
 Levenshtein-fjarlægð er mælikvarði á hversu líkar tvær runur eru. Í þessu tilviki er um að ræða talningu á því hversu margar eins stafs breytingar þyrfti að gera á streng sem inniheldur fyrirspurn nemandans til að breyta henni í fyrirspurn kennarans.
 
-Fjarlægðin er reiknuð án þess að taka tillit til biltákna (e. \emph{whitespace characters}) eða mismunar á milli hástafa og lágstafa. Sé Levenshtein-fjarlægðin á milli strengjanna 0 er skipunin rétt, annars röng. Sé skipunin röng og fjarlægðin lítil er nemandanum birt fjarlægðin, ásamt útskýringu. Markmiðið með að birta Levenshtein-fjarlægðina sé hún lág er til að gefa nemendum vísbendingu um að viðkomandi gæti verið á réttri leið en með smávægilega málskipunarvillu (e. \emph{syntax error}), en málskipunarvillur er sá villuflokkur sem nemendur lenda hvað oftast í við að skrifa SQL\cite{ahadi2016students}.
+Fjarlægðin er reiknuð án þess að taka tillit til biltákna (e.\ \emph{whitespace characters}) eða mismunar á milli hástafa og lágstafa. Sé Levenshtein-fjarlægðin á milli strengjanna 0 er skipunin rétt, annars röng. Sé skipunin röng og fjarlægðin lítil er nemandanum birt fjarlægðin, ásamt útskýringu. Markmiðið með að birta Levenshtein-fjarlægðina sé hún lág er til að gefa nemendum vísbendingu um að viðkomandi gæti verið á réttri leið en með smávægilega málskipunarvillu (e.\ \emph{syntax error}), en málskipunarvillur er sá villuflokkur sem nemendur lenda hvað oftast í við að skrifa SQL\cite{ahadi2016students}.
 
 \subsection{Markdown viðbætur}
 \label{sec:markdown-additions}
 Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleika tengdum framsetningu textans. Auk þess eru Markdown-túlkar einfeldningsleg textatúlkunarforrit, sem ekki gera sér grein fyrir innri uppbyggingu texta eða tengsla á milli viðfangsefna. Til að styðja myndræna framsetningu og innri tengingar textans er því nauðsynlegt að smíða viðbætur við túlkinn.
  
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar, sem lýst er hér að neðan.
+
+% TODO yfirlit yfir viðbæturnar.
 \subsubsection{Myndir}
 Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \myref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
 
