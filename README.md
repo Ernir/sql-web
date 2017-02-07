@@ -24,7 +24,7 @@ að auki er sterklega mælt með:
 
 ```
 $ sudo apt-get update && sudo apt-get upgrade
-$ sudo apt-get install git python3-dev python3-pip python3-venv sqlite3 build-essential libpq-dev curl
+$ sudo apt-get install git python3-dev python3-pip python3-venv sqlite3 build-essential curl
 ```
 
 ### 1. Forritskóði sóttur
@@ -63,13 +63,15 @@ $
 
 ### 3. Uppsetning pakka sem vefurinn krefst
 
-Í möppunni `sql-web` má finna skrá sem heitir `requirements.txt`, sem inniheldur upplýsingar um forritssöfn sem vefnum eru nauðsynleg. Setjum söfnin upp með `pip` pakkastjórnunarkerfinu.
+Í möppunni `sql-web` má finna skrá sem heitir `requirements.txt`, sem inniheldur upplýsingar um forritssöfn sem vefnum eru nauðsynleg. Setjum söfnin upp með `pip` pakkastjórnunarkerfinu, sem sett var upp í skrefi 0.
 
 Í þessu skrefi er mikilvægt að sýndarumhverfið sé virkt!
 
 ```
 (sqlvenv) $ pip install -r requirements.txt
 ```
+
+Líklegt er að þessi skipun gefi leiðbeiningar um að uppfæra `pip` með skipuninni `pip install --upgrade pip`. Óhætt er að gera það.
 
 ### 4. Uppsetning gagna (valkvæmt)
 
