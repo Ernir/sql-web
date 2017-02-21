@@ -59,7 +59,11 @@ class SectionListView(BaseView):
     """
 
     def get(self, request):
-        subjects = Subject.objects.prefetch_related("section_set").select_related("best_start").all()
+        subjects = Subject.objects.\
+            prefetch_related("section_set").\
+            select_related("best_start").\
+            filter(visible=True).\
+            all()
 
         for s in subjects:
             if s.best_start and request.user in s.best_start.read_by.all():

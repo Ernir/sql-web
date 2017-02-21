@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils.text import slugify
 from markdown import markdown
 from sql_web.markdown_extensions.inline_code import InlineCodeExtension
@@ -20,13 +21,14 @@ class Subject(models.Model):
     title = models.CharField(max_length=200)
     number = models.IntegerField(unique=True)
     best_start = models.ForeignKey("Section", related_name="considered_best_start_by")
+    visible = models.BooleanField(default=True, help_text="Breytið til að fela eða sýna allar tengdar greinar")
 
     def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        self.order_sections()
-        super(Subject, self).save(*args, **kwargs)
+        if not self.visible:
+            visibility = "(FALIÐ) "
+        else:
+            visibility = ""
+        return "{}{}: {}".format(visibility, self.number, self.title)
 
     def order_sections(self):
         """
@@ -51,6 +53,23 @@ class Subject(models.Model):
 
     class Meta:
         ordering = ("number",)
+
+
+@receiver(pre_save, sender=Subject)
+def do_something_if_changed(sender, instance, **kwargs):
+    # First, update ordering of associated sections
+    instance.order_sections()
+    # Update visibility of children if the section's visibility has changed.
+    # Source: http://stackoverflow.com/a/7934958/1675015
+    try:
+        obj = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        pass
+    else:
+        if not obj.visible == instance.visible:  # Field has changed
+            for section in instance.section_set.all():
+                section.visible = instance.visible
+                section.save()
 
 
 class Section(models.Model):
@@ -213,7 +232,8 @@ class Assignment(models.Model):
     time_start = models.DateTimeField()
     time_end = models.DateTimeField()
 
-    assigned_course = models.ManyToManyField("Course", blank=True, help_text="Setja verkefni fyrir alla nemendur í námskeiðinu")
+    assigned_course = models.ManyToManyField("Course", blank=True,
+                                             help_text="Setja verkefni fyrir alla nemendur í námskeiðinu")
     assigned_students = models.ManyToManyField(User, blank=True, help_text="Setja verkefni fyrir einstaka nemendur")
 
     def __str__(self):
