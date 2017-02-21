@@ -13,7 +13,7 @@ Vefurinn er skrifaður í [Django](https://www.djangoproject.com/) og ætti að 
 Áður en hafist er handa er nauðsynlegt að eftirfarandi sé uppsett:
 
   *  [python 3](https://www.python.org/downloads/) með þróunartólum, sýndarumhverfakerfi og pakkakerfi (nauðsynlegt)
-  *  þýðingartól sem tengjast C- og Postgresviðbótum
+  *  þýðingartól sem tengjast C-viðbótum
   *  gagnagrunnskerfi, hér gert ráð fyrir [SQLite](https://sqlite.org/)
   
 að auki er sterklega mælt með:
@@ -125,4 +125,4 @@ export SECRET_KEY="miklulengristrengurenþetta"
 export DEBUG_MODE="0"
 ```
 
-Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en þróunarvefþjóninn sem er innbyggður í Django. Nútíma vefþjónar duga flestir, en mælt er með [NGINX](https://www.nginx.com/).
+Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en þróunarvefþjóninn sem er innbyggður í Django. Þekkt er að [Gunicorn](http://gunicorn.org/) með [NGINX](https://www.nginx.com/) hentar vel.

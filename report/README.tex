@@ -192,6 +192,10 @@ Uppsetning keyrsluútgáfu (til opinberrar birtingar) er í flestum atriðum
 eins og uppsetning þróunarútgáfu. Af öryggisástæðum þarf þó að gera
 breytingar á umhverfisbreytum, sjá skref 1 í uppsetningu þróunarútgáfu.
 
-Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en
-þróunarvefþjóninn sem er innbyggður í Django. Nútíma vefþjónar duga
-flestir, en mælt er með \href{https://www.nginx.com/}{NGINX}.
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+export SECRET_KEY="miklulengristrengurenþetta"
+export DEBUG_MODE="0"
+\end{minted}
+
+Auk þess þarf að setja upp afkastameiri og öruggari vefþjón en þróunarvefþjóninn sem er innbyggður í Django.
+Þekkt er að \href{http://gunicorn.org/}{Gunicorn} með \href{https://www.nginx.com/}{NGINX} hentar vel.
