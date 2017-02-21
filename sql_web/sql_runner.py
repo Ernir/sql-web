@@ -13,22 +13,26 @@ class ExerciseRunner:
     BAD_SETUP_MSG = "Uppsetning æfingarinnar olli villu, sem bendir til þess að æfingin hafi verið rangt sett inn. " \
                     "Mælt er með því að hafa samband við kennara."
     BROKEN_COMMAND_MSG = "Keyrsla skipunarinnar olli eftirfarandi villu: <strong>{}</strong>"
-    CORRECT_MSG = "Rétt! Verkefninu er nú lokið og niðurstaðan vistuð."
+    CORRECT_MSG = "Rétt! Verkefninu er nú lokið."
+    LOGGED_IN_MSG = "Niðurstaðan hefur verið vistuð."
+    NOT_LOGGED_IN_MSG = "Niðurstaðan er ekki vistuð vegna þess að þú hefur ekki skráð þig inn. " \
+                        "Afritaðu skipunina viljir þú ekki að hún týnist."
     WRONG_RESULTS_MSG = "Skipunin er lögleg SQL-skipun, en hún skilaði rangri niðurstöðu. "
     NO_EXACT_MATCH = "Skipunin sem þú gafst passar ekki nákvæmlega við þá skipun sem búist var við. " \
                      "Má ekki bjóða þér að reyna aftur?"
-    UNEXPECTED_ERROR = "Keyrsla skipunarinnar olli villu sem enginn gerði ráð fyrir!" \
+    UNEXPECTED_ERROR = "Keyrsla skipunarinnar olli villu sem enginn gerði ráð fyrir! " \
                        "Mælt er með því að hafa samband við kennara."
     NUM_DIFFERENCES = "Fjöldi stafabreytinga sem gera þarf á lausninni til að hún sé eins og lausn kennarans er {}. "
     INCORRECT = False
     CORRECT = True
 
-    def __init__(self, statements, exercise):
+    def __init__(self, statements, exercise, user_logged_in=False):
         self.user_statements = statements
         self.schema = exercise.given_schema
         self.prepopulated = exercise.prepopulated
         self.to_emulate = exercise.sql_to_emulate
         self.statement_type = exercise.statement_type
+        self.user_logged_in = user_logged_in
 
         self.schema_setup_complete = False
         self.conn = sqlite3.connect(":memory:")
@@ -130,7 +134,12 @@ class ExerciseRunner:
         # Compare the results of the queryset to be emulated and the result of the user's query
         ordered = "ORDER BY" in self.to_emulate.upper()
         if self._querysets_equal(user_result, expected_result, ordered):
-            result, message = self.CORRECT, self.CORRECT_MSG
+            message = "{}\n{}"
+            if self.user_logged_in:
+                message = message.format(self.CORRECT_MSG, self.LOGGED_IN_MSG)
+            else:
+                message = message.format(self.CORRECT_MSG, self.NOT_LOGGED_IN_MSG)
+            result = self.CORRECT
         else:
             result, message = self.INCORRECT, "{}\n {}".format(
                 self.WRONG_RESULTS_MSG, self.NUM_DIFFERENCES.format(

@@ -27,7 +27,7 @@
                     <a href="{% url "section" subject.best_start.slug %}">{{ subject.best_start.title }}</a>.
                 </p>
                 {% if subject.unread_sections %}
-                    <p>Þú átt eftir að lesa eftirfarandi greinar:</p>
+                    <p>Eftirfarandi greinar eru ólesnar:</p>
                     <ul>
                         {% for section in subject.unread_sections %}
                             <li>

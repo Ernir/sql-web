@@ -174,12 +174,13 @@ class ExerciseView(BaseView):
             self.params["exercise"] = the_exercise
 
             user_statements = form.cleaned_data["code_area"]
+            user_is_logged_in = request.user.is_authenticated()
 
-            with ExerciseRunner(user_statements, the_exercise) as runner:
+            with ExerciseRunner(user_statements, the_exercise, user_is_logged_in) as runner:
                 valid, message = runner.is_valid()
                 self.params["message"] = message
 
-                if valid and request.user.is_authenticated():
+                if valid and user_is_logged_in:
                     the_exercise.completed_by.add(request.user)
 
                 if the_exercise.given_schema:
