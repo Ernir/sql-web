@@ -73,13 +73,12 @@ $
 
 Líklegt er að þessi skipun gefi leiðbeiningar um að uppfæra `pip` með skipuninni `pip install --upgrade pip`. Óhætt er að gera það.
 
-### 4. Uppsetning gagna (valkvæmt)
+### 4. Uppsetning gagnagrunns
 
-Með forritskóðanum fylgja sjálfgefin gögn - þ.e.a.s. innihald kennslubókarinnar sjálfrar ásamt sýnidæma um verkefni. Til að setja gögnin upp þarf að keyra tvær skipanir, sú fyrri til að setja upp gagnagrunn og þá seinni til að hlaða í hann gögnum.
+Sjálfgefin gögn eru til fyrir kennsluvefinn, sem innihalda mögulega upphafsuppsetningu á greinum og sýnidæmi um verkefni. Þau má finna í SQLite-gagnagrunnsskránni `sqlweb.db` sem sækja má með
 
 ```
-(sqlvenv) $ python manage.py migrate
-(sqlvenv) $ python manage.py loaddata content.json
+(sqlvenv) curl -O https://notendur.hi.is/~ernir/sql-web/sqlweb.db
 ```
 
 Sjálfgefnu gögnin innihalda vísanir í myndir. Myndirnar eiga heima í skrá sem heitir `mediafiles` og er undirmappa `sql-web` möppunnar. Eftirfarandi skipun (sem krefst cURL og tar) sækir myndirnar og setur þær í viðeigandi möppu:
@@ -88,7 +87,13 @@ Sjálfgefnu gögnin innihalda vísanir í myndir. Myndirnar eiga heima í skrá 
 (sqlvenv) $ curl https://notendur.hi.is/~ernir/sql-web/mediafiles.tar.gz | tar -xz
 ```
 
-*Annar valmöguleiki*: Hægt er að komast hjá því að nota cURL og/eða tar með því að búa til `mediafiles` möppuna handvirkt og sækja myndirnar sem [.zip skrá](https://notendur.hi.is/~ernir/sql-web/mediafiles.zip). Þetta gæti verið viðeigandi fyrir Microsoft Windows notendur.
+Eigi ekki að nota sjálfgefnu gögnin má upphafsstilla tóman gagnagrunn fyrir vefinn með skipuninni
+
+```
+(sqlvenv) $ python manage.py migrate
+```
+
+*Annar valmöguleiki*: Hægt er að komast hjá því að nota cURL og/eða tar, þó ferlið sé þá . Þá þarf að vista [.db skrána](https://notendur.hi.is/~ernir/sql-web/sqlweb.db) í grunnmöppunni. Til að fá myndirnar þyrfti að búa til `mediafiles` möppuna handvirkt og sækja þær sem [.zip skrá](https://notendur.hi.is/~ernir/sql-web/mediafiles.zip). Þetta gæti verið viðeigandi fyrir Microsoft Windows notendur.
 
 ### 5. Uppsetning ofurnotandareiknings (valkvæmt)
 

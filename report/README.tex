@@ -128,17 +128,14 @@ pakkastjórnunarkerfinu.
 (sqlvenv) $ pip install -r requirements.txt
 \end{minted}
 
-\subsubsection{5. Uppsetning gagna
-(valkvæmt)}\label{uppsetning-gagna-valkvuxe6mt}
+\subsubsection{5. Uppsetning gagna}\label{uppsetning-gagna}
 
-Með forritskóðanum fylgja sjálfgefin gögn - þ.e.a.s. innihald
-kennslubókarinnar sjálfrar ásamt sýnidæma um verkefni. Til að setja
-gögnin upp þarf að keyra tvær skipanir, sú fyrri til að setja upp
-gagnagrunn og þá seinni til að hlaða í hann gögnum.
+Sjálfgefin gögn eru til fyrir kennsluvefinn, sem innihalda mögulega
+upphafsuppsetningu á greinum og sýnidæmi um verkefni. Þau má finna í
+SQLite-gagnagrunnsskránni \texttt{sqlweb.db} sem sækja má með
 
 \begin{minted}[fontsize=\small, frame=lines]{bash}
-(sqlvenv) $ python manage.py migrate
-(sqlvenv) $ python manage.py loaddata content.json
+(sqlvenv) curl -O https://notendur.hi.is/~ernir/sql-web/sqlweb.db
 \end{minted}
 
 Sjálfgefnu gögnin innihalda vísanir í myndir. Myndirnar eiga heima í
@@ -150,11 +147,21 @@ og setur þær í viðeigandi möppu:
 (sqlvenv) $ curl https://notendur.hi.is/~ernir/sql-web/mediafiles.tar.gz | tar -xz
 \end{minted}
 
+Eigi ekki að nota sjálfgefnu gögnin má upphafsstilla tóman gagnagrunn
+fyrir vefinn með skipuninni
+
+\begin{minted}[fontsize=\small, frame=lines]{bash}
+(sqlvenv) $ python manage.py migrate
+\end{minted}
+
 \emph{Annar valmöguleiki}: Hægt er að komast hjá því að nota cURL og/eða
-tar með því að búa til \texttt{mediafiles} möppuna handvirkt og sækja
-myndirnar sem
+tar. Þá þarf að vista
+\href{https://notendur.hi.is/~ernir/sql-web/sqlweb.db}{.db skrána} í
+grunnmöppunni. Til að fá myndirnar þyrfti að búa til \texttt{mediafiles}
+möppuna handvirkt og sækja þær sem
 \href{https://notendur.hi.is/~ernir/sql-web/mediafiles.zip}{.zip skrá}.
 Þetta gæti verið viðeigandi fyrir Microsoft Windows notendur.
+
 
 \subsubsection{6. Uppsetning ofurnotandareiknings
 (valkvæmt)}\label{uppsetning-ofurnotandareiknings-valkvuxe6mt}
