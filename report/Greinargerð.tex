@@ -450,7 +450,7 @@ Django er vefburðargrind (e.\ \emph{web framework}) fyrir Python-forritunarmál
 Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er venjulega túlkað á vefnum. Flest ``fyrirbrigði'' kennsluvefsins eru þannig skilgreind af Python-forritsklösum sem tengjast hlutvenslakerfi (e.\ \emph{object-relational mapping, ORM}) grindarinnar \myref{sec:django-orm}.
 
 Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Sem dæmi má taka að stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í einni grunnskrá \myref{code:base-template}.
-\subsubsection{Django ORM}
+\subsubsection{Hlutvenslakerfi}
 \label{sec:django-orm}
 Hlutvenslakerfi kerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
 
@@ -608,7 +608,7 @@ Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gag
 \caption{Framkvæmd mats á nemendafyrirspurn}
 \label{fig:sql-evaluation-execution}
 \begin{center}
-\includegraphics{KeyrslaFyrirspurnar}
+\includegraphics{keyrsla-fyrirspurnar}
 \end{center}
 \end{figure}
 
@@ -627,11 +627,18 @@ Fjarlægðin er reiknuð án þess að taka tillit til biltákna (e.\ \emph{whit
 \label{sec:markdown-additions}
 Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleika tengdum framsetningu textans. Auk þess eru Markdown-túlkar einfeldningsleg textatúlkunarforrit, sem ekki gera sér grein fyrir innri uppbyggingu texta eða tengsla á milli viðfangsefna. Til að styðja myndræna framsetningu og innri tengingar textans er því nauðsynlegt að smíða viðbætur við túlkinn.
  
-Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown, er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn notaðar, sem lýst er hér að neðan.
+Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn. Þær eru: 
+\begin{itemize}
+ \item Viðbót til að styðja innfellingu mynda \myref{sec:markdown-image-inclusion}
+ \item Viðbót til að leyfa framsetningu texta í tveimur dálkum\myref{sec:markdown-footnote}
+ \item Viðbót til að auðvelda innri tengingu greina\myref{sec:markdown-internal-link}
+ \item Smáviðbót til að fegra birtingu kóðadæma innan línu án þess að breyta notkun Markdown
+\end{itemize}
 
-% TODO yfirlit yfir viðbæturnar.
 \subsubsection{Myndir}
-Óbreytt Markdown styður infellingu mynda í texta með sniði sem sjá má á málritinu á mynd \myref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
+\label{sec:markdown-image-inclusion}
+Óbreytt Markdown styður infellingu mynda í texta.
+Snið slíkra innfellinga má sjá á málritinu á mynd \myref{fig:markdown-image-inclusion-original}. Hér er \emph{<image-hyperlink>} vefslóð á myndina sem fella skal inn í textann, \emph{<alt-text>} sá texti sem er sýndur í stað myndar sé myndin ekki til staðar og \emph{<title>} viðbótarupplýsingar með myndinni.
 
 \begin{figure}
 \caption{Myndainnfellingar í Markdown}
@@ -672,24 +679,29 @@ Sérsmíðaða viðbótin, sem vinnur samkvæmt mállýsingu á mynd \myref{fig:
 
 Athugum að texti kennsluvefsins er settur fram í tveimur dálkum, aðaldálki og spássíudálki, sjá undirkafla \myref{sec:tufte-css}. Fyrst er gefinn möguleiki á að skeyta stafnum \texttt{m} eða stafnum \texttt{f} framan við myndskilgreininguna. Sé stafnum sleppt fyllir myndin aðaldálkinn. Sé stafurinn \texttt{m} gefinn fyllir myndin spássíudálkinn. Sé stafurinn \texttt{f} gefinn fyllir myndin báða dálkana.
 
-Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt að lesa \texttt{<image-identifier>} sem einkvæmt auðkenni Django-model hlutar sem skilgreinir mynd. Finnist engin mynd með viðkomandi auðkenni er leitað að kóðasýnidæmi með auðkennið \texttt{<image-identifier>}. Finnist ekkert kóðasýnidæmi heldur er \texttt{<image-identifier>} notað beint sem vefslóð og virknin þá sem fyrr.
+Einnig bætast við fleiri möguleikar á að vísa í myndir. Fyrst er reynt að lesa \texttt{<image-identifier>} sem einkvæmt auðkenni Django-model hlutar sem skilgreinir mynd. Finnist engin mynd með viðkomandi auðkenni er leitað að kóðasýnidæmi með auðkennið \texttt{<image-identifier>}. Finnist ekkert kóðasýnidæmi heldur er \texttt{<image-identifier>} notað beint sem vefslóð og er virknin þá sem fyrr.
 \begin{listing}
 \caption{Möguleg dæmi um myndainnfellingar í Markdown}
 \label{fig:markdown-image-examples}
 Óbreytt Markdown:
-\begin{minted}[frame=lines]{markdown}
-![Alt text](/path/to/img.jpg "Optional title")
-\end{minted}
+\begin{center}
+\texttt{![Alt text](/path/to/img.jpg "{}Optional title")}
+\end{center}
+
 Með viðbót:
-\begin{minted}[frame=lines]{markdown}
-![Alt text](identifier "Optional title")
-f![Alt text](identifier "Optional title")
-m![Alt text](identifier "Optional title")
-\end{minted}
+\begin{center}
+\texttt{
+ ![Alt text](identifier "{}Optional title")\\
+f![Alt text](identifier "{}Optional title")\\
+m![Alt text](identifier "{}Optional title")\\
+}
+\end{center}
 \end{listing}
 
 \subsubsection{Spássíugreinar}
-Framsetning efnisins gerir ráð fyrir notkun hliðarútskýringa í spássíum. Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}} gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum, frekar en spássíugreinum. Viðbótin var því endurskrifuð.
+\label{sec:markdown-footnote}
+Vefurinn gerir ráð fyrir notkun hliðarútskýringa í spássíum.
+Sú viðbót sem helst ætti við til að styðja slíka framsetningu væri Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}}, en hún gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum. Viðbótin var því endurskrifuð.
 
 Viðbótin vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown. Hvaða Markdown-texti sem er er sem sagt löglegur, en sterklega er mælt gegn því að setja hliðarútskýringu inn í hliðarútskýringu.
 
@@ -702,14 +714,19 @@ Viðbótin vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-footnote}. 
 \end{figure}
 
 \subsubsection{Innri tenglar}
-Gert er ráð fyrir að tengingar á milli greina séu mikið notaðar innan texta kennsluvefsins. Óbreytt Markdown inniheldur almennar leiðir til að fella tengla inn í setningar, en slíkt hefur ókosti í för með sér:
+\label{sec:markdown-internal-link}
+Gert er ráð fyrir að tengingar á milli greina séu mikið notaðar innan texta kennsluvefsins. 
+Óbreytt Markdown inniheldur almennar leiðir til að fella tengla inn í setningar, en slíkt hefur ókosti í för með sér:
 
 \begin{enumerate}
  \item Breytist vefslóð kennsluvefsins\footnote{Þetta er mjög líklegt að gerist oft, sjá \myref{sec:open-source}} þarf að gera breytingar á frumtextanum til að viðhalda tenglunum
  \item Vefslóðir innihalda mikið af upplýsingum sem eru textahöfundum óviðkomandi
 \end{enumerate}
+Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Efnishöfundar ákveða auðkenni sinna greina og hafa því möguleika á að velja auðkenni sem auðvelt er að muna.
 
-Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því að nota einkvæmt auðkenni viðkomandi greinar. Málritið sem viðbótin vinnur eftir má sjá á mynd \myref{fig:markdown-internal-link}. Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
+Málritið sem viðbótin vinnur eftir má sjá á mynd \myref{fig:markdown-internal-link}. 
+Hér er \texttt{<identifier>} einkvæmt auðkenni greinar sem vísa skal í og \texttt{<label>} er valkvæmur texti sem tengillinn er merktur með. 
+Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<identifier>}.
 
 \begin{figure}
 \caption{Innri tenglar í Markdown}
@@ -722,6 +739,14 @@ Viðbótin gerir mögulegt að vísa í aðrar greinar kennsluvefsins með því
   `]' `]'
 \end{syntaxenv}
 \end{figure}
+
+\begin{figure}
+\caption[Val á auðkenni]{Efnishöfundar geta valið sín eigin auðkenni á greinar. Hér hefur höfundur valið að mynda auðkenni með því að skipta biltáknum í nafni greinarinnar út fyrir bandstrik og breyta séríslenskum bókstöfum í svipaða stafi úr enska stafrófinu.}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{identifier-selection}
+\end{center}
+\end{figure}
+
 
 \chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
 Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \ref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar, og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
@@ -770,7 +795,7 @@ Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. A
 \chapter{Leyfi}
 \label{sec:license}
 Eftirfarandi opin leyfi eiga við forritskóða verkefnisins annars vegar og texta þess hins vegar.
-\section{Code}\label{code}
+\section{Forritskóði}\label{code}
 
 This project's \emph{source code} is available under the MIT license, as
 follows:
@@ -798,7 +823,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-\section{Contents}\label{contents}
+\section{Texti}\label{contents}
 
 This project's textual contents are modifiable under Creative Commons,
 \href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA
