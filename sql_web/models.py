@@ -305,6 +305,9 @@ class IndexText(models.Model):
         self.rendered_contents = markdown(self.contents, extensions=["tables", InlineCodeExtension()])
         super(IndexText, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("index")
+
     def __str__(self):
         return self.title
 

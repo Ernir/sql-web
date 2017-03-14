@@ -442,7 +442,7 @@ Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en
 Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
 \section{Aðfengnar tæknilausnir í notkun}
 \label{sec:third-party-tech}
-Vefurinn er skrifaður með Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir \myref{sec:tufte-css} og \myref{sec:d3js} notaðir til að stýra útliti vefsins.
+Vefurinn er skrifaður með Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir Tufte CSS \myref{sec:tufte-css} og D3.js \myref{sec:d3js} notaðir til að stýra útliti vefsins.
 \subsection{Django}
 \label{sec:django}
 Django er vefburðargrind (e.\ \emph{web framework}) fyrir Python-forritunarmálið. Slík burðargrind veitir meiri stuðning en bein Python-forritun gegn vefþjóni, en mun minni stuðning en vefumsjónarkerfi eins og WordPress. Django var fyrst gefið út árið 2005 af Adrian Holovaty og Simon Willison, sem þróuðu kerfið út frá forritum sem þeir höfðu notað við netblaðaútgáfu. Það er mest notaða Python vefburðargrindin í dag.
@@ -629,11 +629,27 @@ Markdown er einfalt mál og er þar af leiðandi með fáa sérhæfða möguleik
  
 Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown er notuð\footnote{\url{https://pythonhosted.org/Markdown/extensions/tables.html}}. Að auki eru fjórar viðbætur skrifaðar sérstaklega fyrir kennsluvefinn. Þær eru: 
 \begin{itemize}
- \item Viðbót til að styðja innfellingu mynda \myref{sec:markdown-image-inclusion}
- \item Viðbót til að leyfa framsetningu texta í tveimur dálkum\myref{sec:markdown-footnote}
- \item Viðbót til að auðvelda innri tengingu greina\myref{sec:markdown-internal-link}
+ \item Viðbót til að styðja innfellingu mynda (\hyperref[sec:markdown-image-inclusion]{{\color{blue} Myndir}} $\to$ )
+ \item Viðbót til að leyfa framsetningu texta í tveimur dálkum með spássíugreinum (\hyperref[sec:markdown-footnote]{\color{blue} Spássíugreinar} $\to$ )
+ \item Viðbót til að auðvelda innri tengingu greina (\hyperref[sec:markdown-internal-link]{\color{blue} Innri tenglar} $\to$ )
  \item Smáviðbót til að fegra birtingu kóðadæma innan línu án þess að breyta notkun Markdown
 \end{itemize}
+Dæmi um útfærslu á viðbót má sjá í \myref{code:footnote-extension}. Hluta af útfærslu má sjá í kóðadæmi \myref{code:markdown-extension-example}.
+
+\begin{listing}
+\caption[Skilgreining markdown viðbótar]{Hluti útfærslu á Markdown-viðbót. Hér er reglulegri segð sem þekkir spássíugreinar smeygt á milli innbyggðra segða.}
+\label{code:markdown-extension-example}
+\begin{minted}[frame=lines]{python}
+"""..."""
+def extendMarkdown(self, md, md_globals):
+    FOOTNOTE_RE = r"\[\^(?P<identifier>[a-z\d#-_]+)\]\[(?P<text>.*?)\]"
+    footnote_pattern = Footnotes(FOOTNOTE_RE, self.getConfigs())
+    footnote_pattern.md = md
+    md.inlinePatterns.add("footnote", footnote_pattern, "<not_strong")
+"""..."""
+\end{minted}
+
+\end{listing}
 
 \subsubsection{Myndir}
 \label{sec:markdown-image-inclusion}
@@ -703,7 +719,7 @@ m![Alt text](identifier "{}Optional title")\\
 Vefurinn gerir ráð fyrir notkun hliðarútskýringa í spássíum.
 Sú viðbót sem helst ætti við til að styðja slíka framsetningu væri Footnotes-viðbótin fyrir Python-útgáfuna af Markdown\footnote{\url{https://pythonhosted.org/Markdown/extensions/footnotes.html}}, en hún gerir einungis ráð fyrir hefðbundnum neðanmálsgreinum. Viðbótin var því endurskrifuð.
 
-Viðbótin vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown. Hvaða Markdown-texti sem er er sem sagt löglegur, en sterklega er mælt gegn því að setja hliðarútskýringu inn í hliðarútskýringu.
+Viðbótin vinnur samkvæmt mállýsingu á mynd \myref{fig:markdown-footnote}. \texttt{<note-identifier>} er auðkenni sem ekki birtist notanda síðunnar, en má nota til að vísa í spássíugreinina, til dæmis með tenglum. Löglegir stafir í þessu auðkenni skilgreinast af reglulegu segðinni \verb|[a-z\d#-_]|. \texttt{<contents>} myndar eiginlegan texta spássíugreinarinnar, sem má sjálft innihalda Markdown. Hvaða Markdown-texti sem er er sem sagt löglegur, en sterklega er mælt gegn því að setja skilgreiningu á spássíugrein inn í spássíugrein.
 
 \begin{figure}
 \caption{Spássíugreinar í Markdown}
@@ -749,7 +765,7 @@ Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<i
 
 
 \chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
-Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \ref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar, og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
+Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \myref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
 
 En að sjálfsögðu eru nokkur atriði þegar þekkt sem betur mættu fara \myref{sec:current-limitations} og önnur sem bæta má við\myref{sec:future-work}.
 \section{Takmarkanir á núverandi útgáfu}
@@ -762,14 +778,24 @@ Hægt væri að greina skipanirnar á hátt sem tekur tillit til virkni þeirra.
 Hins vegar er ekki sjálfgefið hvernig slíkur samanburður ætti að fara fram. Sérstaklega þyrfti að taka ákvörðun um hvaða hlutverk röðun gagnanna á að spila í samanburðinum. Þar til ástæða hefur fundist til að framkvæma samanburðinn á einn hátt frekar en annan er útfærsla á betri greiningu á þessum gerðum skipana í biðstöðu.
 \subsection{Skrásetning}
 \label{sec:logging}
-Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}.
-\subsection{Framsetning upplýsinga um námskeiðið}
+Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn. Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}. Sömuleiðis mætti bæta tólin sem kennarar hafa yfir að ráða til að nálgast gögnin sem felast í notkun vefsins.
+\subsection{Viðmótshönnun og útlit}
+Útlit vefsins er tiltölulega einfalt, sjálfgefnar útlitsstillingar eru áberandi. Þetta kemur fram bæði í þeim hlutum vefsins sem snúa að nemendum og þeim hlutum sem snúa að efnishöfundum, þó með mismunandi hætti sé. 
+
+Sá hluti vefsins sem snýr að nemendum notar Tufte CSS \myref{sec:tufte-css} til útfærslu. Lítið er brugðið út frá sjálfgefnum stillingum pakkans. Þá lita- og myndadýrð sem venjulega má finna á vefsíðum 2. áratugarins er ekki til staðar. Þetta veldur áhyggjum af því að litið verði á vefinn sem frumstæðan eða gamaldags.
+
+Vandamál þeirra hluta sem snúa að kennurum og efnishöfundum eru af öðrum toga. Þar er viðmótið einfaldlega Django-ofurnotendaviðmót \myref{sec:django} sem hefur verið sérsniðið. Þó það sé ágætt til síns brúks og veiti mikinn aðgang að öllum nauðsynlegum gögnum, þá markast skipulag og innri forgangsröðun þess af tæknilegri útfærslu vefsins.
+
+Fyrirkomulagið hefur sína kosti. Þar sem vefurinn er einfaldur hleðst hann hratt og afar ólíklegt er að efnishöfundar reki sig á illfyrirsjáanlegar takmarkanir á birtingarmöguleikum. En þó báðir hlutar vefsins séu fullkomlega nothæfir er ljóst að vefurinn sem heild myndi batna með aðkomu viðmótshönnuðar.
 \section{Fyrirliggjandi verk}
 \label{sec:future-work}
+Auk þeirra atriða sem má bæta eru nokkur sem er borðliggjandi að bæta við.
 \subsection{Leikjun}
 \subsection{Flæðigreining}
 \label{sec:flow}
-Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli. Hægt væri að athuga algengustu vegi í gegnum netin, hvaða hnútar fá litla athygli og hvaða hnútar eru þess valdandi að fólk hætti að lesa.
+Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli. Líta mætti á ferð nemenda um greinarnar sem flæði í neti, sem mætti greina.
+
+Hægt væri að athuga algengustu vegi í gegnum netin, hvaða hnútar fá litla athygli og í hvaða hnútum sé algengt að fólk hætti lestrinum. Þessar upplýsingar gætu nýst við skipulag kennslu - sem og við endurbætur á skipulagi sjálfs vefsins.
 \subsection{Hreyfing á myndum}
 Blankenship og Dansereau\cite{blankenship2000effect} sýna að hreyfimyndir af netum geti haft kosti umfram kyrrstæðar myndir þegar kemur að getu nemenda til að muna upplýsingarnar sem í netinu fólust.
 
@@ -788,6 +814,9 @@ Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. A
 \section{Keyrsluklasi æfinga}
 \label{code:example-runner}
 \inputminted[fontsize=\scriptsize, frame=lines, linenos=true, python3=true, label=sql_runner.py]{python}{../sql\string_web/sql\string_runner.py}
+\section{Skilgreining Markdown-viðbótar}
+\label{code:footnote-extension}
+\inputminted[fontsize=\scriptsize, frame=lines, linenos=true, python3=true, label=footnotes.py]{python}{../sql\string_web/markdown\string_extensions/footnotes.py}
 \section{Grunnskrá útlits}
 \label{code:base-template}
 \inputminted[fontsize=\scriptsize, frame=lines, linenos=true, label=base.html]{django}{../templates/base.html}
