@@ -759,9 +759,12 @@ Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<i
 
 
 \chapter{Samantekt}
+Kennsluvefurinn sem fram er settur á fátt sameiginlegt með þeim kerfum sem á undan hafa komið hvað áhersluatriði varðar. Takmörkuð áhersla er á greiningu fyrirspurna eða hvatningar til sjálfsnáms, en þeim mun meiri á hugmyndina um vefinn sem næstu kynslóð af kennslubók. Allur grunnkóði vefsins og efni hans eru opin og öllum aðgengileg, með það sem aðalmarkmið að auka mögulegt endingargildi vefsins. Vefurinn hefur verið útfærður með Django-vefburðargrindinni, með sérhæfðum tæknilausnum til meðhöndlunar á Markdown-texta og greiningar á SQL-skipunum nemenda.
 
-\section{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
-Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \myref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
+\section{Núverandi ástand}
+Þegar þessi texti er skrifaður er keyranleg sýniútgáfa af vefnum aðgengileg á vefslóðinni \url{http://sqlvefur.info/}. Sú útgáfa er ætluð til sýnis, gert er ráð fyrir að kennarar sem hyggjast nota vefinn við sína kennslu sæki grunnkóða vefsins\myref{sec:code-excerpts} og setji upp sína eigin útgáfu á eigin vefþjóni \myref{sec:installation}.
+
+Sú útgáfa vefsins sem fyrir liggur er skrifað er um ýmislegt megnug. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
 
 En að sjálfsögðu eru nokkur atriði þegar þekkt sem betur mættu fara \myref{sec:current-limitations} og önnur sem bæta má við\myref{sec:future-work}.
 \subsection{Takmarkanir á núverandi útgáfu}
@@ -800,7 +803,9 @@ Blankenship og Dansereau\cite{blankenship2000effect} sýna að hreyfimyndir af n
 
 Efnisyfirlitsmyndir vefsins eru hreyfimyndir af netum. Í núverandi útgáfu er hreyfingin eingöngu notuð til að draga athygli að myndunum, en tæknilegu undirstöðurnar sem þyrfti til að stýra hreyfingunum nánar eru til staðar. Áhugavert væri að nýta markvisst forritaðar hreyfimyndir til að kynna uppbyggingu námsefnisins fyrir nemendum.
 
-\section{Næstu skref og áhrif}
+\section{Næstu skref}
+% TODO: Klára þetta
+% Vefurinn hefur ekki hlotið eldskrín sína. Til stendur að nota vefinn við hluta kennslu í Gagnasafnsfræði við Háskóla Íslands. 
 
 \bibliographystyle{plain}
 \bibliography{master}
@@ -844,6 +849,7 @@ Til glöggvunar má hér finna skjáskot af nokkrum mikilvægum hlutum af viðm�
 \end{figure}
 
 \chapter{Kóðadæmi}
+\label{sec:code-excerpts}
 Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. Þegar þessi texti er skrifaður má allan forritskóða finna á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
 \section{Django model klasar}
 \label{code:django-model-objects}
