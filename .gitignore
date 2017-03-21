@@ -9,6 +9,7 @@ mediafiles
 *.csv
 *.sh
 *.db
+*.gz
 
 report/*.aux
 report/*.bbl

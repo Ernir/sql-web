@@ -305,7 +305,7 @@ Hið versta sem akademísku kerfin eiga sameiginlegt er þó að vera almenningi
 
 \subsection{Önnur SQL-kennslutól}
 \label{sec:other-sql-teaching-tools}
-Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda, þeir hlutar kerfisins sem snúa að kennurum og samskiptum þeirra við nemendur eru seinni tíma viðbætur.
+Khan Academy er bandarísk menntastofnun sem ekki er rekin í gróðaskyni. Stofnunin hefur vakið athygli fyrir kennslu byggða á myndböndum, en hún býður meðal annars upp á stutta yfirferð á SQL með SQLite\footnote{\url{https://www.khanacademy.org/computing/computer-programming/sql}}. Auk myndbandanna býður SQL-námskeið Khan Academy nemendum upp á að keyra SQL-skipanir í vafraglugga sínum, á sama sniði og er notað í fyrirlestramyndböndunum. Nemandanum er umbunað með stigum fyrir framgang sinn í myndbandaáhorfi og æfingum. Nemandinn er leiddur með fastmótuðum hætti í gegnum námsefnið - þó að nemandinn geti stjórnað hraða sínum sjálfur eru ekki mikil tækifæri til sjálfstæðrar könnunar. Uppbygging efnisins er miðuð að sjálfsnámi nemenda. Þeir hlutar kerfisins sem snúa að kennurum og samskiptum þeirra við nemendur eru seinni tíma viðbætur sem þó hefur gefið jákvæða raun \cite{murphy2014research}.
 
 Kerfi sem hefur verið notað til stuðnings í Tækniskólanum er SQLZoo\footnote{\url{http://sqlzoo.net/}}. Um ``interactive tutorial'' er að ræða, þar sem nemandanum gefst kostur á að vinna sig í gegnum sífellt flóknari verkefni. Hægt er að framkvæma SQL-skipanir á vefsíðunni sjálfri, með tafarlausri endurgjöf. Síðan er byggð á MediaWiki og hún þar með opin fyrir breytingum utanaðkomandi aðila.
 Líkt og í mörgum öðrum kennslukerfum samanstendur SQLZoo fyrst og fremst af æfingum í að framkvæma fyrirspurnir. Upplýsingum er ekki gefið samhengi, heldur er nemandanum strax beint að því að fara að skrifa SQL-skipanir. Framvindan í gegnum námsefnið er fyrst og fremst línuleg.
@@ -525,12 +525,6 @@ var force = d3.layout.force()
 Það sem helst einkennir útlit vefsins er notkun á css-safninu Tufte CSS\footnote{\url{https://github.com/edwardtufte/tufte-css}}. Safnið er hannað út frá hugmyndum fræðimannsins Edward Tufte um framsetningu texta.
 
 Meðal einkennandi atriða fyrir stíl Tufte er áberandi notkun spássíugreina og mikil samþjöppun texta og mynda, sjá mynd \ref{fig:tufte-example}. Þær viðbætur sem gerðar eru við Markdown-pakkann \myref{sec:markdown-additions} eru einkum til að styðja við þessi sérstöku textaatriði.
-
-\begin{figure}
-\caption{Spássíugreinar og myndir í stíl Tufte.}
-\label{fig:tufte-example}
-\includegraphics[width=\textwidth]{tufte-example}
-\end{figure}
 
 \section{Sérsmíðaðar tæknilausnir}
 \label{sec:homemade-tech}
@@ -764,22 +758,24 @@ Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<i
 \end{figure}
 
 
-\chapter{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
+\chapter{Samantekt}
+
+\section{Núverandi ástand og fyrirliggjandi betrumbætur} % Current status and future work
 Sú vefsins sem fyrir liggur þegar þetta er skrifað er um ýmislegt megnugur. Tæknifær kennari eða kerfisstjóri getur sett upp keyrandi útgáfu af vefnum, sjá \myref{sec:installation}. Kennari eða annar efnishöfundur getur stofnað námskeið, samið greinar og æfingar og breytt þeim sem fyrir liggja. Nemandi getur skráð sig í námskeið, lesið greinar og fengið uppástungur um hvaða greinar mætti leysa næst, leyst verkefni sem fyrir viðkomandi eru sett og fengið afrek sín skrásett.
 
 En að sjálfsögðu eru nokkur atriði þegar þekkt sem betur mættu fara \myref{sec:current-limitations} og önnur sem bæta má við\myref{sec:future-work}.
-\section{Takmarkanir á núverandi útgáfu}
+\subsection{Takmarkanir á núverandi útgáfu}
 \label{sec:current-limitations}
-\subsection{Greining á INSERT, UPDATE og DELETE skipunum}
+\subsubsection{Greining á INSERT, UPDATE og DELETE skipunum}
 Sem stendur eru \texttt{INSERT}, \texttt{UPDATE} og \texttt{DELETE} skipanir greindar með einföldum textasamanburði líkt og DDL-skipanir, sjá \myref{sec:other-command-analysis}.
 
 Hægt væri að greina skipanirnar á hátt sem tekur tillit til virkni þeirra. Í öllum tilvikum væri um að ræða samanburð á mengi þeirra upplýsinga sem SQL-skipun nemandans skilur eftir sig og fyrirfram skilgreindu mengi.
 
 Hins vegar er ekki sjálfgefið hvernig slíkur samanburður ætti að fara fram. Sérstaklega þyrfti að taka ákvörðun um hvaða hlutverk röðun gagnanna á að spila í samanburðinum. Þar til ástæða hefur fundist til að framkvæma samanburðinn á einn hátt frekar en annan er útfærsla á betri greiningu á þessum gerðum skipana í biðstöðu.
-\subsection{Skrásetning}
+\subsubsection{Skrásetning}
 \label{sec:logging}
 Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn. Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}. Sömuleiðis mætti bæta tólin sem kennarar hafa yfir að ráða til að nálgast gögnin sem felast í notkun vefsins.
-\subsection{Viðmótshönnun og útlit}
+\subsubsection{Viðmótshönnun og útlit}
 Útlit vefsins er tiltölulega einfalt, sjálfgefnar útlitsstillingar eru áberandi. Þetta kemur fram bæði í þeim hlutum vefsins sem snúa að nemendum og þeim hlutum sem snúa að efnishöfundum, þó með mismunandi hætti sé. 
 
 Sá hluti vefsins sem snýr að nemendum notar Tufte CSS \myref{sec:tufte-css} til útfærslu. Lítið er brugðið út frá sjálfgefnum stillingum pakkans. Þá lita- og myndadýrð sem venjulega má finna á vefsíðum 2. áratugarins er ekki til staðar. Þetta veldur áhyggjum af því að litið verði á vefinn sem frumstæðan eða gamaldags.
@@ -787,27 +783,68 @@ Sá hluti vefsins sem snýr að nemendum notar Tufte CSS \myref{sec:tufte-css} t
 Vandamál þeirra hluta sem snúa að kennurum og efnishöfundum eru af öðrum toga. Þar er viðmótið einfaldlega Django-ofurnotendaviðmót \myref{sec:django} sem hefur verið sérsniðið. Þó það sé ágætt til síns brúks og veiti mikinn aðgang að öllum nauðsynlegum gögnum, þá markast skipulag og innri forgangsröðun þess af tæknilegri útfærslu vefsins.
 
 Fyrirkomulagið hefur sína kosti. Þar sem vefurinn er einfaldur hleðst hann hratt og afar ólíklegt er að efnishöfundar reki sig á illfyrirsjáanlegar takmarkanir á birtingarmöguleikum. En þó báðir hlutar vefsins séu fullkomlega nothæfir er ljóst að vefurinn sem heild myndi batna með aðkomu viðmótshönnuðar.
-\section{Fyrirliggjandi verk}
+\subsection{Fyrirliggjandi verk}
 \label{sec:future-work}
 Auk þeirra atriða sem má bæta eru nokkur sem er borðliggjandi að bæta við.
-\subsection{Leikjun}
-\subsection{Flæðigreining}
+\subsubsection{Leikjun}
+Leikjun (e.\ \emph{gamification}) er aðferð sem oft er nefnd sem leið til að hvetja fólk til áframhaldandi notkunar á ýmsum veftólum. Reynslan af leikjun vefkennslu hefur reynst jákvæð\cite{hamari2014does, denny2013effect,dominguez2013gamifying}. Nærtækt dæmi um leikjun í vefkennslutóli er stigakerfi Khan Academy \myref{sec:other-sql-teaching-tools}.
+
+Beint liggur við að huga að leikjun kennsluvefsins. Stiga- eða verðlaunakerfi (e.\ \emph{badge systems}) falla auðveldlega inn í forritsgrunn vefsins.
+\subsubsection{Flæðigreining}
 \label{sec:flow}
 Þar sem tengsl viðfangsefnanna eru sett fram sem net er auðvelt að sjá fyrir sér að upplýsingar felist í því hvernig nemendur ferðast þeirra á milli. Líta mætti á ferð nemenda um greinarnar sem flæði í neti, sem mætti greina.
 
 Hægt væri að athuga algengustu vegi í gegnum netin, hvaða hnútar fá litla athygli og í hvaða hnútum sé algengt að fólk hætti lestrinum. Þessar upplýsingar gætu nýst við skipulag kennslu - sem og við endurbætur á skipulagi sjálfs vefsins.
-\subsection{Hreyfing á myndum}
+\subsubsection{Hreyfing á myndum}
 Blankenship og Dansereau\cite{blankenship2000effect} sýna að hreyfimyndir af netum geti haft kosti umfram kyrrstæðar myndir þegar kemur að getu nemenda til að muna upplýsingarnar sem í netinu fólust.
 
 Efnisyfirlitsmyndir vefsins eru hreyfimyndir af netum. Í núverandi útgáfu er hreyfingin eingöngu notuð til að draga athygli að myndunum, en tæknilegu undirstöðurnar sem þyrfti til að stýra hreyfingunum nánar eru til staðar. Áhugavert væri að nýta markvisst forritaðar hreyfimyndir til að kynna uppbyggingu námsefnisins fyrir nemendum.
+
+\section{Næstu skref og áhrif}
 
 \bibliographystyle{plain}
 \bibliography{master}
 
 \appendix
 \renewcommand{\chaptername}{Appendix}
+
+\chapter{Útlit vefsins}
+Til glöggvunar má hér finna skjáskot af nokkrum mikilvægum hlutum af viðmóti vefsins.
+
+\begin{figure}[h]
+\caption[Forsíða vefsins]{Hluti af mögulegri forsíðu vefsins. Tenglar til flakks um síður vefsins eru aðgengilegir efst á síðunni, en þeir eru óágengir til að trufla ekki lestur. Litir og athygligrípandi viðmótshlutir eru í lágmarki, til að nálga þá upplifun að verið sé að lesa texta í kennslubók.}
+\label{fig:index-page}
+\begin{center}
+\includegraphics[width=\textwidth]{mv-adal}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\caption[Spássíugreinar og myndir í stíl Tufte]{Spássíugreinar og myndir í stíl Tufte. Hér má sjá mögulega þétta framsetningu á myndum og útskýringum með virkri notkun hægri spássíunnar.}
+\label{fig:tufte-example}
+\includegraphics[width=\textwidth]{mv-tufte-example}
+\end{figure}
+
+\begin{figure}
+\caption[Efnisyfirlit lesefnis vefsins]{Efnisyfirlit vefsins, sett fram með listum af greinum í aðaldálki og myndrænni túlkun á venslunum þeirra á milli í spássíudálki.}
+\label{fig:section-overview}
+\includegraphics[width=\textwidth]{mv-efnisyfirlit}
+\end{figure}
+
+\begin{figure}
+\caption[Uppsetning verkefnis]{Möguleg uppsetning á æfingu í að framkvæma fyrirspurn. Nafn verkefnis er efst. Fyrir neðan nafnið er textaútskýring á því sem dæmið snýst um. Fyrir neðan útskýringuna er breytanlegt textasvæði fyrir SQL-kóða, sem hér hefur verið forútfylltur að hluta. Að lokum kemur framsetning á þeim gögnum sem undir liggja.}
+\label{fig:example-exercise}
+\includegraphics[width=\textwidth]{mv-verkefni-daemi}
+\end{figure}
+
+\begin{figure}
+\caption[Villumeðhöndlun]{Einföld villumeðhöndlun í æfingaviðmótinu. Villuskilaboðin frá SQLite eru sýnd, ásamt því að sýna hugmynd að því hversu langt nemandinn sé frá því að vera á sömu braut og kennarinn.}
+\label{fig:example-error-handling}
+\includegraphics[width=\textwidth]{mv-villuskilabod}
+\end{figure}
+
 \chapter{Kóðadæmi}
-Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. Allan grunnkóða má einnig finna á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
+Hér má finna þann hluta grunnkóðans sem nefndur hefur verið í textanum. Þegar þessi texti er skrifaður má allan forritskóða finna á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}.
 \section{Django model klasar}
 \label{code:django-model-objects}
 \inputminted[fontsize=\scriptsize, frame=lines, linenos=true, python3=true, label=models.py]{python}{../sql\string_web/models.py}
