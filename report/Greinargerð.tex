@@ -417,35 +417,36 @@ Kennsluvefurinn hefur innbyggt æfingasvæði þar sem nemandinn getur leyst fyr
 
 Sjá má meira um æfingaumhverfið og útfærslu þess undir \myref{sec:command-analysis}.
 
-\section{Endingargildi}
+\section{Opið efni og endingargildi}
 \label{sec:durability}
 Kerfi byrja að úreldast um leið og þau eru gefin út. Án stöðugs viðhalds höfunda brotna þau niður og hverfa, breytast í sögudæmi. Slík viðhaldsvinna er erfið og dæmin\cite{bhagat2002, mitrovic2003intelligent, sadiq2004sqlator} sanna að ekki er hægt að reiða sig á að hún haldi áfram eftir áratug.
 
-Til að sporna við hnignun þessa kennsluvefs eftir að höfundur mun eðlilega og óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e.\ \emph{open source software}). Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
+Til að sporna við hnignun þessa kennsluvefs eftir að höfundur mun eðlilega og óumflýjanlega hverfa til annarra starfa er leitað í hugmyndasmiðju opins hugbúnaðar (e.\ \emph{open source software}). Nokkur fordæmi eru fyrir slíku. MIT ruddi þá braut árið 2001 með OpenCourseWare hreyfingunni, en hugmyndin um opið kennsluefni (e.\ Open Educational Resources) hefur náð nokkurri útbreiðslu síðan þá\cite{pawlowski2012open}. Í Bandaríkjunum hefur sérstaklega verið litið til opins kennsluefnis sem leiðar til að stemma stigu við síhækkandi námsbókakostnaði\cite{millard2015}.
+
+Kennsluvefurinn er opinn á þrenna vegu - kennsluefni vefsins er opið, grunnkóði vefsins er opinn og allur hugbúnaður sem vefurinn byggir á er líka opinn.
 \subsection{Opinn kóði}
 \label{sec:open-source}
 Allur grunnkóði vefsins er opinn og aðgengilegur á Github-síðu höfundar\footnote{\url{https://github.com/Ernir/sql-web}}. Hver sem er getur skoðað kóðann og sett hann upp á sinni vél og breytt honum að vild, í samræmi við skilmála opins kóðaleyfis \myref{sec:license} sem dreift er með kóðanum. Kóðanum er dreift með Git\footnote{\url{https://git-scm.com/}} útgáfustjórnunarkerfinu, sem er sérstaklega hannað til að virka án miðlægs vefþjóns. Endingargildi kerfisins er þar með aukið umfram það sem höfundur gæti boðið upp á - kerfið mun lifa svo lengi sem einhver sem sótt hefur kóðann heldur honum aðgengilegum og uppfærslur munu geta borist svo lengi sem kerfið er í notkun.
 
-Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins, skóli með smáar þarfir getur notast við einfalda, ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
+Það að hver sem er geti sett upp keyrandi útgáfu af kennsluvefnum myndar líka hornsteininn í dreifingarmöguleikum kerfisins. Vefurinn er ekki takmarkaður við eina, skilgreinda útgáfu sem stjórnað er af höfundi, heldur getur hver skóli eða jafnvel hver áfangi, keyrt sína eigin sérsniðnu útgáfu. Til dæmis gefur þetta möguleika á að sérsníða afkastagetu vefsins, skóli með smáar þarfir getur notast við einfalda og ódýra vefhýsingu en stærri skóli gæti tileinkað vefnum heilan vefþjón.
 
 Höfundur hyggst halda úti grunnútgáfu af vefnum sem verður aðgengilegur á léni í eigin eigu. En fari svo að höfundur hverfi frá verkefninu og sú útgáfa sem á því léni verði aftend er vefurinn sjálfur þar með ekki dauður og gleymdur - allar aðrar útgáfur munu áfram virka og grunnkóðinn verður enn til.
 
 Allar tæknilausnir frá þriðja aðila sem vefurinn notar eru einnig opnar og ókeypis. Sömu rök um endingargildi eiga því líka við um þær, ekki er hætta á að undirstöður vefsins hverfi undan honum. Um þær tæknilausnir má lesa nánar í \myref{sec:third-party-tech}.
 \subsection{Opið efni}
 \label{sec:open-material}
-% TODO 
-% Vísa til https://qz.com/962487/states-are-moving-to-cut-college-costs-by-introducing-open-source-textbooks/
-% https://opensource.com/education/15/3/open-textbooks-drive-down-cost-of-college
-
 Kóðanum og efninu sem vefurinn inniheldur er dreift samhliða og með svipuðum aðferðum. 
 Meðal afleiðinga þess er að allt efni vefsins er breytanlegt af notendum hans, í samræmi við skilmála opins efnisleyfis \myref{sec:license}. Sérstakar viðbætur \myref{sec:markdown-additions} voru gerðar til að gera efnissmíði við hæfi kennsluvefsins auðveldari.
 
 Hver kennari getur þannig bætt við ``köflum'' í bókina, falið hluta efnisins og framkvæmt hverjar þær áherslu- og efnisbreytingar sem viðkomandi þóknast.
 Þetta mætti til dæmis nota til að bæta við stuðningi við nýtt gagnagrunnskerfi eða til þess að fella sérsniðin myndbönd inn í textann.
 
-Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs. Efnið mun halda áfram að þróast svo lengi sem áhuginn á því lifir.
+Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna kóðafyrirkomulagið hefur fyrir endingargildi vefsins sjálfs. Efnið getur haldið áfram að þróast svo lengi sem áhuginn á því lifir.
+\subsection{Raunsæjar takmarkanir}
+Opnun efnisins og kóðans dugar ekki ein og sér til að tryggja langlífi eða útbreidda notkun vefsins. 
+Downes\cite{downes2007models} bendir á að opið kennsluefni þarfnast dreifingarmódels líkt og annað kennsluefni. Drifkrafturinn á bak við verkefnið er eingöngu sá sem höfundur leggur sjálfur til, engin stofnun eða fyrirtæki hefur tekið að sér að halda kerfinu við. En með þessum hætti er tryggt eins og kostur er að meistaranemar framtíðarinnar muni ekki koma að lokuðum dyrum þegar rannsaka skal eldri kennslukerfi.
 \chapter{Útfærsla vefsins}
-Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Byggja ofan á sum forrit, öðrum forritum má breyta og bæta svo hægt sé að innlima þau í ný forrit. 
+Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Byggja má ofan á sum forrit, öðrum forritum má breyta og bæta svo hægt sé að innlima þau í ný forrit. 
 
 Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
 \section{Aðfengnar tæknilausnir í notkun}
@@ -820,7 +821,9 @@ Hægt væri að greina skipanirnar á hátt sem tekur tillit til virkni þeirra.
 Hins vegar er ekki sjálfgefið hvernig slíkur samanburður ætti að fara fram. Sérstaklega þyrfti að taka ákvörðun um hvaða hlutverk röðun gagnanna á að spila í samanburðinum. Þar til ástæða hefur fundist til að framkvæma samanburðinn á einn hátt frekar en annan er útfærsla á betri greiningu á þessum gerðum skipana í biðstöðu.
 \subsubsection{Skrásetning}
 \label{sec:logging}
-Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn. Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}. Sömuleiðis mætti bæta tólin sem kennarar hafa yfir að ráða til að nálgast gögnin sem felast í notkun vefsins.
+Mögulegt er að skrásetja meiri upplýsingar um hvernig hver nemandi um sig notar vefinn. 
+Sem stendur er einungis skráð hvaða æfingum nemendur ljúka sem og hvaða greinar hafa verið lesnar. Hægt væri að skrásetja til viðbótar hversu margar tilraunir voru gerðar við hvert verkefni og hversu löngum tíma var eytt í lestur á hverri grein. Þar fyrir utan væri mögulegt að útvíkka skrásetninguna enn frekar til að fá heildarmynd af notkun vefsins, sjá \myref{sec:flow}. 
+Sömuleiðis mætti bæta tólin sem kennarar hafa yfir að ráða til að nálgast gögnin sem felast í notkun vefsins.
 \subsubsection{Viðmótshönnun og útlit}
 Útlit vefsins er tiltölulega einfalt, sjálfgefnar útlitsstillingar eru áberandi. Þetta kemur fram bæði í þeim hlutum vefsins sem snúa að nemendum og þeim hlutum sem snúa að efnishöfundum, þó með mismunandi hætti sé. 
 
@@ -829,6 +832,7 @@ Sá hluti vefsins sem snýr að nemendum notar Tufte CSS \myref{sec:tufte-css} t
 Vandamál þeirra hluta sem snúa að kennurum og efnishöfundum eru af öðrum toga. Þar er viðmótið einfaldlega Django-ofurnotendaviðmót \myref{sec:django} sem hefur verið sérsniðið. Þó það sé ágætt til síns brúks og veiti mikinn aðgang að öllum nauðsynlegum gögnum, þá markast skipulag og innri forgangsröðun þess af tæknilegri útfærslu vefsins.
 
 Fyrirkomulagið hefur sína kosti. Þar sem vefurinn er einfaldur hleðst hann hratt og afar ólíklegt er að efnishöfundar reki sig á illfyrirsjáanlegar takmarkanir á birtingarmöguleikum. En þó báðir hlutar vefsins séu fullkomlega nothæfir er ljóst að vefurinn sem heild myndi batna með aðkomu viðmótshönnuðar.
+
 \subsection{Fyrirliggjandi verk}
 \label{sec:future-work}
 Auk þeirra atriða sem má bæta eru nokkur sem er borðliggjandi að bæta við.
@@ -845,7 +849,6 @@ Hægt væri að athuga algengustu vegi í gegnum netin, hvaða hnútar fá litla
 Blankenship og Dansereau\cite{blankenship2000effect} sýna að hreyfimyndir af netum geti haft kosti umfram kyrrstæðar myndir þegar kemur að getu nemenda til að muna upplýsingarnar sem í netinu fólust.
 
 Efnisyfirlitsmyndir vefsins eru hreyfimyndir af netum. Í núverandi útgáfu er hreyfingin eingöngu notuð til að draga athygli að myndunum, en tæknilegu undirstöðurnar sem þyrfti til að stýra hreyfingunum nánar eru til staðar. Áhugavert væri að nýta markvisst forritaðar hreyfimyndir til að kynna uppbyggingu námsefnisins fyrir nemendum.
-
 \section{Næstu skref}
 Næstu skref í þróun vefsins munu ráðast eftir prófanir nemenda. 
 
