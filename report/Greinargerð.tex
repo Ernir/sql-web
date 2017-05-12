@@ -386,10 +386,10 @@ Sú leið sem farin er á þessum kennsluvef til að tengja greinarnar saman er 
 
 Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengingar. Hver grein hefur þannig skilgreindar ráðleggingar um hvað skuli lesa næst eftir að lestri greinarinnar er lokið. Þetta gæti verið ein grein sem er fyrirkomulagið sem hefðbundið er í pappírsbók, margar greinar eða engin.
 \begin{figure}
-\caption{Tengsl greina á kennsluvefnum}
+\caption[Möguleg tengsl greina]{Möguleg tengsl greina á kennsluvefnum. Hver kafli hefur inngangsgrein, en að öðru leyti er mögulegt að mynda flestar gerðir tenginga á milli greina.}
 \label{fig:force-direction}
 \begin{center}
-\includegraphics[width=0.6\linewidth]{Undanfarar}
+\includegraphics[width=0.5\linewidth]{tengsl-greina}
 \end{center}
 \end{figure}
 Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, án þess að eiga það á hættu að villast af leið yfir í framandi efni.
@@ -446,9 +446,7 @@ Fyrirkomulagið hefur sömu afleiðingar fyrir endingargildi efnisins og opna k�
 Opnun efnisins og kóðans dugar ekki ein og sér til að tryggja langlífi eða útbreidda notkun vefsins. 
 Downes\cite{downes2007models} bendir á að opið kennsluefni þarfnast dreifingarmódels líkt og annað kennsluefni. Drifkrafturinn á bak við verkefnið er eingöngu sá sem höfundur leggur sjálfur til, engin stofnun eða fyrirtæki hefur tekið að sér að halda kerfinu við. En með þessum hætti er tryggt eins og kostur er að meistaranemar framtíðarinnar muni ekki koma að lokuðum dyrum þegar rannsaka skal eldri kennslukerfi.
 \chapter{Útfærsla vefsins}
-Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Byggja má ofan á sum forrit, öðrum forritum má breyta og bæta svo hægt sé að innlima þau í ný forrit. 
-
-Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
+Vefsíður eru ekki skrifaðar vélamálsskipun fyrir vélamálsskipun frekar en önnur forrit á 21. öldinni, þær nota verk annarra forritara. Byggja má ofan á sum forrit, öðrum forritum má breyta og bæta svo hægt sé að innlima þau í ný forrit. Þeim forritum frá þriðja aðila sem koma við sögu \myref{sec:third-party-tech} og þeim forritshlutum sem vinna nýju, markverðu vinnuna \myref{sec:homemade-tech} þarf að gera skil.
 \section{Aðfengnar tæknilausnir í notkun}
 \label{sec:third-party-tech}
 Vefurinn er skrifaður með Django \myref{sec:django}, sem er sú tæknilausn frá þriðja aðila sem mest einkennandi er fyrir útfærslu vefsins. Efni vefsins er skrifað með Markdown \myref{sec:markdown}. Auk þess eru framendapakkarnir Tufte CSS \myref{sec:tufte-css} og D3.js \myref{sec:d3js} notaðir til að stýra útliti vefsins.
@@ -576,7 +574,7 @@ Samanburðurinn fer fram með eftirfarandi hætti:
  \item Samanburðurinn á milli mengjanna er sannur ef ítrunin tæmir þau bæði.
 \end{itemize}
 
-\begin{table}
+\begin{table}[b]
 \caption[Tímaflækja samanburða]{Tímaflækja samanburða á fyrirspurnamengjum í æfingum kennsluvefsins}
 \label{tab:comparison-complexity}
 \begin{center}
@@ -637,7 +635,7 @@ Opinbera viðbótin \texttt{tables} við Python-pakkann fyrir Markdown er notuð
  \item Viðbót til að auðvelda innri tengingu greina (\hyperref[sec:markdown-internal-link]{\color{blue} Innri tenglar} $\to$ )
  \item Smáviðbót til að fegra birtingu kóðadæma innan línu án þess að breyta notkun Markdown
 \end{itemize}
-Dæmi um útfærslu á viðbót má sjá í \myref{code:footnote-extension}. Hluta af útfærslu má sjá í kóðadæmi \myref{code:markdown-extension-example}.
+Dæmi um útfærslu á viðbót má sjá í \myref{code:footnote-extension}. Hluta af útfærslu má sjá í \myref{code:markdown-extension-example}.
 
 \begin{listing}
 \caption[Skilgreining markdown viðbótar]{Hluti útfærslu á Markdown-viðbót. Hér er reglulegri segð sem þekkir spássíugreinar smeygt á milli innbyggðra segða.}
@@ -759,10 +757,10 @@ Sé \texttt{<label>} sleppt er tengillinn þess í stað merktur með \texttt{<i
 \end{syntaxenv}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 \caption[Val á auðkenni]{Efnishöfundar geta valið sín eigin auðkenni á greinar. Hér hefur höfundur valið að mynda auðkenni með því að skipta biltáknum í nafni greinarinnar út fyrir bandstrik og breyta séríslenskum bókstöfum í svipaða stafi úr enska stafrófinu.}
 \begin{center}
-\includegraphics[width=0.7\textwidth]{identifier-selection}
+\includegraphics[width=0.6\textwidth]{identifier-selection}
 \end{center}
 \end{figure}
 
