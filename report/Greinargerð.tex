@@ -102,10 +102,10 @@
 \setcapindent{1em}
 
 %%%%%%%%%%% MODIFY THESE LINES ONLY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\thesisyear{}       						% Year thesis submitted
-\def\thesismonth{}						% Month thesis submitted
+\def\thesisyear{2017}       						% Year thesis submitted
+\def\thesismonth{maí}						% Month thesis submitted
 \def\thesisauthor{Eiríkur Ernir Þorsteinsson}					% Thesis authoreiningaraðferðinni
-\def\thesistitle{Vefkennsla í notkun gagnasafna} 						% Title of thesis
+\def\thesistitle{Nútímaleg vefkennsla í notkun gagnasafna með opnum hugbúnaði} 						% Title of thesis
 \def\thesisshorttitle{Vefkennsla í notkun gagnasafna} 	% Title of thesis
 \def\thesiscredits{40} 							% Credits awarded for the project
 \def\thesissubject{Menntun framhaldsskólakennara}
@@ -116,10 +116,10 @@
 \def\thesisfaculty{Iðnaðarverkfræði-, vélaverkfræði- og tölvunarfræðideild}							% Faculty
 \def\thesisaddress{Hjarðarhaga 2-6}				% Office address
 \def\thesispostalcode{107 Reykjavík}			% Office address
-\def\thesistelephone{699-4392}						% Office telephone
+\def\thesistelephone{525-4000}						% Office telephone
 \def\thesispublisher{-}						% Publisher
 \def\thesistutors{Hjálmtýr Hafsteinsson}
-\def\thesisrepresentative{Gylfi ??}					% Tutors name
+\def\thesisrepresentative{Gylfi Þór Guðmundsson}					% Tutors name
 \def\thesiscommittee{Hjálmtýr Hafsteinnson \\ Salvör Kristjana Gissurardóttir }
 \def\thesiskeywords{SQL, Exploratory Learning}			% Keywords
 \def\thesisISBN{XX}           						% Thesis ISBN number
@@ -176,8 +176,8 @@ Háskóli Íslands\\
 \vspace*{1.7cm}
 \sffamily{\thesisauthor} \\
 \vspace*{1.8cm}
-\normalsize \thesiscredits~ECTS thesis submitted in partial fulfillment of a \\
-\textit{\thesiskindformal} degree in \thesissubject
+\normalsize \thesiscredits~ eininga ritgerð sem er hluti af \\
+\textit{\thesiskindformal} gráðu af námsbrautinni \thesissubject, tölvunarfræði 
 
 \vspace*{1.0cm}
 \large
@@ -192,10 +192,10 @@ Meistaraprófsnefnd \\
 \thesiscommittee
 
 \vfill
-Faculty of \thesisfaculty \\
+\thesisfaculty \\
 \thesisschool \\
-University of Iceland \\
-Reykjavik, \thesismonth~\thesisyear
+Háskóli Íslands \\
+Reykjavík, \thesismonth~\thesisyear
 \newpage
 \end{center}
  \newpage
@@ -204,24 +204,25 @@ Reykjavik, \thesismonth~\thesisyear
  % \setcounter{page}{0} \renewcommand{\baselinestretch}{1.5}\normalsize
  \sffamily{\thesistitle} \\
  \sffamily{\thesisshorttitle} \\
- \thesiscredits ~ECTS thesis submitted in partial fulfillment of a \thesiskind~degree in \thesissubject
+ \thesiscredits~ eininga ritgerð sem er hluti af \\
+ \textit{\thesiskindformal} gráðu af námsbrautinni \thesissubject
 \\ \\
-Copyright \textcopyright~\thesisyear~ \thesisauthor \\
-All rights reserved \\
+Höfundarréttur \textcopyright~\thesisyear~ \thesisauthor \\
+Öll réttindi áskilin \\
 
 
-Faculty of \thesisfaculty \\
+\thesisfaculty \\
 \thesisschool \\
-University of Iceland \\
+Háskóli Íslands \\
 \thesisaddress \\
-\thesispostalcode, Reykjavik \\
-Iceland
+\thesispostalcode, Reykjavík \\
+Ísland
 
-Telephone: \thesistelephone \\ \\
+Sími: \thesistelephone \\ \\
 \vspace*{\lineskip}
 
-Bibliographic information: \\
-\thesisauthor, \thesisyear, \thesistitle, \thesiskind~thesis, Faculty of \thesisfaculty, University of Iceland. \\
+Skráningarupplýsingar: \\
+\thesisauthor, \thesisyear, \thesistitle, \thesiskind~ritgerð, \thesisfaculty, Háskóli Íslands \\
 
 % ISBN~\thesisISBN
 
@@ -243,11 +244,12 @@ Bibliographic information: \\
 \pagenumbering{roman}
 
 \setcounter{page}{5}
-\section*{\huge Abstract}
-Útdráttur á ensku sem er að hámarki 250 orð.
-\vfill \vspace*{1cm}
+
 \section*{\huge Útdráttur}
-Hér kemur útdráttur á íslensku sem er að hámarki 250 orð. Reynið að koma útdráttum á eina blaðsíðu en ef tvær blaðsíður eru nauðsynlegar á seinni blaðsíða útdráttar að hefjast á oddatölusíðu (hægri síðu).
+Forrit til kennslu í notkun gagnasafna eiga sér minnst 20 ára sögu. Greinargerð þessi lýsir útfærslu á nýjum, opnum kennsluvef fyrir fyrirspurnamálið SQL sem tekur tillit til þeirrar reynslu. Lögð er áhersla á sjálfstæða könnun nemandans á efnisatriðum, viðeigandi efnisframsetningu í stíl Edward Tufte og samþættingu lesefnis og verklegra æfinga. Vefurinn er skrifaður í Python með notkun Django vefburðargrindarinnar. SQL-fyrirspurnir nemenda eru greindar með notkun á SQLite gagnagrunnum í minni. Sérhæfðar viðbætur fyrir Markdown-túlk Python forritunarmálsins voru þróaðar til að auðvelda efnisinnsetningu. Vefurinn er tilbúinn til tilraunanotkunar við kennslu.
+\vfill \vspace*{1cm}
+\section*{\huge Abstract}
+Teaching software for introductory database usage has existed for at least 20 years. This report describes the implementation of a new and open teaching web for the \mbox{query} language SQL, which takes into account the lessons learned from its precursors. Emphasized points include encouraging students' independent exploration of topics, appropriate presentation of text in the style of Edward Tufte, as well as the integration of reading material and exercises. The web is written in Python using the Django web framework. Students' SQL queries are analyzed using in-memory SQLite instances. Specialized additions to a Python Markdown interpreter were developed to assist in content writing. The web is ready for experimental use in the classroom.
 \vfill
 \newpage
 
