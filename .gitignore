@@ -11,15 +11,15 @@ mediafiles
 *.db
 *.gz
 
-report/*.aux
-report/*.bbl
-report/*.blg
-report/*.lof
-report/*.log
-report/*.lol
-report/*.lot
-report/*.out
-report/*.pdf
-report/*.toc
-report/*.backup
-report/_minted*
+*/*.aux
+*/*.bbl
+*/*.blg
+*/*.lof
+*/*.log
+*/*.lol
+*/*.lot
+*/*.out
+*/*.pdf
+*/*.toc
+*/*.backup
+*/_minted*

@@ -1,0 +1,108 @@
+\ProvidesPackage{beamerthemevonmaster}  % original style was created by Thomas Deselaers an Philippe Dreuw.
+% Current version developed as a master's poster by Eiríkur Ernir Þorsteinsson from a poster by Anna Helga Jónsdóttir
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{tangocolors}
+\selectcolormodel{cmyk}
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{i6blue}{cmyk}{1,0.305,0,0.06} example
+\definecolor{darkblue}{cmyk}{0.88,0.89,0,0.50}
+\definecolor{darkblue}{cmyk}{0.88,0.89,0,0.50}
+\definecolor{darkgrey}{rgb}{0.33333, 0.34118, 0.32157}
+% \definecolor{orange}{rgb}{0.99, 0.31, 0.00}
+\definecolor{orange}{rgb}{0.92549, 0.43922, 0.14902}
+
+\setbeamercolor{headline}{fg=darkblue,bg=white}
+\setbeamercolor{footline}{fg=darkblue, bg=white}
+\setbeamerfont{footline}{size=\large,series=\bf}
+\setbeamercolor{separation line}{bg=black}
+\setbeamercolor{title in headline}{fg=darkgrey}
+\setbeamercolor{author in headline}{fg=darkgrey}
+\setbeamercolor{institute in headline}{fg=darkgrey}
+\setbeamercolor{code in headline}{fg=black}
+
+\setbeamercolor{framesubtitle}{fg=white, bg=darkgrey}
+
+\setbeamercolor{author in head/foot}{fg=darkgrey, bg=white}
+\setbeamercolor{title in head/foot}{fg=darkgrey, bg=white}
+
+\setbeamercolor*{normal text}{fg=black, bg=white}
+\setbeamercolor*{block body}{bg=white,fg=black}
+\setbeamercolor*{block title}{fg=white,bg=orange} %ta2gray
+\setbeamerfont{block title}{size=\large,series=\bf}
+\setbeamercolor{upper separation line head}{fg=black}
+
+\setbeamercolor*{example body}{fg=black,bg=white}
+\setbeamercolor*{example text}{fg=black,bg=white}
+\setbeamercolor*{example title}{bg=black,fg=white}
+
+%\setbeamercolor{alerted text}{fg=ta3gray}
+
+%\setbeamercolor{example text}{fg=taorange}
+%\setbeamercolor{structure}{fg=ta3skyblue}
+\setbeamercolor{structure}{fg=orange}
+
+%\setbeamertemplate{itemize items}[squares]
+\setbeamertemplate{navigation symbols}{}  % no navigation on a poster
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{block begin}{
+  \vskip.75ex
+  \begin{beamercolorbox}[ht=4.5ex,dp=0.5ex,center,leftskip=-1em,colsep*=.75ex]{block title}%
+    \usebeamerfont*{block title}%
+    {\phantom{Gg}\insertblocktitle}% phantom because of baseline problem
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[leftskip=1em,colsep*=.75ex,sep=0.5ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Simple HÍ-ribbon header
+\setbeamertemplate{headline}{  
+\leavevmode
+\includegraphics[width=\textwidth]{figs/hi-slide-header}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Logo in bottom right corner
+\setbeamertemplate{footline}{
+\leavevmode
+\hfill
+\includegraphics{figs/hi-von-logo}
+\vspace*{2cm}
+\hspace{2cm}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Display a grid to help align images ... and it looks nice with this color scheme
+%\beamertemplategridbackground[1cm]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<all>
+
+% adapt height of imtemize rectangles
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{itemize item}{\raisebox{0.12ex}{$\blacktriangleright$}\hskip0.1em}
+\setbeamertemplate{itemize subitem}{\raisebox{0.12ex}{$\triangleright$}\hskip0.1em}
+% or define your own template using \defbeamertemplate{itemize item}, see beameruserguide.pdf
+
+% equal font sizes for all levels
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% TeX-master: "poster-surf"
+%%% End: 
