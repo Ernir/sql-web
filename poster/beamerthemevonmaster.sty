@@ -11,7 +11,20 @@
 \setbeamerfont{author in headline}{size=\Large, shape=\itshape}
 \setbeamerfont{date in headline}{size=\large, series=\bfseries}
 \setbeamercolor{block title}{fg=black,bg=white}
-\setbeamerfont*{block title}{size=\large, series=\bfseries}
+\setbeamerfont{block title}{size=\large, series=\bfseries}
+\setbeamerfont{subblock title}{size=\large}
+\setbeamercolor{caption name}{fg=black}
+\setbeamertemplate{caption}[numbered]
+\addtobeamertemplate{block begin}{}{\justifying}
+
+\newenvironment<>{subblock}[1]{%
+  \begin{block}{\mdseries #1}
+}
+{
+  \end{block}
+}
+
+\addtobeamertemplate{frame begin}{}{bg=black}
 
 \setbeamertemplate{navigation symbols}{}  % no navigation on a poster
 
