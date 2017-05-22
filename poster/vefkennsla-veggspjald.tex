@@ -7,6 +7,7 @@
 \usepackage{fontspec}
 
 \usepackage{tcolorbox}
+\usepackage[rounded]{syntax}
 \usepackage{hyperref} 
 
 \hypersetup{pdfencoding=auto}
@@ -14,6 +15,23 @@
 \usetheme{vonmaster}
 \graphicspath{{./figs/}{../report/figs/}}
 
+% Syntax diagrams
+\newenvironment{repnull}[0]{%
+\begin{stack}
+\\
+\begin{rep}
+}{%
+\end{rep}
+\end{stack}
+}
+\newenvironment{syntaxenv}[1]{%
+\par\noindent\begin{minipage}{0.7\linewidth}\vspace{0.5em}\begin{quote}\noindent%
+\hspace*{-2em}\synt{#1}:\hfill\par%
+\noindent%
+\begin{minipage}{\linewidth}\begin{syntdiag}%
+}{%
+\end{syntdiag}\end{minipage}\end{quote}\end{minipage}%
+}
 
 %\beamertemplategridbackground[1cm]% Display a grid to help align images
 
@@ -81,24 +99,50 @@
 \begin{column}{.47\linewidth}
 
 \begin{block}{Útfærsla}
-    Vefurinn er skrifaður í Python með notkun vefburðargrindarinnar Django. 
+    Vefurinn er skrifaður í Python með notkun vefburðargrindarinnar Django. Nokkur atriði eru þó þess verð að nefna sérstaklega.
 
-    % \begin{subblock}{Sérhæfðar Markdown-viðbætur}
-    % \end{subblock}
-
-    % \begin{subblock}{Markviss textaframsetning}
+    \begin{subblock}{Sérhæfðar Markdown-viðbætur}
+        Efnisinnsetning á kennsluvefnum er á Markdown-sniði.
         
-    % \end{subblock}
-    % \begin{subblock}{Greining nemendafyrirspurna}
-    % Nemendafyrirspurnir eru keyrðar á SQLite gagnagrunnstilvikum í aðalminni vefþjónsins. Þegar meta skal skipun er tómur gagnagrunnur búinn til í minni, gerðarlýsingin sett upp,nemendafyrirspurnin keyrð ásamt samanburðarfyrirspurn og niðurstöðumengin borin saman. Eftir að samanburði lýkur er gagnagrunnstilvikinu eytt.
+        Markdown er einfalt ívafsmál, hannað til að auðvelda skrif. 
+        En vegna einfeldninnar getur málið ekki uppfyllt allar kröfur sem gerðar voru til textaframsetningar. Fjórar viðbætur við Markdown-túlk voru skrifaðar fyrir kennsluvefinn, þeirra mikilvægastar eru viðbót til að leyfa framsetningu texta í tveimur dálkum og viðbót til að auðvelda innri tengingu greina.
 
-    % \begin{figure}
-    %     \caption{Keyrsla nemendafyrirspurnar}
-    %     \begin{center}
-    %     \includegraphics[width=0.33\linewidth]{keyrsla-fyrirspurnar}
-    % \end{center}
-    % \end{figure}
-    % \end{subblock}
+        \begin{figure}
+            \caption{Mállýsingar tveggja Markdown-viðbóta sem skrifaðar voru fyrir kennsluvefinn}
+            \label{fig:markdown-internal-link}
+            \begin{syntaxenv}{markdown-internal-link}
+                `[' `[' <identifier>
+                \begin{stack}
+                    `|' <label>\\
+                \end{stack}
+                `]' `]'
+            \end{syntaxenv}
+            \begin{syntaxenv}{markdown-footnote}
+                `[' `\textasciicircum' <note-identifier> `]' `[' <contents> `]'
+            \end{syntaxenv}
+        \end{figure}
+    \end{subblock}
+
+    \begin{subblock}{Markviss textaframsetning}
+        Þar sem kennsluvefurinn skal gegna hlutverki kennslubókar er textaframsetning lykilatriði.
+        
+        Hönnun vefsins einkennist af notkun css-safnsins Tufte CSS, sem er hannað út frá hugmyndum fræðimannsins Edward Tufte um framsetningu texta. Meðal áberandi stílbragða er mikil notkun spássíugreina og samþjöppun texta og mynda.
+    \end{subblock}
+
+    \begin{subblock}{Greining nemendafyrirspurna}
+        Greining á SQL-fyrirspurnum er umfangsmikið vandamál sem hlotið hefur töluverða athygli í rannsóknum.
+
+        Aðalaðferð kennsluvefsins við að greina fyrirspurnir er samanburður á niðurstöðumengjum, sem framkvæmdur er í skammlífum, einangruðum gagnagrunnstilvikum.
+
+        \begin{figure}
+            \caption{Keyrsla nemendafyrirspurnar}
+            \begin{center}
+            \includegraphics[width=\linewidth]{keyrsla-fyrirspurnar-larett}
+        \end{center}
+        \end{figure}
+
+        Þegar ekki er mögulegt að beita mengjasamanburðaraðferðinni er einfaldur textasamanburður notaður til að veita nemendum endurgjöf.
+    \end{subblock}
 \end{block}
 
 \begin{block}{Að nálgast hugbúnaðinn}
