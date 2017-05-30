@@ -17,12 +17,19 @@
 \usetheme[]{Pittsburgh}
 \usecolortheme{lily}
 
-% \beamertemplatenavigationsymbolsempty
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{navigation symbols}{}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Yfirlit}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
 
 \setbeamerfont{title}{family=\rm}
 \usefonttheme{professionalfonts} % using non standard fonts for beamer
-
-\setbeamertemplate{navigation symbols}{}
 
 \setbeamertemplate{frametitle}[default][center]
 \setbeamertemplate{itemize item}{\color{hi-verkraun}$\blacksquare$}

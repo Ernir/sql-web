@@ -13,20 +13,6 @@
 \usetheme{hipresentation}
 \graphicspath{{./figs/}{../poster/figs/}}
 
-\title{Nútímaleg vefkennsla í notkun gagnasafna með opnum hugbúnaði} 
-\author{Eiríkur Ernir Þorsteinsson}
-\institute{Háskóli Íslands}
-\date{2017}
-
-\begin{document}
-{
-    \usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\textheight,keepaspectratio=true]{HI-hattur-verknatt-vector}}
-    \frame{\titlepage}
-}
-
-
-\frame{\tableofcontents}
-
 \newenvironment{repnull}[0]{%
 \begin{stack}
 \\
@@ -42,6 +28,17 @@
 \begin{minipage}{\linewidth}\begin{syntdiag}%
 }{%
 \end{syntdiag}\end{minipage}\end{quote}\end{minipage}%
+}
+
+\title{Nútímaleg vefkennsla í notkun gagnasafna með opnum hugbúnaði} 
+\author{Eiríkur Ernir Þorsteinsson}
+\institute{Háskóli Íslands}
+\date{2017}
+
+\begin{document}
+{
+    \usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\textheight,keepaspectratio=true]{HI-hattur-verknatt-vector}}
+    \frame{\titlepage}
 }
 
 \section{Forsaga}
@@ -86,7 +83,7 @@
     \end{itemize}
 \end{frame}
 
-\section{Áhersluatriði}
+\section{Einkennandi atriði}
 
 \begin{frame}{Vefurinn sem bók, ólínuleg framvinda}
     \begin{columns}
@@ -261,7 +258,9 @@ Textainnsetning á vefnum er á Markdown-sniði. Til að styðja við efnisinnse
 
 \begin{frame}{Sækið kóðann!}
     \begin{center}
-        \includegraphics[height=0.7\textheight]{qr-code}
+        \includegraphics[height=0.65\textheight]{qr-code}
+
+        \url{https://github.com/Ernir/sql-web}
     \end{center}
 \end{frame}
 
