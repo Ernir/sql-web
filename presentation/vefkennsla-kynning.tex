@@ -1,4 +1,4 @@
-\documentclass[hi-blar]{beamer}
+\documentclass{beamer}
 
 \usepackage[icelandic]{babel}
 \usepackage[T1]{fontenc}
@@ -47,26 +47,40 @@
 \section{Forsaga}
 
 \begin{frame}{Uppruni verkefnisins}
-    \begin{itemize}
-        \item Verkefnið rekur uppruna sinn til kennslubókar sem skrifuð var sumarið 2014
+    \begin{columns}
+        \column{0.6\textwidth}
         \begin{itemize}
-            \item Notuð í Tækniskólanum
-            \item Opin, aðgengileg á Github
+            \item Verkefnið rekur uppruna sinn til kennslubókar sem skrifuð var sumarið 2014
+            \begin{itemize}
+                \item Notuð í Tækniskólanum
+                \item Opin, aðgengileg á Github
+            \end{itemize}
+            \item Bókinni var dreift á .pdf sniði
+            \begin{itemize}
+                \item En námsfyrirkomulagið var verklegt
+                \item Ljóst að vefur hefði getað þjónað nemendum betur
+                \item ``Langt bil'' á milli textans og æfinga
+            \end{itemize}
         \end{itemize}
-        \item Bókinni var dreift á .pdf sniði
-        \begin{itemize}
-            \item Ljóst að vefur hefði getað þjónað nemendum betur
-        \end{itemize}
-    \end{itemize}
+        \column{0.4\textwidth}
+        \begin{figure}
+            \caption{Forveri verkefnisins}
+            \includegraphics[width=\textwidth]{notkun-gagnasafna}
+        \end{figure}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Eiginleikar vefsins}
     \begin{itemize}
-        \item Nokkur atriði eru aðgreinandi fyrir vefinn
-        \item Vefurinn\ldots
+        \item Fjölmörg önnur kennslukerfi eru til, ekkert hentaði fullkomlega
+        \begin{itemize}
+            \item Innan háskóla: SQL-Tutor, AsseSQL, LEARN-SQL, \ldots
+            \item Utan háskóla: Khan Academy, Coursera, SQLZoo, \ldots
+        \end{itemize}
+        \item Nokkur atriði eru aðgreinandi fyrir vefinn, en hann\ldots
         \begin{itemize}
             \item styður íslensku
-            \item leyfir nemendastýrða, ólínulega framvindu í gegnum efnisatriði
+            \item leyfir nemendadrifna, ólínulega framvindu í gegnum efnisatriði
             \item býður upp á verklegar æfingar samþættar við lesefni
         \end{itemize}
     \end{itemize}
@@ -102,14 +116,25 @@
 \end{frame}
 
 \begin{frame}{Samþætting texta og æfinga}
-    \begin{itemize}
-        \item Algengt er að kennslukerfi séu fyrst og fremst æfingakerfi
+    \begin{columns}
+        \column{0.6\textwidth}
         \begin{itemize}
-            \item Texti eingöngu til útskýringar á hverri æfingu fyrir sig
-            \item Stundum er texta skipt út fyrir myndbönd
+            \item Algengt er að kennslukerfi séu fyrst og fremst æfingakerfi
+            \begin{itemize}
+                \item Texti eingöngu til útskýringar á hverri æfingu fyrir sig
+                \item Stundum er texta skipt út fyrir myndbönd
+            \end{itemize}
+            \item Kennsluvefurinn styður samþættingu efnistextans og æfinganna
+            \begin{itemize}
+                \item Beinar tengingar, samræmt útlit
+            \end{itemize}
         \end{itemize}
-        \item Kennsluvefurinn styður samþættingu efnistextans og æfinganna
-    \end{itemize}
+        \column{0.4\textwidth}
+        \begin{figure}
+            \caption{Hægt er að tengja hverja grein við aðrar greinar og/eða æfingar}
+            \includegraphics[width=\linewidth]{suggestions}
+        \end{figure}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Opin hugmyndafræði}
@@ -133,6 +158,29 @@
 \end{frame}
 
 \section{Útfærsla}
+
+\begin{frame}{Útfærsla vefsins}
+    \begin{columns}
+        \column{0.6\textwidth}
+        \begin{itemize}
+            \item Vefurinn er skrifaður í Python með notkun Django
+            \item Önnur tækni sem kemur við sögu:
+            \begin{itemize}
+                \item SQLite
+                \item Tufte CSS
+                \item D3.js
+                \item Python Markdown
+            \end{itemize}
+        \end{itemize}
+        \column{0.4\textwidth}
+        \begin{figure}
+            \caption{Vörumerki Python og Django}
+            \includegraphics[width=0.6\linewidth]{python-logo}
+            \vspace{1cm}
+            \includegraphics[width=0.8\linewidth]{django-logo}
+        \end{figure}
+    \end{columns}
+\end{frame}
 
 \begin{frame}{Sérhæfðar Markdown viðbætur}
 Textainnsetning á vefnum er á Markdown-sniði. Til að styðja við efnisinnsetningu voru fjórar viðbætur við Markdown-túlk skrifaðar sérstaklega fyrir kennsluvefinn.
@@ -166,6 +214,10 @@ Textainnsetning á vefnum er á Markdown-sniði. Til að styðja við efnisinnse
             \item Markviss notkun lita og leturgerða
         \end{itemize}
     \end{itemize}
+    \begin{figure}
+        \caption{Texti og mynd birt samhliða}
+        \includegraphics[width=\linewidth]{sqlite}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Greining nemendafyrirspurna}
@@ -190,7 +242,27 @@ Textainnsetning á vefnum er á Markdown-sniði. Til að styðja við efnisinnse
 \section{Framtíðarsýn}
 
 \begin{frame}{Næstu skref}
-    
+    \begin{itemize}
+        \item Vefurinn er tilbúinn til tilraunanotkunar
+        \item En rannsóknarvinna liggur fyrir
+        \begin{itemize}
+            \item Er þessi gerð efnisframsetningar vænleg til árangurs?
+            \item Er pláss fyrir opið kennsluefni í íslenska menntakerfinu?
+        \end{itemize}
+        \item Tæknilegar betrumbætur í augsýn
+        \begin{itemize}
+            \item Greining fyrirspurnanna er frumstæð
+            \item Efnisinnsetningu má auðvelda enn frekar
+            \item Bæta skrásetningu og framsetningu á gögnum sem safnast
+            \item Hönnun og myndanotkun þarfnast yfirferðar
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Sækið kóðann!}
+    \begin{center}
+        \includegraphics[height=0.7\textheight]{qr-code}
+    \end{center}
 \end{frame}
 
 \end{document}
