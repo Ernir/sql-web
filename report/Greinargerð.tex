@@ -1,8 +1,7 @@
 \documentclass[a4paper,12pt,twoside,BCOR=10mm]{scrbook}
 
 % Packages
-\usepackage[utf8]{inputenc} % Updated by Ernir
-\usepackage[icelandic]{babel} % Updated by Ernir
+\usepackage[icelandic]{babel} % Updated by Ernir. Inputenc removed due to lualatex compilation.
 \usepackage[T1]{fontenc} % Updated by Ernir
 
 \usepackage{graphicx}
@@ -30,6 +29,8 @@
 
 \SetupFloatingEnvironment{listing}{name=Kóðalistun}
 \SetupFloatingEnvironment{listing}{listname=Kóðalistunarskrá}
+
+\hypersetup{pdfencoding=auto} % lualatex encoding in ToC
 
 % Custom references
 \newcounter{labelknownref}
@@ -340,11 +341,11 @@ Mýmargar leiðir eru til að læra SQL á netinu í dag. Eigi að vera gagn af 
 
 \section{Vefurinn sem bók}
 \label{sec:web-as-book}
-Forveri verkefnisins er kennslubók. Bókin var gefin út rafrænt, en nýtti sér þó þá kosti sem slíkt fyrirkomulag hefur í för með sér ekki nema að takmörkuðu leyti. Innri og ytri tenglar voru til staðar í bókinni, en að flestu öðru leyti var um nokkuð hefðbundið rafrænt skjal að ræða.
+Forveri verkefnisins er kennslubók. Bókin var gefin út rafrænt og dreift til nemenda þeim að kostnaðarlausu. Pappírsdreifingarfyrirkomulag kom ekki til greina vegna þess að þekkt var að nemendur á tölvubraut Tækniskólans nýta pappírsbækur að mjög takmörkuðu leyti. Slíkt kemur heim og saman við nýlegar athuganir á kennslubókakaupum nemenda við aðra skóla\cite{martin2017analysis}. Áhyggjur af takmörkunum rafræna sniðsins m.t.t. lesskilnings\cite{mangen2013reading} komu því ekki við sögu.
 
-Kennsluvefurinn er hugsaður sem ítrun, eða næsta útgáfa, á rafrænu kennslubókinni. Ekki er um að ræða endurskrift frá grunni, heldur er ætlunin að endurnýta það sem gefist hefur vel og bæta við virkni sem ekki var mögulegt að útfæra sem hluta af .pdf skjalinu. 
+Við endurbætur var því frekar hugað að því að endurbæta bókina sem rafræna bók. Þó bókin hafi verið rafræn nýtti hún sér þó þá kosti sem slíkt fyrirkomulag hefur í för með sér ekki nema að takmörkuðu leyti. Innri og ytri tenglar voru til staðar í bókinni, en að flestu öðru leyti var um nokkuð hefðbundið rafrænt skjal að ræða.
 
-Nálgunin er því með öðrum hætti en á öðrum SQL-kennslusíðum, til dæmis SQLZoo eða Khan Academy \myref{sec:other-sql-teaching-tools}, þar sem nemandanum er annars vegar beint í átt að æfingaverkefnum og hins vegar í átt að kennslumyndböndum. Áhersla kennsluvefsins er sem sagt eftir sem áður á framsetningu á ``gamaldags'' efnistexta.
+Kennsluvefurinn sem hér er kynntur er hugsaður sem ítrun, eða næsta útgáfa, á rafrænu kennslubókinni. Ekki er um að ræða endurskrift frá grunni, heldur er ætlunin að endurnýta það sem gefist hefur vel og bæta við virkni sem ekki var mögulegt að útfæra sem hluta af .pdf skjalinu. Nálgunin er því með öðrum hætti en á öðrum SQL-kennslusíðum, til dæmis SQLZoo eða Khan Academy \myref{sec:other-sql-teaching-tools}, þar sem nemandanum er annars vegar beint í átt að æfingaverkefnum og hins vegar í átt að kennslumyndböndum. Áhersla kennsluvefsins er sem sagt eftir sem áður á framsetningu á ``gamaldags'' efnistexta.
 
 Venjulegur texti hefur ýmsa kosti í för með sér. Þeir sem voru höfundi efst í huga eru þó helst eftirfarandi:
 
