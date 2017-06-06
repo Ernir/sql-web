@@ -89,7 +89,7 @@
 
 
 % Configurations
-\graphicspath{{figs/}}
+\graphicspath{{figs/}, {../poster/figs/}, {../presentation/figs/}}
 
 \setlength{\parskip}{\baselineskip}
 \setlength{\parindent}{0cm}
@@ -395,15 +395,15 @@ Til að leiða nemendur á milli greina eru skilgreindar á milli þeirra tengin
 \includegraphics[width=0.5\linewidth]{tengsl-greina}
 \end{center}
 \end{figure}
-Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, án þess að eiga það á hættu að villast af leið yfir í framandi efni.
+Hugmyndin er að þessar skilgreindu tengingar myndi milliveg milli línulegrar handleiðslu, sem hefðbundnar bækur bjóða upp á, og þess algjöra frelsis sem nemandi sem nýtir sér leitarvélar hefur. Nemandanum er gefið nokkuð val um í hvaða röð viðkomandi vill kynna sér efnið og er hvattur til könnunar, en Lee\cite{lee2016effectiveness} sýnir að mikið frjálsræði nemenda í rafrænu námsefnisvali getur haft jákvæð áhrif á forritunarnám. Á sama tíma minnkar ráðleggingarkerfi vefsins hættuna á að nemendur villast af leið yfir í framandi efni.
 
-Efnishöfundurinn hefur áfram mikið vald til að ákvarða ráðlagða lesröð á greinum. Í útfærslunni ákveður efnishöfundur eina grein í hverjum kafla sem lesandanum er ráðlagt að lesa fyrst, ásamt því að ákveða tengingarnar á milli greinanna. Þar sem tengingarnar eru aðalleiðin til að ráfa um kennsluefnið getur höfundurinn haft nokkra hugmynd um hvaða greinar hafa verið lesnar áður en að hverri grein er komið - sem auðveldar umfjöllun til muna.
+Efnishöfundurinn hefur áfram mikið vald til að ákvarða ráðlagða lesröð á greinum. Í útfærslunni ákveður efnishöfundur eina grein í hverjum kafla sem lesandanum er ráðlagt að lesa fyrst, ásamt því að ákveða tengingarnar á milli greinanna. Þar sem tengingarnar eru aðalleiðin til að ráfa um kennsluefnið getur höfundurinn haft nokkra hugmynd um hvaða greinar hafa verið lesnar áður en að hverri grein er komið - sem auðveldar umfjöllun í kennslustofu til muna. 
 
 Fyrirkomulagið er ekki gallalaust. Hönnun samkvæmt er erfitt að fletta upp í vef sem settur er upp á þennan hátt, leitarvélar eru ekki studdar sérstaklega og notkun þeirra felur í sér ákveðna sniðgöngu á ráðleggingarkerfinu. Auk þess er hætta á að lesandinn ``týnist'' í ferðalagi sínu um efnið sé ekki um venjulegt blaðsíðutal að ræða. Til að koma í veg fyrir þetta eru vensl greinanna sett fram myndrænt með notkun neta. Nánar um útfærslu má sjá í \ref{sec:d3js}.
 \begin{figure}
 \caption{Dæmi um tengsl greina, sett fram með stefndu neti.}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{relational-sections}
+\includegraphics[width=0.8\textwidth]{relational-sections-report}
 \end{center}
 \end{figure}
 
@@ -416,7 +416,10 @@ Vefbók hefur þann kost að hægt er að sameina texta og forritunaræfingaumhv
 
 Kennsluvefurinn hefur innbyggt æfingasvæði þar sem nemandinn getur leyst fyrirfram skilgreindar SQL-æfingar. Nemandinn getur framkvæmt ýmsar gerðir SQL-skipana, sem eru metnar sjálfkrafa.
 
-Áhersla var lögð á að æfingar falli mjúklega inn í efnisumfjöllunina. Hægt er að tengja hverja grein vefsins við æfingu eða æfingar, auk þess sem vísa má til þeirra inni í textanum með venjulegum veftenglum. Viðmót æfingaumhverfisins er gert sem líkast viðmóti vefsins sjálfs til að lágmarka truflandi áhrif þess að ``skipta um umhverfi''. Hugmyndin er sú að upplifun nemandans sé ekki að fyrst þurfi að lesa upplýsingatexta og svo leysa æfingar, heldur myndi textinn og æfingarnar samstæða heild.
+Áhersla var lögð á að æfingar falli mjúklega inn í efnisumfjöllunina. Hægt er að tengja hverja grein vefsins við æfingu eða æfingar, auk þess sem vísa má til þeirra inni í textanum með venjulegum veftenglum. Viðmót æfingaumhverfisins er gert sem líkast viðmóti vefsins sjálfs til að lágmarka truflandi áhrif þess að ``skipta um umhverfi''  (e.\ \emph{context switching}). Hugmyndin er sú að upplifun nemandans sé ekki að fyrst þurfi að lesa upplýsingatexta og svo leysa æfingar, heldur myndi textinn og æfingarnar samstæða heild.
+
+Kennari getur fellt hverja æfingu inn í verkefnaskammt, sem samanstendur af æfingum og/eða lesefni ásamt innri upplýsingum á borð við skilafresti og titil. 
+Gert er ráð fyrir að verkefnaskammtar séu nýttir til námsmats og samræmingar innan nemendahópsins og að kennari muni hafa með þeim virka umsjón.
 
 Sjá má meira um æfingaumhverfið og útfærslu þess undir \myref{sec:command-analysis}.
 
@@ -462,7 +465,7 @@ Django fylgir Model-View-Controller (MVC) hönnunarmynstrinu eins og það er ve
 Burðargrindin hjálpar einnig stórlega við kóðaendurnýtingu og framsetningu. Sem dæmi má taka að stílsupplýsingar sem eru öllum undirsíðum kennsluvefsins sameiginlegar má finna í einni grunnskrá \myref{code:base-template}.
 \subsubsection{Hlutvenslakerfi}
 \label{sec:django-orm}
-Hlutvenslakerfi kerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
+Hlutvenslakerfi Django heldur utan um gagnagrunnstengingar og upplýsingar sem viðkoma Django-vefsíðu.
 
 Kerfið er hlutbundið. Klasi sem táknar ``fyrirbrigði'' í Django erfir frá \texttt{model} klasa gefnum af burðargrindinni. Forritarinn bætir síðan við eigin eiginleikum og aðferðum sem viðkoma forritinu. Burðargrindin sér um að smíða gagnagrunnstöflur sem geymt geta þær upplýsingar sem þarf til að tákna tilvik af klasanum.
 
@@ -561,23 +564,9 @@ Keyrsla er framkvæmd í skránni \texttt{sql\_web/sql\_runner.py} \myref{code:e
 \label{sec:select-analysis}
 Þegar um \texttt{SELECT}-skipanir er að ræða er möguleiki á að sannreyna niðurstöðurnar á sveigjanlegri máta.
 
-Í slíkum æfingum er gerðarlýsingin sett upp og fyrirspurnirnar, bæði fyrirspurn nemandans og samanburðarfyrirspurnin, keyrðar á henni. Út úr þeim keyrslum koma tvö mengi niðurstaðna sem hægt er að bera saman, annars vegar ``nemendamengi'' og hins vegar ``samanburðarmengi''. Séu mengin eins er nemendaskipunin talin rétt.
+Í slíkum æfingum er gerðarlýsingin sett upp og fyrirspurnirnar, bæði fyrirspurn nemandans og samanburðarfyrirspurnin, keyrðar á henni. Út úr þeim keyrslum koma tvö mengi niðurstaðna sem hægt er að bera saman, annars vegar ``nemendamengi'' og hins vegar ``samanburðarmengi''. Séu mengin eins er nemendaskipunin talin rétt. Þessi samanburður er misþungur eftir eðli samanburðarfyrirspurnarinnar.
 
-Gagnagrunnsviðmótið skilar niðurstöðumengjunum sem listum (e.\ \emph{lists}) af línum (e.\ \emph{tuples}). Þessar gagnagrindur (e.\ \emph{data structures}) eru almenns eðlis, sem setja möguleikum á samanburðum nokkrar skorður.
-
-Samanburðurinn fer fram með eftirfarandi hætti:
-\begin{itemize}
- \item Athugað er hvort að mengin séu af sömu stærð, séu þau það ekki er samanburðinum strax hafnað
- \item Ítrað er yfir samanburðarmengið og leitað að tilsvarandi stökum í nemendamenginu
- \begin{itemize}
-  \item Stökin eru fjarlægð úr tilsvarandi mengjum við samanburðinn
-  \item Keyrslu er hætt finnist stak ekki í nemendamenginu
-  \item Sé samanburðarmengið myndað með fyrirspurn sem inniheldur \texttt{ORDER BY} er sú krafa gerð að stakið sé fremst í nemendamenginu
- \end{itemize}
- \item Samanburðurinn á milli mengjanna er sannur ef ítrunin tæmir þau bæði.
-\end{itemize}
-
-\begin{table}[b]
+\begin{table}[h]
 \caption[Tímaflækja samanburða]{Tímaflækja samanburða á fyrirspurnamengjum í æfingum kennsluvefsins}
 \label{tab:comparison-complexity}
 \begin{center}
@@ -592,6 +581,18 @@ Samanburður á röðuðum mengjum& $O(n)$\\
 \end{tabular}
 \end{center}
 \end{table}
+
+Samanburðurinn fer fram í eftirfarandi skrefum:
+\begin{itemize}
+ \item Athugað er hvort að mengin séu af sömu stærð, séu þau það ekki er samanburðinum strax hafnað
+ \item Ítrað er yfir samanburðarmengið og leitað að tilsvarandi stökum í nemendamenginu
+ \begin{itemize}
+  \item Stökin eru fjarlægð úr tilsvarandi mengjum við samanburðinn
+  \item Keyrslu er hætt finnist stak ekki í nemendamenginu
+  \item Sé samanburðarmengið myndað með fyrirspurn sem inniheldur \texttt{ORDER BY} er sú krafa gerð að stakið sé fremst í nemendamenginu
+ \end{itemize}
+ \item Samanburðurinn á milli mengjanna er sannur ef ítrunin tæmir þau bæði.
+\end{itemize}
 Ítrunin yfir samanburðarmengið tekur línulegan tíma með tilliti til fjölda staka í menginu. Einföld samanburðarleit á borð við þá sem notuð er á nemendamengið er sömuleiðis með línulegan keyrslutíma. Gert er ráð fyrir því að samanburður tveggja lína taki fastan tíma.
 
 Áætlaðar tímaflækjur fyrir samanburði niðurstaðanna má sjá á töflu \myref{tab:comparison-complexity}. Nokkur tímasparnaður næst fram á röðuðum mengjum, þar sem ekki þarf að renna í gegnum allt nemendamengið á hverri ítrun yfir samanburðarmengið. 
@@ -612,7 +613,7 @@ Allar SQL-skipanir nemenda sem kennsluvefurinn keyrir eru keyrðar á SQLite gag
 \caption{Framkvæmd mats á nemendafyrirspurn}
 \label{fig:sql-evaluation-execution}
 \begin{center}
-\includegraphics{keyrsla-fyrirspurnar}
+\includegraphics{keyrsla-fyrirspurnar-lodrett}
 \end{center}
 \end{figure}
 
